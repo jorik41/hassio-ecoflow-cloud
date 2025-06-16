@@ -317,6 +317,10 @@ AC_VOLT_RMS = "AC Voltage RMS"
 AC_CURR_RMS = "AC Current RMS"
 MPPT_WORK = "MPPT Mode"
 
+CONDENSER_FAN_RPM = "Condensing Fan RPM"
+EVAP_FAN_RPM = "Evaporator Fan RPM"
+FOUR_WAY_VALVE = "Four-way Valve State"
+
 MPPT_WORK_OPTIONS = {
     "Car Charging": 1,
     "Solar Charging": 2,
