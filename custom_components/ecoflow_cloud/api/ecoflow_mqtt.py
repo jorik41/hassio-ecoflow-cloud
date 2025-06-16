@@ -66,7 +66,12 @@ class EcoflowMQTTClient:
 
     @callback
     def _on_socket_close(self, client, userdata: Any, sock: SocketType) -> None:
-        _LOGGER.error(f"Unexpected MQTT Socket disconnection : {str(sock)}")
+        _LOGGER.warning(
+            f"MQTT socket disconnected: {str(sock)} - attempting to reconnect"
+        )
+        self.connected = False
+        if not self.reconnect():
+            _LOGGER.error("Failed to reconnect MQTT after socket close")
 
     @callback
     def _on_connect(self, client, userdata, flags, rc):
@@ -89,6 +94,8 @@ class EcoflowMQTTClient:
         if rc != 0:
             self.__log_with_reason("disconnect", client, userdata, rc)
             time.sleep(5)
+            if not self.reconnect():
+                _LOGGER.error("Failed to reconnect MQTT after disconnect")
 
     @callback
     def _on_message(self, client, userdata, message):
