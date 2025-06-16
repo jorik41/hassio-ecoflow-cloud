@@ -934,7 +934,7 @@ Once installed, use Add Integration -> Ecoflow Cloud.
 
 </p></details>
 
-<details><summary> WAVE_2 <i>(sensors: 30, switches: 0, sliders: 1, selects: 4)</i> </summary>
+<details><summary> WAVE_2 <i>(sensors: 31, switches: 0, sliders: 1, selects: 4)</i> </summary>
 <p>
 
 *Sensors*
@@ -956,6 +956,7 @@ Once installed, use Add Integration -> Ecoflow Cloud.
 - Condensing Fan RPM  _(disabled)_
 - Evaporator Fan RPM  _(disabled)_
 - Four-way Valve State  _(disabled)_
+- Motor Status
 - PV input power
 - Battery output power
 - PV charging power

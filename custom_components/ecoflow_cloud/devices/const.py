@@ -320,6 +320,14 @@ MPPT_WORK = "MPPT Mode"
 CONDENSER_FAN_RPM = "Condensing Fan RPM"
 EVAP_FAN_RPM = "Evaporator Fan RPM"
 FOUR_WAY_VALVE = "Four-way Valve State"
+MOTOR_STATUS = "Motor Status"
+
+MOTOR_STATUS_OPTIONS = {
+    "Off": 0,
+    "Cooling": 1,
+    "Heating": 2,
+    "Fan": 3,
+}
 
 MPPT_WORK_OPTIONS = {
     "Car Charging": 1,

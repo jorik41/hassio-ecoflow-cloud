@@ -19,6 +19,7 @@
 - Condensing Fan RPM (`motor.condeFanRpm`)   _(disabled)_
 - Evaporator Fan RPM (`motor.evapFanRpm`)   _(disabled)_
 - Four-way Valve State (`motor.fourWayState`)   _(disabled)_
+- Motor Status (`motor.status`)
 - PV input power (`pd.mpptPwr`)
 - Battery output power (`pd.batPwrOut`)
 - PV charging power (`pd.pvPower`)
