@@ -57,6 +57,7 @@ class Wave2(BaseDevice):
             FanSensorEntity(client, self, "motor.condeFanRpm", const.CONDENSER_FAN_RPM, False),
             FanSensorEntity(client, self, "motor.evapFanRpm", const.EVAP_FAN_RPM, False),
             BaseSensorEntity(client, self, "motor.fourWayState", const.FOUR_WAY_VALVE, False),
+            EnumSensorEntity(client, self, "motor.status", const.MOTOR_STATUS, const.MOTOR_STATUS_OPTIONS, False),
 
             LevelSensorEntity(client, self, "pd.batSoc", const.BATTERY_LEVEL_SOC),
             CentivoltSensorEntity(client, self, "pd.batVolt", const.BATTERY_VOLT, False),
