@@ -384,8 +384,10 @@ class EnumSensorEntity(BaseSensorEntity):
         mqtt_key: str,
         title: str,
         mapping: dict[str, int],
+        enabled: bool = True,
+        auto_enable: bool = False,
     ):
-        super().__init__(client, device, title, mqtt_key)
+        super().__init__(client, device, mqtt_key, title, enabled, auto_enable)
         self._map = {v: k for k, v in mapping.items()}
 
     def _update_value(self, val: Any) -> bool:
