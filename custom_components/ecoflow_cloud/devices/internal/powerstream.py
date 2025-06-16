@@ -113,13 +113,15 @@ class PowerStream(BaseDevice):
         raw = {"params": {}}
         from .proto import ecopacket_pb2 as ecopacket, powerstream_pb2 as powerstream
         try:
-            payload =raw_data
+            payload = raw_data
 
-            while True:
+            while payload:
                 packet = ecopacket.SendHeaderMsg()
-                packet.ParseFromString(payload)
+                used_bytes = packet.MergeFromString(payload)
 
-                _LOGGER.debug("cmd id %u payload \"%s\"", packet.msg.cmd_id, payload.hex())
+                _LOGGER.debug(
+                    "cmd id %u payload \"%s\"", packet.msg.cmd_id, payload[:used_bytes].hex()
+                )
 
                 if packet.msg.cmd_id != 1:
                     _LOGGER.info("Unsupported EcoPacket cmd id %u", packet.msg.cmd_id)
@@ -138,13 +140,9 @@ class PowerStream(BaseDevice):
 
                     raw["timestamp"] = utcnow()
 
-                if packet.ByteSize() >= len(payload):
-                    break
-
-                _LOGGER.info("Found another frame in payload")
-
-                packet_length = len(payload) - packet.ByteSize()
-                payload = payload[:packet_length]
+                payload = payload[used_bytes:]
+                if payload:
+                    _LOGGER.info("Found another frame in payload")
 
         except Exception as error:
             _LOGGER.error(error)

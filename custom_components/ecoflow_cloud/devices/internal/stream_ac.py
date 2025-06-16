@@ -276,12 +276,12 @@ class StreamAC(BaseDevice):
         raw = {"params": {}}
         from .proto import ecopacket_pb2 as ecopacket, stream_ac_pb2 as stream_ac, stream_ac_pb2 as stream_ac2
         try:
-            payload =raw_data
+            payload = raw_data
 
-            while True:
+            while payload:
                 _LOGGER.debug("payload \"%s\"", payload.hex())
                 packet = stream_ac.SendHeaderStreamMsg()
-                packet.ParseFromString(payload)
+                used_bytes = packet.MergeFromString(payload)
 
                 if hasattr(packet.msg, "pdata") :
                     _LOGGER.debug("cmd id \"%u\" fct id \"%u\" content \"%s\" - pdata:\"%s\"", packet.msg.cmd_id, packet.msg.cmd_func, str(packet), str(packet.msg.pdata.hex()))
@@ -317,13 +317,9 @@ class StreamAC(BaseDevice):
 
                     raw["timestamp"] = utcnow()
 
-                if packet.ByteSize() >= len(payload):
-                    break
-
-                _LOGGER.info("Found another frame in payload")
-
-                packet_length = len(payload) - packet.ByteSize()
-                payload = payload[:packet_length]
+                payload = payload[used_bytes:]
+                if payload:
+                    _LOGGER.info("Found another frame in payload")
 
         except Exception as error:
             _LOGGER.error(error)
