@@ -4,9 +4,22 @@ from ...entities import BaseSensorEntity, BaseNumberEntity, BaseSwitchEntity, Ba
 from ...number import ChargingPowerEntity, MinBatteryLevelEntity, MaxBatteryLevelEntity, \
     MaxGenStopLevelEntity, MinGenStartLevelEntity, BatteryBackupLevel
 from ...select import DictSelectEntity, TimeoutDictSelectEntity
-from ...sensor import LevelSensorEntity, RemainSensorEntity, TempSensorEntity, CyclesSensorEntity, \
-    InWattsSensorEntity, OutWattsSensorEntity, MilliVoltSensorEntity, InMilliVoltSensorEntity, \
-    OutMilliVoltSensorEntity, CapacitySensorEntity, StatusSensorEntity, QuotaStatusSensorEntity
+from ...sensor import (
+    LevelSensorEntity,
+    RemainSensorEntity,
+    TempSensorEntity,
+    CyclesSensorEntity,
+    InWattsSensorEntity,
+    OutWattsSensorEntity,
+    MilliVoltSensorEntity,
+    InMilliVoltSensorEntity,
+    OutMilliVoltSensorEntity,
+    CapacitySensorEntity,
+    StatusSensorEntity,
+    QuotaStatusSensorEntity,
+    InEnergySensorEntity,
+    OutEnergySensorEntity,
+)
 from ...switch import BeeperEntity, EnabledEntity
 
 
@@ -66,6 +79,13 @@ class Delta2(BaseDevice):
             .attr("bms_bmsStatus.maxCellVol", const.ATTR_MAX_CELL_VOLT, 0),
             MilliVoltSensorEntity(client, self, "bms_bmsStatus.minCellVol", const.MIN_CELL_VOLT, False),
             MilliVoltSensorEntity(client, self, "bms_bmsStatus.maxCellVol", const.MAX_CELL_VOLT, False),
+
+            # cumulative energy values for energy dashboard
+            InEnergySensorEntity(client, self, "pd.chgSunPower", const.SOLAR_IN_ENERGY),
+            InEnergySensorEntity(client, self, "pd.chgPowerAc", const.CHARGE_AC_ENERGY),
+            InEnergySensorEntity(client, self, "pd.chgPowerDc", const.CHARGE_DC_ENERGY),
+            OutEnergySensorEntity(client, self, "pd.dsgPowerAc", const.DISCHARGE_AC_ENERGY),
+            OutEnergySensorEntity(client, self, "pd.dsgPowerDc", const.DISCHARGE_DC_ENERGY),
 
             # Optional Slave Battery
             LevelSensorEntity(client, self, "bms_slave.soc", const.SLAVE_BATTERY_LEVEL, False, True)
