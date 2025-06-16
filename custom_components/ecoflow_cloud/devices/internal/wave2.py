@@ -22,6 +22,7 @@ from custom_components.ecoflow_cloud.sensor import (
     DecihertzSensorEntity,
     MilliampSensorEntity,
     EnumSensorEntity,
+    FanSensorEntity,
 )
 
 
@@ -52,6 +53,10 @@ class Wave2(BaseDevice):
 
             TempSensorEntity(client, self, "pd.coolTemp", "Air outlet temperature", False),
             TempSensorEntity(client, self, "pd.envTemp", "Ambient temperature", False),
+
+            FanSensorEntity(client, self, "motor.condeFanRpm", const.CONDENSER_FAN_RPM, False),
+            FanSensorEntity(client, self, "motor.evapFanRpm", const.EVAP_FAN_RPM, False),
+            BaseSensorEntity(client, self, "motor.fourWayState", const.FOUR_WAY_VALVE, False),
 
             LevelSensorEntity(client, self, "pd.batSoc", const.BATTERY_LEVEL_SOC),
             CentivoltSensorEntity(client, self, "pd.batVolt", const.BATTERY_VOLT, False),
