@@ -1,12 +1,29 @@
-from homeassistant.components.switch import SwitchEntity
+from custom_components.ecoflow_cloud.switch import (
+    EnabledEntity,
+    InvertedBeeperEntity,
+    BaseSwitchEntity,
+)
 
 from custom_components.ecoflow_cloud.api import EcoflowApiClient
 from custom_components.ecoflow_cloud.devices import const, BaseDevice
 from custom_components.ecoflow_cloud.entities import BaseSensorEntity, BaseNumberEntity, BaseSelectEntity
-from custom_components.ecoflow_cloud.number import SetTempEntity
-from custom_components.ecoflow_cloud.select import DictSelectEntity
-from custom_components.ecoflow_cloud.sensor import LevelSensorEntity, RemainSensorEntity, TempSensorEntity, \
-    WattsSensorEntity, MilliCelsiusSensorEntity, CapacitySensorEntity, QuotaStatusSensorEntity
+from custom_components.ecoflow_cloud.number import SetTempEntity, ValueUpdateEntity
+from custom_components.ecoflow_cloud.select import DictSelectEntity, TimeoutDictSelectEntity
+from custom_components.ecoflow_cloud.sensor import (
+    LevelSensorEntity,
+    RemainSensorEntity,
+    TempSensorEntity,
+    WattsSensorEntity,
+    MilliCelsiusSensorEntity,
+    CapacitySensorEntity,
+    QuotaStatusSensorEntity,
+    CentivoltSensorEntity,
+    DecivoltSensorEntity,
+    DecihertzSensorEntity,
+    MilliampSensorEntity,
+    EnumSensorEntity,
+    FanSensorEntity,
+)
 
 
 class Wave2(BaseDevice):
@@ -37,22 +54,37 @@ class Wave2(BaseDevice):
             TempSensorEntity(client, self, "pd.coolTemp", "Air outlet temperature", False),
             TempSensorEntity(client, self, "pd.envTemp", "Ambient temperature", False),
 
+            FanSensorEntity(client, self, "motor.condeFanRpm", const.CONDENSER_FAN_RPM, False),
+            FanSensorEntity(client, self, "motor.evapFanRpm", const.EVAP_FAN_RPM, False),
+            BaseSensorEntity(client, self, "motor.fourWayState", const.FOUR_WAY_VALVE, False),
+
+            LevelSensorEntity(client, self, "pd.batSoc", const.BATTERY_LEVEL_SOC),
+            CentivoltSensorEntity(client, self, "pd.batVolt", const.BATTERY_VOLT, False),
+            MilliampSensorEntity(client, self, "pd.batCurr", const.BATTERY_AMP, False),
+            CentivoltSensorEntity(client, self, "pd.mpptVol", const.PV_VOLTAGE, False),
+            MilliampSensorEntity(client, self, "pd.mpptCur", const.PV_CURRENT, False),
+            DecihertzSensorEntity(client, self, "pd.acFreq", const.AC_FREQUENCY),
+            DecivoltSensorEntity(client, self, "pd.acVoltRms", const.AC_VOLT_RMS),
+            MilliampSensorEntity(client, self, "pd.acCurrRms", const.AC_CURR_RMS),
+            DecivoltSensorEntity(client, self, "power.busVol", const.BUS_VOLTAGE),
+            EnumSensorEntity(client, self, "pd.mpptWork", const.MPPT_WORK, const.MPPT_WORK_OPTIONS),
+
             # power (pd)
-            WattsSensorEntity(client, self, "pd.mpptPwr", "PV input power"),
+            WattsSensorEntity(client, self, "pd.mpptPwr", const.PV_INPUT_POWER),
             WattsSensorEntity(client, self, "pd.batPwrOut", "Battery output power"),
-            WattsSensorEntity(client, self, "pd.pvPower", "PV charging power"),
+            WattsSensorEntity(client, self, "pd.pvPower", const.PV_CHARGING_POWER),
             WattsSensorEntity(client, self, "pd.acPwrIn", "AC input power"),
-            WattsSensorEntity(client, self, "pd.psdrPower ", "Power supply power"),
+            WattsSensorEntity(client, self, "pd.psdrPower", "Power supply power"),
             WattsSensorEntity(client, self, "pd.sysPowerWatts", "System power"),
-            WattsSensorEntity(client, self, "pd.batPower ", "Battery power"),
+            WattsSensorEntity(client, self, "pd.batPower", "Battery power"),
 
             # power (motor)
             WattsSensorEntity(client, self, "motor.power", "Motor operating power"),
 
             # power (power)
             WattsSensorEntity(client, self, "power.batPwrOut", "Battery output power"),
-            WattsSensorEntity(client, self, "power.acPwrI", "AC input power"),
-            WattsSensorEntity(client, self, "power.mpptPwr ", "PV input power"),
+            WattsSensorEntity(client, self, "power.acPwrIn", "AC input power"),
+            WattsSensorEntity(client, self, "power.mpptPwr", const.PV_INPUT_POWER),
 
             QuotaStatusSensorEntity(client, self)
         ]
@@ -63,6 +95,20 @@ class Wave2(BaseDevice):
                           lambda value: {"moduleType": 1, "operateType": "setTemp",
                                          "sn": self.device_info.sn,
                                          "params": {"setTemp": int(value)}}),
+            ValueUpdateEntity(
+                client,
+                self,
+                "pd.timeSet",
+                const.TIMER_DURATION,
+                0,
+                65535,
+                lambda value: {
+                    "moduleType": 1,
+                    "operateType": "sacTiming",
+                    "sn": self.device_info.sn,
+                    "params": {"timeSet": int(value), "timeEn": 1},
+                },
+            ),
         ]
 
     def selects(self, client: EcoflowApiClient) -> list[BaseSelectEntity]:
@@ -83,7 +129,53 @@ class Wave2(BaseDevice):
                              lambda value: {"moduleType": 1, "operateType": "subMode",
                                             "sn": self.device_info.sn,
                                             "params": {"subMode": value}}),
+            DictSelectEntity(client, self, "pd.tempSys", const.TEMP_SYS, const.TEMP_SYS_OPTIONS,
+                             lambda value: {"moduleType": 1, "operateType": "tempSys",
+                                            "sn": self.device_info.sn,
+                                            "params": {"mode": value}}),
+            DictSelectEntity(client, self, "pd.tempDisplay", const.TEMP_DISPLAY, const.TEMP_DISPLAY_OPTIONS,
+                             lambda value: {"moduleType": 1, "operateType": "tempDisplay",
+                                            "sn": self.device_info.sn,
+                                            "params": {"tempDisplay": value}}),
+            DictSelectEntity(client, self, "pd.rgbState", const.RGB_STATE, const.RGB_STATE_OPTIONS,
+                             lambda value: {"moduleType": 1, "operateType": "rgbState",
+                                            "sn": self.device_info.sn,
+                                            "params": {"rgbState": value}}),
+            DictSelectEntity(client, self, "pd.wteFthEn", const.AUTO_DRAIN, const.AUTO_DRAIN_OPTIONS,
+                             lambda value: {"moduleType": 1, "operateType": "wteFthEn",
+                                            "sn": self.device_info.sn,
+                                            "params": {"wteFthEn": value}}),
+            TimeoutDictSelectEntity(client, self, "pd.idleTime", const.SCREEN_TIMEOUT, const.SCREEN_TIMEOUT_OPTIONS,
+                                   lambda value: {"moduleType": 1, "operateType": "display",
+                                                  "sn": self.device_info.sn,
+                                                  "params": {"idleTime": value,
+                                                             "idleMode": 0 if value == 0 else 1}}),
         ]
 
-    def switches(self, client: EcoflowApiClient) -> list[SwitchEntity]:
-        return []
+    def switches(self, client: EcoflowApiClient) -> list[BaseSwitchEntity]:
+        return [
+            InvertedBeeperEntity(
+                client,
+                self,
+                "pd.beepEn",
+                const.BEEPER,
+                lambda value: {
+                    "moduleType": 1,
+                    "operateType": "beepEn",
+                    "sn": self.device_info.sn,
+                    "params": {"en": value},
+                },
+            ),
+            EnabledEntity(
+                client,
+                self,
+                "pd.timeEn",
+                const.TIMER_ENABLED,
+                lambda value, params: {
+                    "moduleType": 1,
+                    "operateType": "sacTiming",
+                    "sn": self.device_info.sn,
+                    "params": {"timeEn": value, "timeSet": int(params.get("pd.timeSet", 0))},
+                },
+            ),
+        ]

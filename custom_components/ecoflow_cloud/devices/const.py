@@ -110,6 +110,29 @@ POWER_SUB_MODE_OPTIONS = {
     "Manual": 3
 }
 
+TEMP_SYS_OPTIONS = {
+    "Celsius": 0,
+    "Fahrenheit": 1,
+}
+
+TEMP_DISPLAY_OPTIONS = {
+    "Ambient": 0,
+    "Outlet": 1,
+}
+
+RGB_STATE_OPTIONS = {
+    "Follow Screen": 0,
+    "Always On": 1,
+    "Always Off": 2,
+}
+
+AUTO_DRAIN_OPTIONS = {
+    "Manual Drainage On": 0,
+    "No Drainage On": 1,
+    "Manual Drainage Off": 2,
+    "No Drainage Off": 3,
+}
+
 POWER_SUPPLY_PRIORITY_OPTIONS = {
     "Prioritize power supply": 0,
     "Prioritize power storage": 1
@@ -230,6 +253,8 @@ DC_TIMEOUT = "DC (12V) Timeout"
 DC_CHARGE_CURRENT = "DC (12V) Charge Current"
 GEN_AUTO_START_LEVEL = "Generator Auto Start Level"
 GEN_AUTO_STOP_LEVEL = "Generator Auto Stop Level"
+TIMER_DURATION = "Timer"
+TIMER_ENABLED = "Timer Enabled"
 
 POWER = "Power"
 CURRENT = "Current"
@@ -276,6 +301,30 @@ FAN_MODE = "Wind speed"
 MAIN_MODE = "Main mode"
 REMOTE_MODE = "Remote startup/shutdown"
 POWER_SUB_MODE = "Sub-mode"
+TEMP_SYS = "Temperature Unit"
+TEMP_DISPLAY = "Temperature Display"
+RGB_STATE = "Light Strip"
+AUTO_DRAIN = "Automatic Drainage"
+
+# Wave 2 additional sensors
+PV_INPUT_POWER = "PV Input Power"
+PV_CHARGING_POWER = "PV Charging Power"
+PV_VOLTAGE = "PV Voltage"
+PV_CURRENT = "PV Current"
+BUS_VOLTAGE = "Bus Voltage"
+AC_FREQUENCY = "AC Input Frequency"
+AC_VOLT_RMS = "AC Voltage RMS"
+AC_CURR_RMS = "AC Current RMS"
+MPPT_WORK = "MPPT Mode"
+
+CONDENSER_FAN_RPM = "Condensing Fan RPM"
+EVAP_FAN_RPM = "Evaporator Fan RPM"
+FOUR_WAY_VALVE = "Four-way Valve State"
+
+MPPT_WORK_OPTIONS = {
+    "Car Charging": 1,
+    "Solar Charging": 2,
+}
 
 # Smart Meter
 SMART_METER_POWER_GLOBAL = "Power Grid Global"
