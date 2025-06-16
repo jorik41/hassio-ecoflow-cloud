@@ -1220,7 +1220,7 @@ Once installed, use Add Integration -> Ecoflow Cloud.
 
 </p></details>
 
-<details><summary> DELTA 2 (API) <i>(sensors: 45, switches: 8, sliders: 6, selects: 5)</i> </summary>
+<details><summary> DELTA 2 (API) <i>(sensors: 50, switches: 8, sliders: 6, selects: 5)</i> </summary>
 <p>
 
 *Sensors*
@@ -1268,6 +1268,11 @@ Once installed, use Add Integration -> Ecoflow Cloud.
 - Slave Cycles  _(auto)_
 - Slave In Power  _(auto)_
 - Slave Out Power  _(auto)_
+- Solar In Energy
+- Battery Charge Energy from AC
+- Battery Charge Energy from DC
+- Battery Discharge Energy to AC
+- Battery Discharge Energy to DC
 - Status
 
 *Switches*
