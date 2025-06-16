@@ -374,6 +374,25 @@ class DecihertzSensorEntity(FrequencySensorEntity):
         return super()._update_value(int(val) / 10)
 
 
+class EnumSensorEntity(BaseSensorEntity):
+    """Map integer values to human readable states."""
+
+    def __init__(
+        self,
+        client: EcoflowApiClient,
+        device: BaseDevice,
+        mqtt_key: str,
+        title: str,
+        mapping: dict[str, int],
+    ):
+        super().__init__(client, device, title, mqtt_key)
+        self._map = {v: k for k, v in mapping.items()}
+
+    def _update_value(self, val: Any) -> bool:
+        sval = self._map.get(int(val), str(val))
+        return super()._update_value(sval)
+
+
 class StatusSensorEntity(SensorEntity, EcoFlowAbstractEntity):
     _attr_entity_category = EntityCategory.DIAGNOSTIC
 
