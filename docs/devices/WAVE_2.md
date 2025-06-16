@@ -16,6 +16,9 @@
 - Evaporation zone return air temperature (`pd.airInTemp`)   _(disabled)_
 - Air outlet temperature (`pd.coolTemp`)   _(disabled)_
 - Ambient temperature (`pd.envTemp`)   _(disabled)_
+- Condensing Fan RPM (`motor.condeFanRpm`)   _(disabled)_
+- Evaporator Fan RPM (`motor.evapFanRpm`)   _(disabled)_
+- Four-way Valve State (`motor.fourWayState`)   _(disabled)_
 - PV input power (`pd.mpptPwr`)
 - Battery output power (`pd.batPwrOut`)
 - PV charging power (`pd.pvPower`)
