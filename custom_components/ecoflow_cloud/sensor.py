@@ -252,12 +252,23 @@ class EnergySensorEntity(BaseSensorEntity):
     _attr_native_unit_of_measurement = UnitOfEnergy.WATT_HOUR
     _attr_state_class = SensorStateClass.TOTAL_INCREASING
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._attr_native_value = None
+        self._requested_update = False
+
     def _update_value(self, val: Any) -> bool:
         ival = int(val)
         if ival > 0:
+            self._requested_update = False
             return super()._update_value(ival)
-        else:
-            return False
+        if not self._requested_update and self.hass:
+            self._requested_update = True
+            self.hass.async_create_background_task(
+                self._client.quota_all(self._device.device_info.sn),
+                "get quota",
+            )
+        return False
 
 class CapacitySensorEntity(BaseSensorEntity):
     _attr_native_unit_of_measurement = "mAh"
