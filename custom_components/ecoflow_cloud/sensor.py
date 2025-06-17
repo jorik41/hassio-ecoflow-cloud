@@ -259,16 +259,17 @@ class EnergySensorEntity(BaseSensorEntity):
 
     def _update_value(self, val: Any) -> bool:
         ival = int(val)
-        if ival > 0:
+        result = False
+        if ival >= 0:
+            result = super()._update_value(ival)
             self._requested_update = False
-            return super()._update_value(ival)
-        if not self._requested_update and self.hass:
+        if ival <= 0 and not self._requested_update and self.hass:
             self._requested_update = True
             self.hass.async_create_background_task(
                 self._client.quota_all(self._device.device_info.sn),
                 "get quota",
             )
-        return False
+        return result
 
 class CapacitySensorEntity(BaseSensorEntity):
     _attr_native_unit_of_measurement = "mAh"
