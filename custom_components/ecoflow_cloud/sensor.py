@@ -173,6 +173,15 @@ class BeSensorEntity(BaseSensorEntity):
         )
 
 
+class BeLongSensorEntity(BaseSensorEntity):
+    """Sensor with big-endian 64bit values."""
+
+    def _update_value(self, val: Any) -> bool:
+        return super()._update_value(
+            int(struct.unpack("<Q", struct.pack(">Q", val))[0])
+        )
+
+
 class BeMilliVoltSensorEntity(BeSensorEntity):
     _attr_device_class = SensorDeviceClass.VOLTAGE
     _attr_entity_category = EntityCategory.DIAGNOSTIC
@@ -281,6 +290,18 @@ class InBeEnergySensorEntity(BeEnergySensorEntity):
 
 
 class OutBeEnergySensorEntity(BeEnergySensorEntity):
+    _attr_icon = "mdi:transmission-tower-export"
+
+
+class BeLongEnergySensorEntity(BeLongSensorEntity, EnergySensorEntity):
+    """Energy sensor with big-endian 64bit values."""
+
+
+class InBeLongEnergySensorEntity(BeLongEnergySensorEntity):
+    _attr_icon = "mdi:transmission-tower-import"
+
+
+class OutBeLongEnergySensorEntity(BeLongEnergySensorEntity):
     _attr_icon = "mdi:transmission-tower-export"
 
 class CapacitySensorEntity(BaseSensorEntity):
