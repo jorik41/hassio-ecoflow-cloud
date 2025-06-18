@@ -17,8 +17,8 @@ from ...sensor import (
     CapacitySensorEntity,
     StatusSensorEntity,
     QuotaStatusSensorEntity,
-    InEnergySensorEntity,
-    OutEnergySensorEntity,
+    InBeEnergySensorEntity,
+    OutBeEnergySensorEntity,
 )
 from ...switch import BeeperEntity, EnabledEntity
 
@@ -81,11 +81,11 @@ class Delta2(BaseDevice):
             MilliVoltSensorEntity(client, self, "bms_bmsStatus.maxCellVol", const.MAX_CELL_VOLT, False),
 
             # cumulative energy values for energy dashboard
-            InEnergySensorEntity(client, self, "pd.chgSunPower", const.SOLAR_IN_ENERGY),
-            InEnergySensorEntity(client, self, "pd.chgPowerAC", const.CHARGE_AC_ENERGY),
-            InEnergySensorEntity(client, self, "pd.chgPowerDC", const.CHARGE_DC_ENERGY),
-            OutEnergySensorEntity(client, self, "pd.dsgPowerAC", const.DISCHARGE_AC_ENERGY),
-            OutEnergySensorEntity(client, self, "pd.dsgPowerDC", const.DISCHARGE_DC_ENERGY),
+            InBeEnergySensorEntity(client, self, "pd.chgSunPower", const.SOLAR_IN_ENERGY),
+            InBeEnergySensorEntity(client, self, "pd.chgPowerAC", const.CHARGE_AC_ENERGY),
+            InBeEnergySensorEntity(client, self, "pd.chgPowerDC", const.CHARGE_DC_ENERGY),
+            OutBeEnergySensorEntity(client, self, "pd.dsgPowerAC", const.DISCHARGE_AC_ENERGY),
+            OutBeEnergySensorEntity(client, self, "pd.dsgPowerDC", const.DISCHARGE_DC_ENERGY),
 
             # Optional Slave Battery
             LevelSensorEntity(client, self, "bms_slave.soc", const.SLAVE_BATTERY_LEVEL, False, True)

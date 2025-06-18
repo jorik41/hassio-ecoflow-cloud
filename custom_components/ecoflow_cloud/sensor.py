@@ -271,6 +271,18 @@ class EnergySensorEntity(BaseSensorEntity):
             )
         return result
 
+
+class BeEnergySensorEntity(BeSensorEntity, EnergySensorEntity):
+    """Energy sensor with big-endian 32bit values."""
+
+
+class InBeEnergySensorEntity(BeEnergySensorEntity):
+    _attr_icon = "mdi:transmission-tower-import"
+
+
+class OutBeEnergySensorEntity(BeEnergySensorEntity):
+    _attr_icon = "mdi:transmission-tower-export"
+
 class CapacitySensorEntity(BaseSensorEntity):
     _attr_native_unit_of_measurement = "mAh"
     _attr_state_class = SensorStateClass.MEASUREMENT
