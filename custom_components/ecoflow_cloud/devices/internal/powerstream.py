@@ -18,6 +18,12 @@ from ...devices.internal.proto.support import (
 
 from ...api import EcoflowApiClient
 from ...api.message import JSONDict
+from ...number import (
+    BrightnessLevelEntity,
+    DeciChargingPowerEntity,
+    MaxBatteryLevelEntity,
+    MinBatteryLevelEntity,
+)
 from ...sensor import (
     CelsiusSensorEntity,
     CentivoltSensorEntity,
@@ -277,7 +283,60 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
 
     @override
     def numbers(self, client: EcoflowApiClient) -> Sequence[NumberEntity]:
-        return []
+        return [
+            MinBatteryLevelEntity(
+                client,
+                self,
+                "20_1.lowerLimit",
+                "Min Discharge Level",
+                0,
+                30,
+                lambda value: build_command(
+                    device_sn=self.device_info.sn,
+                    command=Command.WN511_SET_BAT_LOWER_PACK,
+                    payload=powerstream.BatLowerPack(lower_limit=value),
+                ),
+            ),
+            MaxBatteryLevelEntity(
+                client,
+                self,
+                "20_1.upperLimit",
+                "Max Charge Level",
+                70,
+                100,
+                lambda value: build_command(
+                    device_sn=self.device_info.sn,
+                    command=Command.WN511_SET_BAT_UPPER_PACK,
+                    payload=powerstream.BatUpperPack(upper_limit=value),
+                ),
+            ),
+            BrightnessLevelEntity(
+                client,
+                self,
+                "20_1.invBrightness",
+                const.BRIGHTNESS,
+                0,
+                1023,
+                lambda value: build_command(
+                    device_sn=self.device_info.sn,
+                    command=Command.WN511_SET_BRIGHTNESS_PACK,
+                    payload=powerstream.BrightnessPack(brightness=value),
+                ),
+            ),
+            DeciChargingPowerEntity(
+                client,
+                self,
+                "20_1.permanentWatts",
+                "Custom load power settings",
+                0,
+                600,
+                lambda value: build_command(
+                    device_sn=self.device_info.sn,
+                    command=Command.WN511_SET_PERMANENT_WATTS_PACK,
+                    payload=powerstream.PermanentWattsPack(permanent_watts=value),
+                ),
+            ),
+        ]
 
     @override
     def _prepare_data(self, raw_data: bytes) -> dict[str, Any]:

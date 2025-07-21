@@ -69,6 +69,10 @@
 - Feed-in Control (`20_1.feedProtect` -> `{"from": "HomeAssistant", "id": "999978134", "version": "1.0", "sn": "SN", "cmdCode": "PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT", "params": {"value": "VALUE"}}`)
 
 *Sliders (numbers)*
+- Min Discharge Level (`20_1.lowerLimit` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BAT_LOWER_PACK", "params": {"lowerLimit": "VALUE"}}` [0 - 30])
+- Max Charge Level (`20_1.upperLimit` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BAT_UPPER_PACK", "params": {"upperLimit": "VALUE"}}` [70 - 100])
+- Brightness (`20_1.invBrightness` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BRIGHTNESS_PACK", "params": {"brightness": "VALUE"}}` [0 - 1023])
+- Custom load power settings (`20_1.permanentWatts` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_PERMANENT_WATTS_PACK", "params": {"permanentWatts": "VALUE"}}` [0 - 600])
 
 *Selects*
 - Power supply mode (`20_1.supplyPriority` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_SUPPLY_PRIORITY_PACK", "params": {"supplyPriority": "VALUE"}}` [Prioritize power supply (0), Prioritize power storage (1)])
