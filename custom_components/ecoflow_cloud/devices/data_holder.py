@@ -74,7 +74,7 @@ class EcoflowDataHolder:
     def add_get_reply_message(self, msg: dict[str, Any]):
         try:
             result = self.extract_quota_message(msg)
-        except:
+        except Exception:
             result = None
 
         if result is not None:
