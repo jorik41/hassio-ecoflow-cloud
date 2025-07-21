@@ -791,7 +791,7 @@
 
 </p></details>
 
-<details><summary> POWERSTREAM <i>(sensors: 63, switches: 1, sliders: 0, selects: 1)</i> </summary>
+<details><summary> POWERSTREAM <i>(sensors: 63, switches: 1, sliders: 4, selects: 1)</i> </summary>
 <p>
 
 *Sensors*
@@ -863,6 +863,11 @@
 - Feed-in Control 
 
 *Sliders (numbers)*
+
+- Min Discharge Level
+- Max Charge Level
+- Brightness
+- Custom load power settings
 
 *Selects*
 - Power supply mode 
