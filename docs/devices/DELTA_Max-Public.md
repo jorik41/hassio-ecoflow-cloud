@@ -1,4 +1,4 @@
-## DELTA_Pro
+## DELTA_Max
 
 *Sensors*
 - Main Battery Level (`bmsMaster.soc`)
@@ -21,8 +21,6 @@
 - Solar In Current (`mppt.inAmp`)
 - DC Out Power (`mppt.outWatts`)
 - DC Out Voltage (`mppt.outVol`)
-- DC Car Out Power (`mppt.carOutWatts`)
-- DC Anderson Out Power (`mppt.dcdc12vWatts`)
 - Type-C (1) Out Power (`pd.typec1Watts`)
 - Type-C (2) Out Power (`pd.typec2Watts`)
 - USB (1) Out Power (`pd.usb1Watts`)
@@ -31,6 +29,7 @@
 - USB QC (2) Out Power (`pd.qcUsb2Watts`)
 - Charge Remaining Time (`ems.chgRemainTime`)
 - Discharge Remaining Time (`ems.dsgRemainTime`)
+- Inv Out Temperature (`inv.outTemp`)
 - Cycles (`bmsMaster.cycles`)
 - Battery Temperature (`bmsMaster.temp`)
 - Min Cell Temperature (`bmsMaster.minCellTemp`)   _(disabled)_
@@ -74,25 +73,21 @@
 - Status
 
 *Switches*
-- Beeper (`pd.beepState` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "id": 38, "enabled": "VALUE"}}`)
-- DC (12V) Enabled (`mppt.carState` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "id": 81, "enabled": "VALUE"}}`)
-- AC Enabled (`inv.cfgAcEnabled` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "id": 66, "enabled": "VALUE"}}`)
-- X-Boost Enabled (`inv.cfgAcXboost` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "id": 66, "xboost": "VALUE"}}`)
-- AC Always On (`pd.acautooutConfig` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "id": 95, "acautooutConfig": "VALUE"}}`)
-- Backup Reserve Enabled (`pd.watthisconfig` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "id": 94, "isConfig": "VALUE", "bpPowerSoc": 333300, "minDsgSoc": 0, "maxChgSoc": 0}}`)
+- Beeper (`pd.beepState` -> `{"moduleType": 5, "operateType": "TCP", "params": {"id": 38, "enabled": "VALUE"}}`)
+- USB Enabled (`pd.dcOutState` -> `{"moduleType": 0, "operateType": "TCP", "params": {"enabled": "VALUE", "id": 34}}`)
+- AC Always On (`pd.acAutoOnCfg` -> `{"moduleType": 1, "operateType": "acAutoOn", "params": {"cfg": "VALUE"}}`)
+- Prio Solar Charging (`pd.pvChgPrioSet` -> `{"moduleType": 1, "operateType": "pvChangePrio", "params": {"pvChangeSet": "VALUE"}}`)
+- AC Enabled (`inv.cfgAcEnabled` -> `{"moduleType": 0, "operateType": "TCP", "params": {"enabled": "VALUE", "id": 66}}`)
+- X-Boost Enabled (`inv.cfgAcXboost` -> `{"moduleType": 5, "operateType": "TCP", "params": {"id": 66, "xboost": "VALUE"}}`)
+- DC (12V) Enabled (`mppt.carState` -> `{"moduleType": 0, "operateType": "TCP", "params": {"enabled": "VALUE", "id": 81}}`)
 
 *Sliders (numbers)*
-- Max Charge Level (`ems.maxChargeSoc` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "id": 49, "maxChgSoc": "VALUE"}}` [50 - 100])
-- Min Discharge Level (`ems.minDsgSoc` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "id": 51, "minDsgSoc": "VALUE"}}` [0 - 30])
-- Backup Reserve Level (`pd.bppowerSoc` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "isConfig": 1, "bpPowerSoc": "VALUE", "minDsgSoc": 0, "maxChgSoc": 0, "id": 94}}` [5 - 100])
-- Generator Auto Start Level (`ems.minOpenOilEbSoc` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "openOilSoc": "VALUE", "id": 52}}` [0 - 30])
-- Generator Auto Stop Level (`ems.maxCloseOilEbSoc` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "closeOilSoc": "VALUE", "id": 53}}` [50 - 100])
-- AC Charging Power (`inv.cfgSlowChgWatts` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "slowChgPower": "VALUE", "id": 69}}` [200 - 2900])
+- Max Charge Level (`ems.maxChargeSoc` -> `{"moduleType": 2, "operateType": "TCP", "params": {"id": 49, "maxChgSoc": "VALUE"}}` [50 - 100])
+- Min Discharge Level (`ems.minDsgSoc` -> `{"moduleType": 2, "operateType": "TCP", "params": {"id": 51, "minDsgSoc": "VALUE"}}` [0 - 30])
+- Generator Auto Start Level (`ems.minOpenOilEbSoc` -> `{"moduleType": 2, "operateType": "TCP", "params": {"id": 52, "openOilSoc": "VALUE"}}` [0 - 30])
+- Generator Auto Stop Level (`ems.maxCloseOilEbSoc` -> `{"moduleType": 2, "operateType": "TCP", "params": {"id": 53, "closeOilSoc": "VALUE"}}` [50 - 100])
+- AC Charging Power (`inv.cfgSlowChgWatts` -> `{"moduleType": 0, "operateType": "TCP", "params": {"slowChgPower": "VALUE", "id": 69}}` [100 - 2000])
 
 *Selects*
-- DC (12V) Charge Current (`mppt.cfgDcChgCurrent` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "currMa": "VALUE", "id": 71}}` [4A (4000), 6A (6000), 8A (8000)])
-- Screen Timeout (`pd.lcdOffSec` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "lcdTime": "VALUE", "id": 39}}` [Never (0), 10 sec (10), 30 sec (30), 1 min (60), 5 min (300), 30 min (1800)])
-- Unit Timeout (`pd.standByMode` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "standByMode": "VALUE", "id": 33}}` [Never (0), 30 min (30), 1 hr (60), 2 hr (120), 6 hr (360), 12 hr (720)])
-- AC Timeout (`inv.cfgStandbyMin` -> `{"operateType": "TCP", "params": {"cmdSet": 32, "standByMins": "VALUE", "id": 153}}` [Never (0), 30 min (30), 1 hr (60), 2 hr (120), 4 hr (240), 6 hr (360), 12 hr (720), 24 hr (1440)])
 
 
