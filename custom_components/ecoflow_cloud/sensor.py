@@ -564,7 +564,7 @@ class QuotaScheduledStatusSensorEntity(QuotaStatusSensorEntity):
                 self._client.quota_all(self._device.device_info.sn), "get quota"
             )
             self._attrs[ATTR_QUOTA_REQUESTS] = self._attrs[ATTR_QUOTA_REQUESTS] + 1
-            _LOGGER.debug(f"Reload quota for device %s", self._device.device_info.sn)
+            _LOGGER.debug("Reload quota for device %s", self._device.device_info.sn)
             changed = True
         else:
             if self._attr_native_value == "updating":

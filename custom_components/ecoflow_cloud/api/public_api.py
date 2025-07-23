@@ -129,14 +129,14 @@ class EcoflowPublicApiClient(EcoflowApiClient):
                 "sign": sign,
             }
 
-            _LOGGER.debug(f"Request: %s %s.", str(endpoint), str(params_str))
+            _LOGGER.debug("Request: %s %s.", str(endpoint), str(params_str))
             resp = await session.get(
                 f"https://{self.api_domain}/iot-open/sign{endpoint}?{params_str}",
                 headers=headers,
             )
             json_resp = await self._get_json_response(resp)
             _LOGGER.debug(
-                f"Request: %s %s. Response : %s",
+                "Request: %s %s. Response : %s",
                 str(endpoint),
                 str(params_str),
                 str(json_resp),
