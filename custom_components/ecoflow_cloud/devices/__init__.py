@@ -203,19 +203,14 @@ class BaseDevice(ABC):
         return self._prepare_data(raw_data)
 
     def _prepare_data(self, raw_data: bytes) -> dict[str, Any]:
+        """Decode incoming bytes and return JSON payload if possible."""
         try:
-            try:
-                payload = raw_data.decode("utf-8", errors="ignore")
-                return json.loads(payload)
-            except UnicodeDecodeError as error:
-                _LOGGER.warning(f"UnicodeDecodeError: {error}. Trying to load json.")
-                return json.loads(raw_data)
-            except Exception as error:
-                _LOGGER.warning(f"Exception: {error}. Trying to load json.")
-                return json.loads(raw_data)
-        except Exception as error1:
+            payload = raw_data.decode("utf-8", errors="ignore")
+            return json.loads(payload)
+        except Exception as error:
             _LOGGER.error(
-                f"constant: {error1}. Ignoring message and waiting for the next one."
+                "Failed to parse incoming message: %s. Ignoring message and waiting for the next one.",
+                error,
             )
             return {}
 
