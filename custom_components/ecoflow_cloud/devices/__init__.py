@@ -211,6 +211,14 @@ class BaseDevice(ABC):
             payload_dict, _ = decoder.raw_decode(payload)
             return payload_dict
         except Exception as error:
+            try:
+                from ..proto_decode import decode_ecopacket
+
+                decoded = decode_ecopacket(raw_data)
+                if decoded is not None:
+                    return decoded
+            except Exception as proto_error:  # pragma: no cover - fallback only
+                _LOGGER.debug("Failed protobuf decode: %s", proto_error)
             _LOGGER.error(
                 "Failed to parse incoming message: %s. Ignoring message and waiting for the next one.",
                 error,
