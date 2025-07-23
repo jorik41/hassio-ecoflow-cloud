@@ -274,7 +274,7 @@ class StreamAC(BaseDevice):
 
     def _prepare_data(self, raw_data) -> dict[str, any]:
         raw = {"params": {}}
-        from .proto import ecopacket_pb2 as ecopacket, stream_ac_pb2 as stream_ac, stream_ac_pb2 as stream_ac2
+        from .proto import stream_ac_pb2 as stream_ac, stream_ac_pb2 as stream_ac2
         try:
             payload = raw_data
 
