@@ -55,7 +55,13 @@ class EcoflowMQTTClient:
             _LOGGER.info(
                 f"Re-connecting to MQTT Broker {self.__mqtt_info.url}:{self.__mqtt_info.port}"
             )
-            self.__client.loop_stop(True)
+            # AsyncMQTTClient.loop_stop does not accept positional arguments
+            # The original call passed ``True`` as the ``force`` parameter,
+            # which raises ``Client.loop_stop() takes 1 positional argument but 2 were given``
+            # in recent Home Assistant releases. Since ``force`` defaults to
+            # ``True`` inside the implementation, simply call the method
+            # without arguments to stop the loop.
+            self.__client.loop_stop()
             self.__client.reconnect()
             self.__client.loop_start()
             return True
