@@ -77,6 +77,8 @@
 
 </p></details>
 
+</p></details>
+
 <details><summary> RIVER_2 <i>(sensors: 32, switches: 5, sliders: 4, selects: 5)</i> </summary>
 <p>
 
@@ -349,6 +351,52 @@
 
 </p></details>
 
+
+<details><summary> DELTA_PRO_3 <i>(sensors: 23, switches: 4, sliders: 6, selects: 0)</i> </summary>
+<p>
+
+*Sensors*
+- Main Battery Level
+- Main Design Capacity  _(disabled)_
+- Battery Level
+- Total In Power
+- Total Out Power
+- AC In Power
+- AC Out Power
+- Solar In Power
+- Solar (HV) In Power
+- Grid Power
+- Type-C (1) Out Power
+- Type-C (2) Out Power
+- 12V Out Power
+- 24V Out Power
+- AC Low Voltage Out Power
+- AC Low Voltage TT30 Out Power
+- Power In/Out Port Power
+- USB QC (1) Out Power
+- USB QC (2) Out Power
+- Extra Battery Port 1 Power
+- Extra Battery Port 2 Power
+- Charge Remaining Time
+- Discharge Remaining Time
+
+*Switches*
+- Beeper
+- DC (12V) Enabled
+- AC Enabled
+- X-Boost Enabled
+
+*Sliders (numbers)*
+- Max Charge Level
+- Min Discharge Level
+- Backup Reserve Level
+- Generator Auto Start Level
+- Generator Auto Stop Level
+- AC Charging Power
+
+*Selects*
+
+</p></details>
 <details><summary> RIVER_MAX <i>(sensors: 49, switches: 5, sliders: 1, selects: 3)</i> </summary>
 <p>
 

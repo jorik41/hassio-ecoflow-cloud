@@ -1,35 +1,27 @@
-from ...api import EcoflowApiClient
-from ...sensor import StatusSensorEntity
-from ..internal.delta_pro_3 import DeltaPro3 as InternalDeltaPro3
-
-
-class DeltaPro3(InternalDeltaPro3):
-    def _status_sensor(self, client: EcoflowApiClient) -> StatusSensorEntity:
-        return StatusSensorEntity(client, self)
-
-from ...entities import (
+from custom_components.ecoflow_cloud.api import EcoflowApiClient
+from custom_components.ecoflow_cloud.entities import (
     BaseNumberEntity,
     BaseSelectEntity,
     BaseSensorEntity,
     BaseSwitchEntity,
 )
-from ...number import (
+from custom_components.ecoflow_cloud.number import (
+    BatteryBackupLevel,
     ChargingPowerEntity,
     MaxBatteryLevelEntity,
-    MinBatteryLevelEntity,
     MaxGenStopLevelEntity,
+    MinBatteryLevelEntity,
     MinGenStartLevelEntity,
-    BatteryBackupLevel,
 )
-from ...sensor import (
+from custom_components.ecoflow_cloud.sensor import (
     CapacitySensorEntity,
     InWattsSensorEntity,
     LevelSensorEntity,
     OutWattsSensorEntity,
     RemainSensorEntity,
 )
-from ...switch import BeeperEntity, EnabledEntity
-from .. import BaseDevice, const
+from custom_components.ecoflow_cloud.switch import BeeperEntity, EnabledEntity
+from custom_components.ecoflow_cloud.devices import BaseDevice, const
 
 
 class DeltaPro3(BaseDevice):
