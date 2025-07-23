@@ -206,7 +206,10 @@ class BaseDevice(ABC):
         """Decode incoming bytes and return JSON payload if possible."""
         try:
             payload = raw_data.decode("utf-8", errors="ignore")
-            return json.loads(payload)
+            decoder = json.JSONDecoder()
+            payload = payload.lstrip()
+            payload_dict, _ = decoder.raw_decode(payload)
+            return payload_dict
         except Exception as error:
             _LOGGER.error(
                 "Failed to parse incoming message: %s. Ignoring message and waiting for the next one.",
