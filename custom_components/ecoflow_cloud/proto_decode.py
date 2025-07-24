@@ -5,6 +5,10 @@ from typing import Any, Dict
 from google.protobuf.json_format import MessageToDict
 
 from .devices.internal.proto import ecopacket_pb2, powerstream_pb2
+from .devices.internal.proto.support.const import (
+    Command,
+    CommandFunc,
+)
 
 
 def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
@@ -16,8 +20,16 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
         return None
 
     result: Dict[str, Any] = {"params": {}}
+    heartbeat_ids = {
+        Command.PRIVATE_API_POWERSTREAM_HEARTBEAT.id,
+        50,  # tentative Delta Pro 3 heartbeat; see issue #270
+    }
+
     for message in packet.msg:
-        if message.cmd_id == 1:
+        if (
+            message.cmd_func == CommandFunc.POWERSTREAM
+            and message.cmd_id in heartbeat_ids
+        ):
             heartbeat = powerstream_pb2.InverterHeartbeat()
             try:
                 heartbeat.ParseFromString(message.pdata)
