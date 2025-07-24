@@ -4,7 +4,9 @@ from unittest.mock import Mock
 
 from custom_components.ecoflow_cloud.device_data import DeviceData, DeviceOptions
 from custom_components.ecoflow_cloud.devices import BaseDevice, EcoflowDeviceInfo
-from custom_components.ecoflow_cloud.devices.internal.proto.support.message import ProtoMessage
+from custom_components.ecoflow_cloud.devices.internal.proto.support.message import (
+    ProtoMessage,
+)
 from custom_components.ecoflow_cloud.devices.registry import (
     devices,
     device_by_product,
@@ -109,7 +111,7 @@ def prepare_options(options: dict[str, Any]) -> str:
 
 def prepare_command(e: EcoFlowBaseCommandEntity) -> str | None:
     command_dict = e.command_dict(MARKER_VALUE)
-    if command_dict is not None:       
+    if command_dict is not None:
         if isinstance(command_dict, dict):
             json_dict = command_dict
         elif isinstance(command_dict, ProtoMessage):

@@ -149,7 +149,7 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
         _LOGGER.debug(".. getting device by %s: %s", str(identifiers), str(device))
 
         # Remove all entities for this device
-        if getattr(device, "id", None) is not None :
+        if getattr(device, "id", None) is not None:
             ent_reg: EntityRegistry = er.async_get(self.hass)
             entities = er.async_entries_for_device(ent_reg, device.id)
 
@@ -461,7 +461,9 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
         self.new_options[CONF_DEVICE_LIST][sn] = {
             OPTS_REFRESH_PERIOD_SEC: DEFAULT_REFRESH_PERIOD_SEC,
             OPTS_POWER_STEP: device.default_charging_power_step(),
-            OPTS_DIAGNOSTIC_MODE: ("Diagnostic".lower() == user_input[CONF_DEVICE_TYPE].lower()),
+            OPTS_DIAGNOSTIC_MODE: (
+                "Diagnostic".lower() == user_input[CONF_DEVICE_TYPE].lower()
+            ),
         }
 
         return await self.update_or_create()

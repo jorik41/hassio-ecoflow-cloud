@@ -1,10 +1,16 @@
 from ...api import EcoflowApiClient
 from ...sensor import WattsSensorEntity, InWattsSensorEntity, LevelSensorEntity
 from .. import BaseDevice, const
-from ...entities import BaseSensorEntity, BaseNumberEntity, BaseSwitchEntity, BaseSelectEntity
+from ...entities import (
+    BaseSensorEntity,
+    BaseNumberEntity,
+    BaseSwitchEntity,
+    BaseSelectEntity,
+)
 from custom_components.ecoflow_cloud.switch import EnabledEntity
 from custom_components.ecoflow_cloud.select import DictSelectEntity
 from ...number import MaxBatteryLevelEntity, ChargingPowerEntity, MinBatteryLevelEntity
+
 
 class SmartHomePanel2(BaseDevice):
 
@@ -27,7 +33,7 @@ class SmartHomePanel2(BaseDevice):
             self._sensorsBatterie(client, 2),
             self._sensorsBatterie(client, 3),
         ]
-    
+
     def numbers(self, client: EcoflowApiClient) -> list[BaseNumberEntity]:
         return [
             MinBatteryLevelEntity(
@@ -40,7 +46,7 @@ class SmartHomePanel2(BaseDevice):
                 lambda value: {
                     "sn": self.device_info.sn,
                     "cmdCode": "PD303_APP_SET",
-                    "params": {"backupReserveSoc": value}
+                    "params": {"backupReserveSoc": value},
                 },
             ),
             ChargingPowerEntity(
@@ -53,7 +59,7 @@ class SmartHomePanel2(BaseDevice):
                 lambda value: {
                     "sn": self.device_info.sn,
                     "cmdCode": "PD303_APP_SET",
-                    "params": {"chargeWattPower": value}
+                    "params": {"chargeWattPower": value},
                 },
             ),
             MaxBatteryLevelEntity(
@@ -66,9 +72,9 @@ class SmartHomePanel2(BaseDevice):
                 lambda value: {
                     "sn": self.device_info.sn,
                     "cmdCode": "PD303_APP_SET",
-                    "params": {"foceChargeHight": value}
+                    "params": {"foceChargeHight": value},
                 },
-            )
+            ),
         ]
 
     def switches(self, client: EcoflowApiClient) -> list[BaseSwitchEntity]:
@@ -81,7 +87,7 @@ class SmartHomePanel2(BaseDevice):
                 lambda value: {
                     "sn": self.device_info.sn,
                     "cmdCode": "PD303_APP_SET",
-                    "params": {"epsModeInfo": value == 1}
+                    "params": {"epsModeInfo": value == 1},
                 },
             ),
             EnabledEntity(
@@ -92,7 +98,7 @@ class SmartHomePanel2(BaseDevice):
                 lambda value: {
                     "sn": self.device_info.sn,
                     "cmdCode": "PD303_APP_SET",
-                    "params": {"stormIsEnable": value == 1}
+                    "params": {"stormIsEnable": value == 1},
                 },
             ),
         ]
@@ -114,12 +120,14 @@ class SmartHomePanel2(BaseDevice):
                 lambda value: {
                     "sn": self.device_info.sn,
                     "cmdCode": "PD303_APP_SET",
-                    "params": {"smartBackupMode": value}
+                    "params": {"smartBackupMode": value},
                 },
-            )
+            ),
         ]
-    
-    def _selectsBatterieStatus(self, client: EcoflowApiClient, index: int) -> BaseSelectEntity:
+
+    def _selectsBatterieStatus(
+        self, client: EcoflowApiClient, index: int
+    ) -> BaseSelectEntity:
         return DictSelectEntity(
             client,
             self,
@@ -129,11 +137,13 @@ class SmartHomePanel2(BaseDevice):
             lambda value: {
                 "sn": self.device_info.sn,
                 "cmdCode": "PD303_APP_SET",
-                "params": {f"ch{index}EnableSet": value}
+                "params": {f"ch{index}EnableSet": value},
             },
         )
 
-    def _selectsBatterieForceCharge(self, client: EcoflowApiClient, index: int) -> BaseSelectEntity:
+    def _selectsBatterieForceCharge(
+        self, client: EcoflowApiClient, index: int
+    ) -> BaseSelectEntity:
         return DictSelectEntity(
             client,
             self,
@@ -143,15 +153,24 @@ class SmartHomePanel2(BaseDevice):
             lambda value: {
                 "sn": self.device_info.sn,
                 "cmdCode": "PD303_APP_SET",
-                "params": {f"ch{index}ForceCharge": value}
+                "params": {f"ch{index}ForceCharge": value},
             },
         )
 
     def _sensorsSwitch(self, client: EcoflowApiClient, index: int) -> BaseSensorEntity:
-        return WattsSensorEntity(client, self, f"'loadInfo.hall1Watt'[{index}]", f"Breaker {index} Energy")
-    
-    def _sensorsBatterie(self, client: EcoflowApiClient, index: int) -> BaseSensorEntity:
-        return LevelSensorEntity(client, self, f"'backupIncreInfo.Energy{index}Info.batteryPercentage'", f"Battery Level {index}")
+        return WattsSensorEntity(
+            client, self, f"'loadInfo.hall1Watt'[{index}]", f"Breaker {index} Energy"
+        )
+
+    def _sensorsBatterie(
+        self, client: EcoflowApiClient, index: int
+    ) -> BaseSensorEntity:
+        return LevelSensorEntity(
+            client,
+            self,
+            f"'backupIncreInfo.Energy{index}Info.batteryPercentage'",
+            f"Battery Level {index}",
+        )
 
     def flat_json(self):
         return False

@@ -245,7 +245,7 @@ class PowerStream(BaseDevice):
     @override
     def switches(self, client: EcoflowApiClient) -> Sequence[SwitchEntity]:
         return []
-    
+
     @override
     def selects(self, client: EcoflowApiClient) -> Sequence[SelectEntity]:
         return [

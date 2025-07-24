@@ -69,7 +69,8 @@ class EcoflowDeviceUpdateCoordinator(DataUpdateCoordinator[EcoflowBroadcastDataH
             _LOGGER,
             name="Ecoflow update coordinator",
             always_update=True,
-            update_interval=datetime.timedelta(seconds=max(refresh_period, 5)),
+            # allow faster refresh periods when required
+            update_interval=datetime.timedelta(seconds=max(refresh_period, 1)),
         )
         self.holder = holder
         self.__last_broadcast = dt.utcnow().replace(
@@ -204,26 +205,26 @@ class BaseDevice(ABC):
 
     def _prepare_data(self, raw_data: bytes) -> dict[str, Any]:
         """Decode incoming bytes and return JSON payload if possible."""
-        try:
-            payload = raw_data.decode("utf-8", errors="ignore")
-            decoder = json.JSONDecoder()
-            payload = payload.lstrip()
-            payload_dict, _ = decoder.raw_decode(payload)
-            return payload_dict
-        except Exception as error:
+        payload = raw_data.lstrip()
+        if payload.startswith(b"{"):
             try:
-                from ..proto_decode import decode_ecopacket
+                return json.loads(payload.decode("utf-8"))
+            except Exception as error:
+                _LOGGER.debug("Failed JSON decode: %s", error)
 
-                decoded = decode_ecopacket(raw_data)
-                if decoded is not None:
-                    return decoded
-            except Exception as proto_error:  # pragma: no cover - fallback only
-                _LOGGER.debug("Failed protobuf decode: %s", proto_error)
-            _LOGGER.error(
-                "Failed to parse incoming message: %s. Ignoring message and waiting for the next one.",
-                error,
-            )
-            return {}
+        try:
+            from ..proto_decode import decode_ecopacket
+
+            decoded = decode_ecopacket(raw_data)
+            if decoded is not None:
+                return decoded
+        except Exception as proto_error:  # pragma: no cover - fallback only
+            _LOGGER.debug("Failed protobuf decode: %s", proto_error)
+
+        _LOGGER.error(
+            "Failed to parse incoming message. Ignoring message and waiting for the next one."
+        )
+        return {}
 
 
 class DiagnosticDevice(BaseDevice):

@@ -15,34 +15,30 @@ _LOGGER = logging.getLogger(__name__)
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 
+
 async def main():
 
-    data = MappingProxyType(
-        {
-            "type": "powerkit",
-            "device_id": os.environ['ecoflowSn']
-        }
-    )
+    data = MappingProxyType({"type": "powerkit", "device_id": os.environ["ecoflowSn"]})
 
     config = ConfigEntry(
-        version='1.0.0',
-        minor_version='1',
-        domain='homeassistant.local',
-        title='debugEcoflow',
+        version="1.0.0",
+        minor_version="1",
+        domain="homeassistant.local",
+        title="debugEcoflow",
         data=data,
-        source='',
-        options= MappingProxyType(
-        {
-            "refresh_period_sec": 1
-        })
+        source="",
+        options=MappingProxyType({"refresh_period_sec": 1}),
     )
-    auth = EcoflowAuthentication(os.environ['ecoflowUserName'], os.environ['ecoflowPassword'])
+    auth = EcoflowAuthentication(
+        os.environ["ecoflowUserName"], os.environ["ecoflowPassword"]
+    )
     auth.authorize()
-    home = HomeAssistant('./')
+    home = HomeAssistant("./")
     client = EcoflowMQTTClient(home, config, auth)
     powerkit = PowerKit()
     sensors = powerkit.sensors(client)
     client.data.params_observable().subscribe(lambda v: updateSensors(v))
+
     def updateSensors(data: dict[str, any]):
         for v in sensors:
             v.hass = home
@@ -51,5 +47,7 @@ async def main():
             _LOGGER.info(v._attr_native_value)
 
     while True:
-            await asyncio.sleep(1)
+        await asyncio.sleep(1)
+
+
 asyncio.run(main())

@@ -13,5 +13,3 @@ class Delta2Max(InternalDelta2Max):
 
     def _status_sensor(self, client: EcoflowApiClient) -> StatusSensorEntity:
         return StatusSensorEntity(client, self)
-
-

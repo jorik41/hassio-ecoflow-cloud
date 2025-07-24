@@ -78,7 +78,9 @@ class DeltaPro(BaseDevice):
             ),
             WattsSensorEntity(client, self, "pd.wattsInSum", const.TOTAL_IN_POWER),
             WattsSensorEntity(client, self, "pd.wattsOutSum", const.TOTAL_OUT_POWER),
-            MilliampSensorEntity(client, self, "bmsMaster.amp", const.MAIN_BATTERY_CURRENT),
+            MilliampSensorEntity(
+                client, self, "bmsMaster.amp", const.MAIN_BATTERY_CURRENT
+            ),
             InWattsSensorEntity(client, self, "inv.inputWatts", const.AC_IN_POWER),
             OutWattsSensorEntity(client, self, "inv.outputWatts", const.AC_OUT_POWER),
             InMilliVoltSensorEntity(client, self, "inv.acInVol", const.AC_IN_VOLT),
@@ -87,7 +89,9 @@ class DeltaPro(BaseDevice):
                 client, self, "mppt.inWatts", const.SOLAR_IN_POWER
             ),
             InVoltSolarSensorEntity(client, self, "mppt.inVol", const.SOLAR_IN_VOLTAGE),
-            InMilliampSolarSensorEntity(client, self, "mppt.inAmp", const.SOLAR_IN_CURRENT),
+            InMilliampSolarSensorEntity(
+                client, self, "mppt.inAmp", const.SOLAR_IN_CURRENT
+            ),
             OutWattsDcSensorEntity(client, self, "mppt.outWatts", const.DC_OUT_POWER),
             OutVoltDcSensorEntity(client, self, "mppt.outVol", const.DC_OUT_VOLTAGE),
             OutWattsSensorEntity(

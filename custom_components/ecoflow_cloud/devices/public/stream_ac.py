@@ -2,24 +2,45 @@ from ...api import EcoflowApiClient
 from ...sensor import StatusSensorEntity
 from .data_bridge import to_plain
 from custom_components.ecoflow_cloud.devices import const, BaseDevice
-from custom_components.ecoflow_cloud.entities import BaseSensorEntity, BaseNumberEntity, BaseSwitchEntity, \
-    BaseSelectEntity
-from custom_components.ecoflow_cloud.sensor import WattsSensorEntity,LevelSensorEntity,CapacitySensorEntity, \
-    InWattsSensorEntity,OutWattsSensorEntity, RemainSensorEntity, MilliVoltSensorEntity, TempSensorEntity, \
-    CyclesSensorEntity, EnergySensorEntity, CumulativeCapacitySensorEntity
+from custom_components.ecoflow_cloud.entities import (
+    BaseSensorEntity,
+    BaseNumberEntity,
+    BaseSwitchEntity,
+    BaseSelectEntity,
+)
+from custom_components.ecoflow_cloud.sensor import (
+    WattsSensorEntity,
+    LevelSensorEntity,
+    CapacitySensorEntity,
+    InWattsSensorEntity,
+    OutWattsSensorEntity,
+    RemainSensorEntity,
+    MilliVoltSensorEntity,
+    TempSensorEntity,
+    CyclesSensorEntity,
+    EnergySensorEntity,
+    CumulativeCapacitySensorEntity,
+)
+
 
 class StreamAC(BaseDevice):
 
     def sensors(self, client: EcoflowApiClient) -> list[BaseSensorEntity]:
         return [
             # "accuChgCap": 198511,
-            CumulativeCapacitySensorEntity(client, self, "accuChgCap", const.ACCU_CHARGE_CAP, False),
+            CumulativeCapacitySensorEntity(
+                client, self, "accuChgCap", const.ACCU_CHARGE_CAP, False
+            ),
             # "accuChgEnergy": 3992,
             EnergySensorEntity(client, self, "accuChgEnergy", const.ACCU_CHARGE_ENERGY),
             # "accuDsgCap": 184094,
-            CumulativeCapacitySensorEntity(client, self, "accuDsgCap", const.ACCU_DISCHARGE_CAP, False),
+            CumulativeCapacitySensorEntity(
+                client, self, "accuDsgCap", const.ACCU_DISCHARGE_CAP, False
+            ),
             # "accuDsgEnergy": 3646,
-            EnergySensorEntity(client, self, "accuDsgEnergy", const.ACCU_DISCHARGE_ENERGY),
+            EnergySensorEntity(
+                client, self, "accuDsgEnergy", const.ACCU_DISCHARGE_ENERGY
+            ),
             # "actSoc": 46.0,
             # "amp": 44671,
             # "backupReverseSoc": 5,
@@ -32,10 +53,14 @@ class StreamAC(BaseDevice):
             # "bmsBattSoh": 100.0,
             # "bmsChgDsgState": 2,
             # "bmsChgRemTime": 88,
-            RemainSensorEntity(client, self, "bmsChgRemTime", const.CHARGE_REMAINING_TIME, False),
+            RemainSensorEntity(
+                client, self, "bmsChgRemTime", const.CHARGE_REMAINING_TIME, False
+            ),
             # "bmsDesignCap": 1920,
             # "bmsDsgRemTime": 5939,
-            RemainSensorEntity(client, self, "bmsDsgRemTime", const.DISCHARGE_REMAINING_TIME, False),
+            RemainSensorEntity(
+                client, self, "bmsDsgRemTime", const.DISCHARGE_REMAINING_TIME, False
+            ),
             # "bmsFault": 0,
             # "bmsFaultState": 0,
             # "bmsHeartbeatVer": 260,
@@ -77,7 +102,9 @@ class StreamAC(BaseDevice):
             # "cycles": 1,
             CyclesSensorEntity(client, self, "cycles", const.CYCLES),
             # "designCap": 100000,
-            CapacitySensorEntity(client, self, "designCap", const.STREAM_DESIGN_CAPACITY,False),
+            CapacitySensorEntity(
+                client, self, "designCap", const.STREAM_DESIGN_CAPACITY, False
+            ),
             # "devCtrlStatus": 1,
             # "devSleepState": 0,
             # "diffSoc": 0.2050476,
@@ -91,20 +118,28 @@ class StreamAC(BaseDevice):
             # "energyStrategyOperateMode.operateSelfPoweredOpen": true,
             # "energyStrategyOperateMode.operateTouModeOpen": false,
             # "f32ShowSoc": 46.317574,
-            LevelSensorEntity(client, self, "f32ShowSoc", const.STREAM_POWER_BATTERY_SOC),
+            LevelSensorEntity(
+                client, self, "f32ShowSoc", const.STREAM_POWER_BATTERY_SOC
+            ),
             # "feedGridMode": 2,
             # "feedGridModePowLimit": 800,
             # "feedGridModePowMax": 800,
             # "fullCap": 100000,
-            CapacitySensorEntity(client, self, "fullCap", const.STREAM_FULL_CAPACITY, False),
+            CapacitySensorEntity(
+                client, self, "fullCap", const.STREAM_FULL_CAPACITY, False
+            ),
             # "gridCodeSelection": "GRID_STD_CODE_UTE_MAINLAND",
             # "gridCodeVersion": 10001,
             # "gridConnectionFreq": 49.974655,
             # "gridConnectionPower": -967.2364,
-            WattsSensorEntity(client, self, "gridConnectionPower", const.STREAM_POWER_AC),
+            WattsSensorEntity(
+                client, self, "gridConnectionPower", const.STREAM_POWER_AC
+            ),
             # "gridConnectionSta": "PANEL_GRID_IN",
             # "gridConnectionVol": 235.34576,
-            MilliVoltSensorEntity(client, self, "gridConnectionVol", const.STREAM_POWER_VOL, False),
+            MilliVoltSensorEntity(
+                client, self, "gridConnectionVol", const.STREAM_POWER_VOL, False
+            ),
             # "gridSysDeviceCnt": 2,
             # "heatfilmNtcNum": 0,
             # "heatfilmTemp": [],
@@ -117,7 +152,9 @@ class StreamAC(BaseDevice):
             # "maxCellTemp": 35,
             TempSensorEntity(client, self, "maxCellTemp", const.MAX_CELL_TEMP, False),
             # "maxCellVol": 3362,
-            MilliVoltSensorEntity(client, self, "maxCellVol", const.MAX_CELL_VOLT, False),
+            MilliVoltSensorEntity(
+                client, self, "maxCellVol", const.MAX_CELL_VOLT, False
+            ),
             # "maxCurSensorTemp": 0,
             # "maxEnvTemp": 0,
             # "maxHeatfilmTemp": 0,
@@ -130,7 +167,9 @@ class StreamAC(BaseDevice):
             # "minCellTemp": 33,
             TempSensorEntity(client, self, "minCellTemp", const.MIN_CELL_TEMP, False),
             # "minCellVol": 3357,
-            MilliVoltSensorEntity(client, self, "minCellVol", const.MIN_CELL_VOLT, False),
+            MilliVoltSensorEntity(
+                client, self, "minCellVol", const.MIN_CELL_VOLT, False
+            ),
             # "minCurSensorTemp": 0,
             # "minEnvTemp": 0,
             # "minHeatfilmTemp": 0,
@@ -159,29 +198,50 @@ class StreamAC(BaseDevice):
             # "powGetBpCms": 1915.0862,
             WattsSensorEntity(client, self, "powGetBpCms", const.STREAM_POWER_BATTERY),
             # "powGetPv": 0.0,
-            WattsSensorEntity(client, self, "powGetPv", const.STREAM_POWER_PV_1, False, True),
+            WattsSensorEntity(
+                client, self, "powGetPv", const.STREAM_POWER_PV_1, False, True
+            ),
             # "powGetPv2": 0.0,
-            WattsSensorEntity(client, self, "powGetPv2", const.STREAM_POWER_PV_2, False, True),
+            WattsSensorEntity(
+                client, self, "powGetPv2", const.STREAM_POWER_PV_2, False, True
+            ),
             # "powGetPv3": 0.0,
-            WattsSensorEntity(client, self, "powGetPv3", const.STREAM_POWER_PV_3, False, True),
+            WattsSensorEntity(
+                client, self, "powGetPv3", const.STREAM_POWER_PV_3, False, True
+            ),
             # "powGetPv4": 0.0,
-            WattsSensorEntity(client, self, "powGetPv4", const.STREAM_POWER_PV_4, False, True),
+            WattsSensorEntity(
+                client, self, "powGetPv4", const.STREAM_POWER_PV_4, False, True
+            ),
             # "powGetPvSum": 2051.3975,
             WattsSensorEntity(client, self, "powGetPvSum", const.STREAM_POWER_PV_SUM),
             # "powGetSchuko1": 0.0,
-            WattsSensorEntity(client, self, "powGetSchuko1", const.STREAM_GET_SCHUKO1, False, True),
+            WattsSensorEntity(
+                client, self, "powGetSchuko1", const.STREAM_GET_SCHUKO1, False, True
+            ),
             # "powGetSchuko2": 18.654325,
-            WattsSensorEntity(client, self, "powGetSchuko2", const.STREAM_GET_SCHUKO2, False, True),
+            WattsSensorEntity(
+                client, self, "powGetSchuko2", const.STREAM_GET_SCHUKO2, False, True
+            ),
             # "powGetSysGrid": -135.0,
             WattsSensorEntity(client, self, "powGetSysGrid", const.STREAM_POWER_GRID),
             # "powGetSysLoad": 0.0,
             WattsSensorEntity(client, self, "powGetSysLoad", const.STREAM_GET_SYS_LOAD),
             # "powGetSysLoadFromBp": 0.0,
-            WattsSensorEntity(client, self, "powGetSysLoadFromBp", const.STREAM_GET_SYS_LOAD_FROM_BP),
+            WattsSensorEntity(
+                client, self, "powGetSysLoadFromBp", const.STREAM_GET_SYS_LOAD_FROM_BP
+            ),
             # "powGetSysLoadFromGrid": 0.0,
-            WattsSensorEntity(client, self, "powGetSysLoadFromGrid", const.STREAM_GET_SYS_LOAD_FROM_GRID),
+            WattsSensorEntity(
+                client,
+                self,
+                "powGetSysLoadFromGrid",
+                const.STREAM_GET_SYS_LOAD_FROM_GRID,
+            ),
             # "powGetSysLoadFromPv": 0.0,
-            WattsSensorEntity(client, self, "powGetSysLoadFromPv", const.STREAM_GET_SYS_LOAD_FROM_PV),
+            WattsSensorEntity(
+                client, self, "powGetSysLoadFromPv", const.STREAM_GET_SYS_LOAD_FROM_PV
+            ),
             # "powSysAcInMax": 4462,
             # "powSysAcOutMax": 800,
             # "productDetail": 5,
@@ -193,7 +253,9 @@ class StreamAC(BaseDevice):
             # "relay3Onoff": true,
             # "relay4Onoff": true,
             # "remainCap": 46317,
-            CapacitySensorEntity(client, self, "remainCap", const.STREAM_REMAIN_CAPACITY,False),
+            CapacitySensorEntity(
+                client, self, "remainCap", const.STREAM_REMAIN_CAPACITY, False
+            ),
             # "remainTime": 88,
             RemainSensorEntity(client, self, "remainTime", const.REMAINING_TIME),
             # "runtimePropertyFullUploadPeriod": 120000,
@@ -212,7 +274,9 @@ class StreamAC(BaseDevice):
             # "stormPatternEndTime": 0,
             # "stormPatternOpenFlag": false,
             # "sysGridConnectionPower": -2020.0437,
-            WattsSensorEntity(client, self, "sysGridConnectionPower", const.STREAM_POWER_AC_SYS),
+            WattsSensorEntity(
+                client, self, "sysGridConnectionPower", const.STREAM_POWER_AC_SYS
+            ),
             # "sysLoaderVer": 4294967295,
             # "sysState": 3,
             # "sysVer": 33620026,
@@ -256,8 +320,8 @@ class StreamAC(BaseDevice):
             .attr("minCellVol", const.ATTR_MIN_CELL_VOLT, 0)
             .attr("maxCellVol", const.ATTR_MAX_CELL_VOLT, 0),
             # "waterInFlag": 0,
-
         ]
+
     # moduleWifiRssi
     def numbers(self, client: EcoflowApiClient) -> list[BaseNumberEntity]:
         return []
@@ -275,5 +339,3 @@ class StreamAC(BaseDevice):
 
     def _status_sensor(self, client: EcoflowApiClient) -> StatusSensorEntity:
         return StatusSensorEntity(client, self)
-
-

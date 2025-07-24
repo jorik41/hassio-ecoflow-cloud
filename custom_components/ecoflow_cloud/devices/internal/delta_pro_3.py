@@ -32,7 +32,9 @@ from ..internal.proto import deltapro3_pb2
 
 
 class DeltaPro3SetMessage(Message, PrivateAPIMessageProtocol):
-    def __init__(self, device_sn: str, field: str, value: int, data_len: int | None = None) -> None:
+    def __init__(
+        self, device_sn: str, field: str, value: int, data_len: int | None = None
+    ) -> None:
         super().__init__()
         self.device_sn = device_sn
         self.field = field
@@ -83,10 +85,18 @@ class DeltaPro3(BaseDevice):
                 client, self, "bmsDesignCap", const.MAIN_DESIGN_CAPACITY, False
             ),
             LevelSensorEntity(client, self, "bmsBattSoh", const.SOH),
-            RemainSensorEntity(client, self, "bmsChgRemTime", const.CHARGE_REMAINING_TIME),
-            RemainSensorEntity(client, self, "bmsDsgRemTime", const.DISCHARGE_REMAINING_TIME),
-            TempSensorEntity(client, self, "bmsMinCellTemp", const.MIN_CELL_TEMP, False),
-            TempSensorEntity(client, self, "bmsMaxCellTemp", const.MAX_CELL_TEMP, False),
+            RemainSensorEntity(
+                client, self, "bmsChgRemTime", const.CHARGE_REMAINING_TIME
+            ),
+            RemainSensorEntity(
+                client, self, "bmsDsgRemTime", const.DISCHARGE_REMAINING_TIME
+            ),
+            TempSensorEntity(
+                client, self, "bmsMinCellTemp", const.MIN_CELL_TEMP, False
+            ),
+            TempSensorEntity(
+                client, self, "bmsMaxCellTemp", const.MAX_CELL_TEMP, False
+            ),
             TempSensorEntity(client, self, "bmsMinMosTemp", const.MIN_MOS_TEMP, False),
             TempSensorEntity(client, self, "bmsMaxMosTemp", const.MAX_MOS_TEMP, False),
             LevelSensorEntity(client, self, "cmsBattSoc", const.COMBINED_BATTERY_LEVEL),
@@ -103,19 +113,41 @@ class DeltaPro3(BaseDevice):
             OutWattsSensorEntity(client, self, "powGet12v", const.DC_12V_OUT_POWER),
             OutWattsSensorEntity(client, self, "powGet24v", const.DC_24V_OUT_POWER),
             OutWattsSensorEntity(client, self, "powGetAcLvOut", const.AC_LV_OUT_POWER),
-            OutWattsSensorEntity(client, self, "powGetAcLvTt30Out", const.AC_LV_TT30_OUT_POWER),
+            OutWattsSensorEntity(
+                client, self, "powGetAcLvTt30Out", const.AC_LV_TT30_OUT_POWER
+            ),
             OutWattsSensorEntity(client, self, "powGet5p8", const.POWER_INOUT_PORT),
-            OutWattsSensorEntity(client, self, "powGetQcusb1", const.USB_QC_1_OUT_POWER),
-            OutWattsSensorEntity(client, self, "powGetQcusb2", const.USB_QC_2_OUT_POWER),
-            OutWattsSensorEntity(client, self, "powGet4p81", const.EXTRA_BATTERY_1_OUT_POWER),
-            OutWattsSensorEntity(client, self, "powGet4p82", const.EXTRA_BATTERY_2_OUT_POWER),
+            OutWattsSensorEntity(
+                client, self, "powGetQcusb1", const.USB_QC_1_OUT_POWER
+            ),
+            OutWattsSensorEntity(
+                client, self, "powGetQcusb2", const.USB_QC_2_OUT_POWER
+            ),
+            OutWattsSensorEntity(
+                client, self, "powGet4p81", const.EXTRA_BATTERY_1_OUT_POWER
+            ),
+            OutWattsSensorEntity(
+                client, self, "powGet4p82", const.EXTRA_BATTERY_2_OUT_POWER
+            ),
             FrequencySensorEntity(client, self, "acOutFreq", const.AC_FREQUENCY),
-            VoltSensorEntity(client, self, "plugInInfoPvHChgVolMax", const.PV_VOLTAGE, False),
-            AmpSensorEntity(client, self, "plugInInfoPvHChgAmpMax", const.PV_CURRENT, False),
-            VoltSensorEntity(client, self, "plugInInfoPvLChgVolMax", const.PV_VOLTAGE, False),
-            AmpSensorEntity(client, self, "plugInInfoPvLChgAmpMax", const.PV_CURRENT, False),
-            RemainSensorEntity(client, self, "cmsChgRemTime", const.CHARGE_REMAINING_TIME),
-            RemainSensorEntity(client, self, "cmsDsgRemTime", const.DISCHARGE_REMAINING_TIME),
+            VoltSensorEntity(
+                client, self, "plugInInfoPvHChgVolMax", const.PV_VOLTAGE, False
+            ),
+            AmpSensorEntity(
+                client, self, "plugInInfoPvHChgAmpMax", const.PV_CURRENT, False
+            ),
+            VoltSensorEntity(
+                client, self, "plugInInfoPvLChgVolMax", const.PV_VOLTAGE, False
+            ),
+            AmpSensorEntity(
+                client, self, "plugInInfoPvLChgAmpMax", const.PV_CURRENT, False
+            ),
+            RemainSensorEntity(
+                client, self, "cmsChgRemTime", const.CHARGE_REMAINING_TIME
+            ),
+            RemainSensorEntity(
+                client, self, "cmsDsgRemTime", const.DISCHARGE_REMAINING_TIME
+            ),
         ]
 
     def numbers(self, client: EcoflowApiClient) -> list[BaseNumberEntity]:

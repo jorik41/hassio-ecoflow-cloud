@@ -153,9 +153,11 @@ class EcoFlowBaseCommandEntity[_CommandArg](EcoFlowDictEntity):
         device: BaseDevice,
         mqtt_key: str,
         title: str,
-        command: Callable[[_CommandArg], dict[str, Any] | Message]
-        | Callable[[_CommandArg, dict[str, Any]], dict[str, Any] | Message]
-        | None,
+        command: (
+            Callable[[_CommandArg], dict[str, Any] | Message]
+            | Callable[[_CommandArg, dict[str, Any]], dict[str, Any] | Message]
+            | None
+        ),
         enabled: bool = True,
         auto_enable: bool = False,
     ):
@@ -197,9 +199,11 @@ class BaseNumberEntity(NumberEntity, EcoFlowBaseCommandEntity[int]):
         title: str,
         min_value: int,
         max_value: int,
-        command: Callable[[int], dict[str, Any] | Message]
-        | Callable[[int, dict[str, Any]], dict[str, Any] | Message]
-        | None,
+        command: (
+            Callable[[int], dict[str, Any] | Message]
+            | Callable[[int, dict[str, Any]], dict[str, Any] | Message]
+            | None
+        ),
         enabled: bool = True,
         auto_enable: bool = False,
     ):

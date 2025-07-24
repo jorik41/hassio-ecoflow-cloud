@@ -13,5 +13,3 @@ class Delta2(InternalDelta2):
 
     def _status_sensor(self, client: EcoflowApiClient) -> StatusSensorEntity:
         return StatusSensorEntity(client, self)
-
-
