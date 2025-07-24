@@ -19,6 +19,10 @@ from custom_components.ecoflow_cloud.sensor import (
     LevelSensorEntity,
     OutWattsSensorEntity,
     RemainSensorEntity,
+    TempSensorEntity,
+    VoltSensorEntity,
+    AmpSensorEntity,
+    FrequencySensorEntity,
 )
 from custom_components.ecoflow_cloud.switch import BeeperEntity, EnabledEntity
 from custom_components.ecoflow_cloud.devices import BaseDevice, const
@@ -202,7 +206,7 @@ class DeltaPro3(BaseDevice):
             EnabledEntity(
                 client,
                 self,
-                "flowInfoDc12v",
+                "flowInfo12v",
                 const.DC_ENABLED,
                 lambda value: {
                     "sn": self.device_info.sn,
