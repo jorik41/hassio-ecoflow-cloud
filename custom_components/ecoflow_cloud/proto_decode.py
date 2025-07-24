@@ -60,6 +60,34 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
                 )
             except Exception:
                 result["params"]["raw_payload"] = message.pdata.hex()
+        elif message.cmd_func == 254 and message.cmd_id == 23:
+            report = deltapro3_pb2.cmdFunc254_cmdId23_Report()
+            try:
+                report.ParseFromString(message.pdata)
+                result["params"].update(
+                    MessageToDict(report, preserving_proto_field_name=False)
+                )
+            except Exception:
+                result["params"]["raw_payload"] = message.pdata.hex()
+        elif message.cmd_func == 32 and message.cmd_id == 2:
+            report = deltapro3_pb2.cmdFunc32_cmdId2_Report()
+            try:
+                report.ParseFromString(message.pdata)
+                result["params"].update(
+                    MessageToDict(report, preserving_proto_field_name=False)
+                )
+            except Exception:
+                result["params"]["raw_payload"] = message.pdata.hex()
+        elif message.cmd_func == 50 and message.cmd_id == 30:
+            report = deltapro3_pb2.cmdFunc50_cmdId30_Report()
+            try:
+                report.ParseFromString(message.pdata)
+                result["params"].update(
+                    MessageToDict(report, preserving_proto_field_name=False)
+                )
+            except Exception:
+                result["params"]["raw_payload"] = message.pdata.hex()
         else:
-            result["params"][f"cmd_{message.cmd_func}_{message.cmd_id}"] = message.pdata.hex()
+            key = f"cmd_{message.cmd_func}_{message.cmd_id}"
+            result["params"][key] = message.pdata.hex()
     return result

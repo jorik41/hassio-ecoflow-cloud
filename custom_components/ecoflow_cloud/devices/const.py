@@ -289,12 +289,16 @@ TEMPERATURE = "Temperature"
 BATTERY_TEMP = "Battery Temperature"
 MIN_CELL_TEMP = "Min Cell Temperature"
 MAX_CELL_TEMP = "Max Cell Temperature"
+MIN_MOS_TEMP = "Min MOS Temperature"
+MAX_MOS_TEMP = "Max MOS Temperature"
 INV_IN_TEMP = "Inverter Inside Temperature"
 INV_OUT_TEMP = "Inverter Outside Temperature"
 DC_CAR_OUT_TEMP = "DC Temperature"
 USB_C_TEMP = "USB C Temperature"
 ATTR_MIN_CELL_TEMP = MIN_CELL_TEMP
 ATTR_MAX_CELL_TEMP = MAX_CELL_TEMP
+ATTR_MIN_MOS_TEMP = MIN_MOS_TEMP
+ATTR_MAX_MOS_TEMP = MAX_MOS_TEMP
 
 VOLT = "Volts"
 BATTERY_VOLT = "Battery Volts"

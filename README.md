@@ -19,6 +19,8 @@ Once installed, use Add Integration -> Ecoflow Cloud.
 
 ⚠️ Originally developed for personal use without a goal to cover all available device attributes
 
+Basic decoding for additional Delta Pro 3 protobuf reports is now included.
+
 ## Current state
 ### Devices available with private_api
 <details><summary> DELTA_2 <i>(sensors: 45, switches: 8, sliders: 6, selects: 5)</i> </summary>
@@ -1879,16 +1881,46 @@ Once installed, use Add Integration -> Ecoflow Cloud.
 
 </p></details>
 
-<details><summary> Delta Pro 3 (API) <i>(sensors: 6, switches: 0, sliders: 1, selects: 0)</i> </summary>
+<details><summary> Delta Pro 3 (API) <i>(sensors: 36, switches: 0, sliders: 1, selects: 0)</i> </summary>
 <p>
 
 *Sensors*
 - Main Battery Level
 - Main Design Capacity  _(disabled)_
+- Main Battery SOH
+- Main Charge Remaining Time
+- Main Discharge Remaining Time
+- Min Cell Temperature  _(disabled)_
+- Max Cell Temperature  _(disabled)_
+- Min MOS Temperature  _(disabled)_
+- Max MOS Temperature  _(disabled)_
 - Battery Level
+- Combined Battery SOH
 - Total In Power
 - Total Out Power
 - AC In Power
+- AC Out Power
+- Solar In Power
+- Solar (HV) In Power
+- AC High Voltage Out Power
+- Type-C (1) Out Power
+- Type-C (2) Out Power
+- 12V Out Power
+- 24V Out Power
+- AC Low Voltage Out Power
+- AC Low Voltage TT30 Out Power
+- Power In/Out Port Power
+- USB QC (1) Out Power
+- USB QC (2) Out Power
+- Extra Battery Port 1 Power
+- Extra Battery Port 2 Power
+- AC Output Frequency
+- HV PV Max Voltage
+- HV PV Max Current
+- LV PV Max Voltage
+- LV PV Max Current
+- Charge Remaining Time
+- Discharge Remaining Time
 
 *Switches*
 
