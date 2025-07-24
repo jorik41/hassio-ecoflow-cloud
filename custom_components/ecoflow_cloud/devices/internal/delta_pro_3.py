@@ -54,7 +54,10 @@ class DeltaPro3SetMessage(Message, PrivateAPIMessageProtocol):
         header.seq = JSONMessage.gen_seq()
         header.version = 19
         header.payload_ver = 1
-        header.from_ = "HomeAssistant"
+        # The generated protobuf uses the reserved word "from" as a field name.
+        # Since Python does not allow using "from" directly as an attribute, use
+        # ``setattr`` to set the value.
+        setattr(header, "from", "HomeAssistant")
         header.device_sn = self.device_sn
         header.data_len = self.data_len
         setattr(header.pdata, self.field, int(self.value))
