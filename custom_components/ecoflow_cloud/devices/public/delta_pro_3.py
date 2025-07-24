@@ -41,7 +41,15 @@ class DeltaPro3(BaseDevice):
             CapacitySensorEntity(
                 client, self, "bmsDesignCap", const.MAIN_DESIGN_CAPACITY, False
             ),
+            LevelSensorEntity(client, self, "bmsBattSoh", const.SOH),
+            RemainSensorEntity(client, self, "bmsChgRemTime", const.CHARGE_REMAINING_TIME),
+            RemainSensorEntity(client, self, "bmsDsgRemTime", const.DISCHARGE_REMAINING_TIME),
+            TempSensorEntity(client, self, "bmsMinCellTemp", const.MIN_CELL_TEMP, False),
+            TempSensorEntity(client, self, "bmsMaxCellTemp", const.MAX_CELL_TEMP, False),
+            TempSensorEntity(client, self, "bmsMinMosTemp", const.MIN_MOS_TEMP, False),
+            TempSensorEntity(client, self, "bmsMaxMosTemp", const.MAX_MOS_TEMP, False),
             LevelSensorEntity(client, self, "cmsBattSoc", const.COMBINED_BATTERY_LEVEL),
+            LevelSensorEntity(client, self, "cmsBattSoh", const.SOH),
             InWattsSensorEntity(client, self, "powInSumW", const.TOTAL_IN_POWER),
             OutWattsSensorEntity(client, self, "powOutSumW", const.TOTAL_OUT_POWER),
             InWattsSensorEntity(client, self, "powGetAcIn", const.AC_IN_POWER),
@@ -60,6 +68,11 @@ class DeltaPro3(BaseDevice):
             OutWattsSensorEntity(client, self, "powGetQcusb2", const.USB_QC_2_OUT_POWER),
             OutWattsSensorEntity(client, self, "powGet4p81", const.EXTRA_BATTERY_1_OUT_POWER),
             OutWattsSensorEntity(client, self, "powGet4p82", const.EXTRA_BATTERY_2_OUT_POWER),
+            FrequencySensorEntity(client, self, "acOutFreq", const.AC_FREQUENCY),
+            VoltSensorEntity(client, self, "plugInInfoPvHChgVolMax", const.PV_VOLTAGE, False),
+            AmpSensorEntity(client, self, "plugInInfoPvHChgAmpMax", const.PV_CURRENT, False),
+            VoltSensorEntity(client, self, "plugInInfoPvLChgVolMax", const.PV_VOLTAGE, False),
+            AmpSensorEntity(client, self, "plugInInfoPvLChgAmpMax", const.PV_CURRENT, False),
             RemainSensorEntity(client, self, "cmsChgRemTime", const.CHARGE_REMAINING_TIME),
             RemainSensorEntity(client, self, "cmsDsgRemTime", const.DISCHARGE_REMAINING_TIME),
         ]
