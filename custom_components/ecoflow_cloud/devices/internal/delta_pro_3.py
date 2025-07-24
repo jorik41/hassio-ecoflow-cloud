@@ -248,15 +248,9 @@ class DeltaPro3(BaseDevice):
                 self,
                 "flowInfoAcHvOut",
                 const.AC_ENABLED,
-                lambda value: {
-                    "sn": self.device_info.sn,
-                    "cmdId": 17,
-                    "dirDest": 1,
-                    "dirSrc": 1,
-                    "cmdFunc": 254,
-                    "dest": 2,
-                    "params": {"cfgHvAcOutOpen": value},
-                },
+                lambda value: DeltaPro3SetMessage(
+                    self.device_info.sn, "cfgHvAcOutOpen", value
+                ),
                 enableValue=2,
             ),
             EnabledEntity(
