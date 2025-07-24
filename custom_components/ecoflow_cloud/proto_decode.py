@@ -4,7 +4,11 @@ from typing import Any, Dict
 
 from google.protobuf.json_format import MessageToDict
 
-from .devices.internal.proto import ecopacket_pb2, powerstream_pb2
+from .devices.internal.proto import (
+    ecopacket_pb2,
+    powerstream_pb2,
+    deltapro3_pb2,
+)
 from .devices.internal.proto.support.const import (
     Command,
     CommandFunc,
@@ -35,6 +39,24 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
                 heartbeat.ParseFromString(message.pdata)
                 result["params"].update(
                     MessageToDict(heartbeat, preserving_proto_field_name=False)
+                )
+            except Exception:
+                result["params"]["raw_payload"] = message.pdata.hex()
+        elif message.cmd_func == 254 and message.cmd_id == 21:
+            display = deltapro3_pb2.DisplayPropertyUpload()
+            try:
+                display.ParseFromString(message.pdata)
+                result["params"].update(
+                    MessageToDict(display, preserving_proto_field_name=False)
+                )
+            except Exception:
+                result["params"]["raw_payload"] = message.pdata.hex()
+        elif message.cmd_func == 254 and message.cmd_id == 22:
+            runtime = deltapro3_pb2.RuntimePropertyUpload()
+            try:
+                runtime.ParseFromString(message.pdata)
+                result["params"].update(
+                    MessageToDict(runtime, preserving_proto_field_name=False)
                 )
             except Exception:
                 result["params"]["raw_payload"] = message.pdata.hex()
