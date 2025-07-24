@@ -16,7 +16,11 @@ from .devices.internal.proto.support.const import (
 
 
 def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
-    """Decode EcoFlow protobuf message using powerstream definitions."""
+    """Decode EcoFlow protobuf message using powerstream definitions.
+
+    XOR encrypted payloads with ``enc_type`` 1 or 6 are automatically
+    decrypted using the packet sequence number as key.
+    """
     try:
         packet = ecopacket_pb2.SendHeaderMsg()
         packet.ParseFromString(raw_data)
@@ -31,7 +35,9 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
 
     for message in packet.msg:
         payload = message.pdata
-        if message.enc_type == 1 and message.src != 32:
+        # enc_type 1 and 6 indicate payload is XOR encrypted with the
+        # lower byte of the sequence number
+        if message.enc_type in {1, 6} and message.src != 32:
             xor_key = message.seq & 0xFF
             payload = bytes(b ^ xor_key for b in payload)
         if (
