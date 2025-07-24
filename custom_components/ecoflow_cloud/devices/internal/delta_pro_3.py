@@ -32,12 +32,15 @@ from ..internal.proto import deltapro3_pb2
 
 
 class DeltaPro3SetMessage(Message, PrivateAPIMessageProtocol):
-    def __init__(self, device_sn: str, field: str, value: int, data_len: int = 3) -> None:
+    def __init__(self, device_sn: str, field: str, value: int, data_len: int | None = None) -> None:
         super().__init__()
         self.device_sn = device_sn
         self.field = field
         self.value = value
-        self.data_len = data_len
+        if data_len is None:
+            self.data_len = 3 if value > 127 else 2
+        else:
+            self.data_len = data_len
 
     def _build(self) -> deltapro3_pb2.setMessage:
         msg = deltapro3_pb2.setMessage()
