@@ -27,7 +27,7 @@ def to_plain(raw_data: dict[str, any]) -> dict[str, any]:
         prefix += f"{prefix1}."
     elif "cmdFunc" in raw_data and "cmdId" in raw_data:
         prefix += f"{raw_data['cmdFunc']}_{raw_data['cmdId']}."
-    else :
+    else:
         prefix += ""
 
     if "param" in raw_data:

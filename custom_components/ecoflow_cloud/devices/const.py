@@ -27,7 +27,7 @@ UNIT_TIMEOUT_OPTIONS = {
     "4 hr": 240,
     "6 hr": 360,
     "12 hr": 720,
-    "24 hr": 1440
+    "24 hr": 1440,
 }
 
 UNIT_TIMEOUT_OPTIONS_LIMITED = {
@@ -36,7 +36,7 @@ UNIT_TIMEOUT_OPTIONS_LIMITED = {
     "1 hr": 60,
     "2 hr": 120,
     "6 hr": 360,
-    "12 hr": 720
+    "12 hr": 720,
 }
 
 AC_TIMEOUT_OPTIONS = {
@@ -79,36 +79,15 @@ DC_TIMEOUT_OPTIONS_LIMITED = {
     "24 hr": 1440,
 }
 
-DC_CHARGE_CURRENT_OPTIONS = {
-    "4A": 4000,
-    "6A": 6000,
-    "8A": 8000
-}
+DC_CHARGE_CURRENT_OPTIONS = {"4A": 4000, "6A": 6000, "8A": 8000}
 
-MAIN_MODE_OPTIONS = {
-    "Cool": 0,
-    "Heat": 1,
-    "Fan": 2
-}
+MAIN_MODE_OPTIONS = {"Cool": 0, "Heat": 1, "Fan": 2}
 
-FAN_MODE_OPTIONS = {
-    "Low": 0,
-    "Medium": 1,
-    "High": 2
-}
+FAN_MODE_OPTIONS = {"Low": 0, "Medium": 1, "High": 2}
 
-REMOTE_MODE_OPTIONS = {
-    "Startup": 1,
-    "Standby": 2,
-    "Shutdown": 3
-}
+REMOTE_MODE_OPTIONS = {"Startup": 1, "Standby": 2, "Shutdown": 3}
 
-POWER_SUB_MODE_OPTIONS = {
-    "Max": 0,
-    "Sleep": 1,
-    "Eco": 2,
-    "Manual": 3
-}
+POWER_SUB_MODE_OPTIONS = {"Max": 0, "Sleep": 1, "Eco": 2, "Manual": 3}
 
 TEMP_SYS_OPTIONS = {
     "Celsius": 0,
@@ -135,7 +114,7 @@ AUTO_DRAIN_OPTIONS = {
 
 POWER_SUPPLY_PRIORITY_OPTIONS = {
     "Prioritize power supply": 0,
-    "Prioritize power storage": 1
+    "Prioritize power storage": 1,
 }
 
 COMBINED_BATTERY_LEVEL = "Battery Level"
@@ -372,10 +351,16 @@ SMART_METER_RECORD_ACTIVE_TODAY_L2 = "L2 Lifetime net usage"
 SMART_METER_RECORD_ACTIVE_TODAY_L3 = "L3 Lifetime net usage"
 
 # Stream AC
-STREAM_POWER_AC = "Power AC" # <0 import from home to battery / >0 export from battery to home
-STREAM_POWER_VOL = "Power Volts" # <0 import from home to battery / >0 export from battery to home
+STREAM_POWER_AC = (
+    "Power AC"  # <0 import from home to battery / >0 export from battery to home
+)
+STREAM_POWER_VOL = (
+    "Power Volts"  # <0 import from home to battery / >0 export from battery to home
+)
 STREAM_POWER_AMP = "Power In Amps"
-STREAM_POWER_AC_SYS = "Power AC SYS" # <0 import from home to battery / >0 export from battery to home
+STREAM_POWER_AC_SYS = (
+    "Power AC SYS"  # <0 import from home to battery / >0 export from battery to home
+)
 STREAM_POWER_PV_1 = "Power PV 1"
 STREAM_POWER_PV_2 = "Power PV 2"
 STREAM_POWER_PV_3 = "Power PV 3"
@@ -385,15 +370,17 @@ STREAM_IN_AMPS_PV_2 = "Power PV2 In Amps"
 STREAM_IN_VOL_PV_1 = "Power PV1 Volts"
 STREAM_IN_VOL_PV_2 = "Power PV2 Volts"
 STREAM_POWER_PV_SUM = "Power PV Sum"
-STREAM_GET_SYS_LOAD = "Power Sys Load" # powGetSysLoad
-STREAM_GET_SYS_LOAD_FROM_BP = "Power Sys Load From Battery" # powGetSysLoadFromBp
-STREAM_GET_SYS_LOAD_FROM_GRID = "Power Sys Load From Grid" # powGetSysLoadFromGrid
-STREAM_GET_SYS_LOAD_FROM_PV = "Power Sys Load From PV" # powGetSysLoadFromPv
-STREAM_GET_SCHUKO1 = "Power SCHUKO1" # powGetSchuko1
-STREAM_GET_SCHUKO2 = "Power SCHUKO2" # powGetSchuko2
-STREAM_POWER_GRID = "Power Grid" # power from smart meter or shelly
-STREAM_POWER_BATTERY = "Power Battery" # <0 discharge battery / >0 charge batterie
-STREAM_POWER_BATTERY_SOC = "Power Battery SOC" # <0 discharge battery / >0 charge batterie
+STREAM_GET_SYS_LOAD = "Power Sys Load"  # powGetSysLoad
+STREAM_GET_SYS_LOAD_FROM_BP = "Power Sys Load From Battery"  # powGetSysLoadFromBp
+STREAM_GET_SYS_LOAD_FROM_GRID = "Power Sys Load From Grid"  # powGetSysLoadFromGrid
+STREAM_GET_SYS_LOAD_FROM_PV = "Power Sys Load From PV"  # powGetSysLoadFromPv
+STREAM_GET_SCHUKO1 = "Power SCHUKO1"  # powGetSchuko1
+STREAM_GET_SCHUKO2 = "Power SCHUKO2"  # powGetSchuko2
+STREAM_POWER_GRID = "Power Grid"  # power from smart meter or shelly
+STREAM_POWER_BATTERY = "Power Battery"  # <0 discharge battery / >0 charge batterie
+STREAM_POWER_BATTERY_SOC = (
+    "Power Battery SOC"  # <0 discharge battery / >0 charge batterie
+)
 STREAM_BATTERY_LEVEL = "Battery Level"
 STREAM_DESIGN_CAPACITY = "Design Capacity"
 STREAM_FULL_CAPACITY = "Full Capacity"
@@ -417,28 +404,16 @@ SLAVE_N_ACCU_CHARGE_ENERGY = "Slave %i Cumulative Energy Charge (Wh)"
 SLAVE_N_ACCU_DISCHARGE_CAP = "Slave %i Cumulative Capacity Discharge (mAh)"
 SLAVE_N_ACCU_DISCHARGE_ENERGY = "Slave %i Cumulative Energy Discharge (Wh)"
 
-#Smart Home Pannel 2
+# Smart Home Pannel 2
 
 BATTERIE_STATUS = "Batterie Status"
 
-BATTERIE_STATUS_OPTIONS = {
-    "No operation": 0,
-    "Enabled": 1,
-    "Disabled": 2
-}
+BATTERIE_STATUS_OPTIONS = {"No operation": 0, "Enabled": 1, "Disabled": 2}
 
 BATTERIE_FORCE_CHARGE = "Batterie Force Charge"
 
-BATTERIE_FORCE_CHARGE_OPTIONS =  {
-    "Off": "FORCE_CHARGE_OFF",
-    "On": "FORCE_CHARGE_ON"
-}
+BATTERIE_FORCE_CHARGE_OPTIONS = {"Off": "FORCE_CHARGE_OFF", "On": "FORCE_CHARGE_ON"}
 
 SMART_BACKUP_MODE = "Economic Mode"
 
-SMART_BACKUP_MODE_OPTIONS = {
-    "None": 0,
-    "TOU" : 1,
-    "Self-service" : 2,
-    "Timed task": 3
-}
+SMART_BACKUP_MODE_OPTIONS = {"None": 0, "TOU": 1, "Self-service": 2, "Timed task": 3}

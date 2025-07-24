@@ -84,7 +84,7 @@ device_by_product: OrderedDict[str, Type[BaseDevice]] = OrderedDict[
         "Stream AC": public_stream_ac.StreamAC,
         "Stream PRO": public_stream_ac.StreamAC,
         "Stream Ultra": public_stream_ac.StreamAC,
-        "Stream Microinverter" : public_stream_microinverter.StreamMicroinveter,
+        "Stream Microinverter": public_stream_microinverter.StreamMicroinveter,
         "Smart Home Panel 2": public_smart_home_panel_2.SmartHomePanel2,
         "Diagnostic": DiagnosticDevice,
     }

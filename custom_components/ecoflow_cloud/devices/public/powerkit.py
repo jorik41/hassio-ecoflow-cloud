@@ -238,7 +238,9 @@ class PowerKit(BaseDevice):
                 const.SOLAR_AND_ALT_IN_POWER,
                 True,
             ),
-            MilliampSensorEntity(client, self, "batCurr", "Solar Battery Current", True),
+            MilliampSensorEntity(
+                client, self, "batCurr", "Solar Battery Current", True
+            ),
             MilliVoltSensorEntity(
                 client, self, "batVol", "Solar Battery Voltage", True
             ),
@@ -248,7 +250,9 @@ class PowerKit(BaseDevice):
             MilliVoltSensorEntity(
                 client, self, "pv1InVol", "Solar (2) In Voltage", True
             ),
-            MilliampSensorEntity(client, self, "pv1InCurr", "Solar (2) In Current", True),
+            MilliampSensorEntity(
+                client, self, "pv1InCurr", "Solar (2) In Current", True
+            ),
             MiscSensorEntity(client, self, "pv1ErrCode", "Solar (2) Error Code", True),
             MiscSensorEntity(client, self, "pv1_hot_out", "Solar (2) Hot Out", False),
             MiscSensorEntity(
@@ -281,7 +285,9 @@ class PowerKit(BaseDevice):
             MilliVoltSensorEntity(
                 client, self, "pv2InVol", "Solar (3) In Voltage", True
             ),
-            MilliampSensorEntity(client, self, "pv2InCurr", "Solar (3) In Current", True),
+            MilliampSensorEntity(
+                client, self, "pv2InCurr", "Solar (3) In Current", True
+            ),
             MiscSensorEntity(client, self, "pv2ErrCode", "Solar (3) Error Code", True),
             MiscSensorEntity(client, self, "pv2_hot_out", "Solar (3) Hot Out", False),
             MiscSensorEntity(
@@ -481,7 +487,9 @@ class PowerKit(BaseDevice):
                 client, self, "outVol", "AC Out Voltage", True
             ),  # 240070
             # MiscSensorEntity(client, "outVa", 'AC Out VA', True), # 361
-            MilliampSensorEntity(client, self, "outCurr", "AC Out Current", True),  # 2432
+            MilliampSensorEntity(
+                client, self, "outCurr", "AC Out Current", True
+            ),  # 2432
             MiscSensorEntity(client, self, "invType", "AC Inverter Type", False),  # 0
             FrequencySensorEntity(client, self, "inFreq", "AC In Frequency", True),  # 0
             OutWattsSensorEntity(client, self, "inWatts", "AC In Power", True),  # 0
@@ -495,7 +503,9 @@ class PowerKit(BaseDevice):
             OutWattsSensorEntity(
                 client, self, "ch2Watt", "AC Outlet Power", True
             ),  # 165
-            MilliampSensorEntity(client, self, "outAmp2", "AC Outlet Current", True),  # 0
+            MilliampSensorEntity(
+                client, self, "outAmp2", "AC Outlet Current", True
+            ),  # 0
             FrequencySensorEntity(
                 client,
                 self,

@@ -30,9 +30,11 @@ class DictSelectEntity(BaseSelectEntity[int]):
         mqtt_key: str,
         title: str,
         options: dict[str, Any],
-        command: Callable[[int], dict[str, Any] | Message]
-        | Callable[[int, dict[str, Any]], dict[str, Any] | Message]
-        | None,
+        command: (
+            Callable[[int], dict[str, Any] | Message]
+            | Callable[[int, dict[str, Any]], dict[str, Any] | Message]
+            | None
+        ),
         enabled: bool = True,
         auto_enable: bool = False,
     ):

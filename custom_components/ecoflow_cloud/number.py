@@ -44,9 +44,11 @@ class ChargingPowerEntity(ValueUpdateEntity):
         title: str,
         min_value: int,
         max_value: int,
-        command: Callable[[int], dict[str, Any] | Message]
-        | Callable[[int, dict[str, Any]], dict[str, Any] | Message]
-        | None,
+        command: (
+            Callable[[int], dict[str, Any] | Message]
+            | Callable[[int, dict[str, Any]], dict[str, Any] | Message]
+            | None
+        ),
         enabled: bool = True,
         auto_enable: bool = False,
     ):
@@ -97,9 +99,11 @@ class MinMaxLevelEntity(ValueUpdateEntity):
         title: str,
         min_value: int,
         max_value: int,
-        command: Callable[[int], dict[str, Any] | Message]
-        | Callable[[int, dict[str, Any]], dict[str, Any] | Message]
-        | None,
+        command: (
+            Callable[[int], dict[str, Any] | Message]
+            | Callable[[int, dict[str, Any]], dict[str, Any] | Message]
+            | None
+        ),
     ):
         super().__init__(
             client, device, mqtt_key, title, min_value, max_value, command, True, False
