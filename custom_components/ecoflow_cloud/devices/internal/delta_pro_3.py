@@ -1,4 +1,6 @@
 from custom_components.ecoflow_cloud.api import EcoflowApiClient
+from custom_components.ecoflow_cloud.api.message import JSONMessage, Message
+from custom_components.ecoflow_cloud.api.private_api import PrivateAPIMessageProtocol
 from custom_components.ecoflow_cloud.entities import (
     BaseNumberEntity,
     BaseSelectEntity,
@@ -26,6 +28,43 @@ from custom_components.ecoflow_cloud.sensor import (
 )
 from custom_components.ecoflow_cloud.switch import BeeperEntity, EnabledEntity
 from custom_components.ecoflow_cloud.devices import BaseDevice, const
+from ..internal.proto import deltapro3_pb2
+
+
+class DeltaPro3SetMessage(Message, PrivateAPIMessageProtocol):
+    def __init__(self, device_sn: str, field: str, value: int, data_len: int = 3) -> None:
+        super().__init__()
+        self.device_sn = device_sn
+        self.field = field
+        self.value = value
+        self.data_len = data_len
+
+    def _build(self) -> deltapro3_pb2.setMessage:
+        msg = deltapro3_pb2.setMessage()
+        header = msg.header
+        header.src = 32
+        header.dest = 2
+        header.d_src = 1
+        header.d_dest = 1
+        header.enc_type = 1
+        header.check_type = 3
+        header.cmd_func = 254
+        header.cmd_id = 17
+        header.need_ack = 1
+        header.seq = JSONMessage.gen_seq()
+        header.version = 19
+        header.payload_ver = 1
+        header.from_ = "HomeAssistant"
+        header.device_sn = self.device_sn
+        header.data_len = self.data_len
+        setattr(header.pdata, self.field, int(self.value))
+        return msg
+
+    def private_api_to_mqtt_payload(self):
+        return self._build().SerializeToString()
+
+    def to_mqtt_payload(self):
+        return self.private_api_to_mqtt_payload()
 
 
 class DeltaPro3(BaseDevice):
@@ -82,15 +121,9 @@ class DeltaPro3(BaseDevice):
                 const.MAX_CHARGE_LEVEL,
                 50,
                 100,
-                lambda value: {
-                    "sn": self.device_info.sn,
-                    "cmdId": 17,
-                    "dirDest": 1,
-                    "dirSrc": 1,
-                    "cmdFunc": 254,
-                    "dest": 2,
-                    "params": {"cfgMaxChgSoc": value},
-                },
+                lambda value: DeltaPro3SetMessage(
+                    self.device_info.sn, "cmsMaxChgSoc", value
+                ),
             ),
             MinBatteryLevelEntity(
                 client,
@@ -99,15 +132,9 @@ class DeltaPro3(BaseDevice):
                 const.MIN_DISCHARGE_LEVEL,
                 0,
                 30,
-                lambda value: {
-                    "sn": self.device_info.sn,
-                    "cmdId": 17,
-                    "dirDest": 1,
-                    "dirSrc": 1,
-                    "cmdFunc": 254,
-                    "dest": 2,
-                    "params": {"cfgMinDsgSoc": value},
-                },
+                lambda value: DeltaPro3SetMessage(
+                    self.device_info.sn, "cmsMinDsgSoc", value
+                ),
             ),
             BatteryBackupLevel(
                 client,
@@ -208,15 +235,9 @@ class DeltaPro3(BaseDevice):
                 self,
                 "flowInfo12v",
                 const.DC_ENABLED,
-                lambda value: {
-                    "sn": self.device_info.sn,
-                    "cmdId": 17,
-                    "dirDest": 1,
-                    "dirSrc": 1,
-                    "cmdFunc": 254,
-                    "dest": 2,
-                    "params": {"cfgDc12vOutOpen": value},
-                },
+                lambda value: DeltaPro3SetMessage(
+                    self.device_info.sn, "cfgDc12vOutOpen", value
+                ),
                 enableValue=2,
             ),
             EnabledEntity(
@@ -224,15 +245,9 @@ class DeltaPro3(BaseDevice):
                 self,
                 "flowInfoAcHvOut",
                 const.AC_ENABLED,
-                lambda value: {
-                    "sn": self.device_info.sn,
-                    "cmdId": 17,
-                    "dirDest": 1,
-                    "dirSrc": 1,
-                    "cmdFunc": 254,
-                    "dest": 2,
-                    "params": {"cfgHvAcOutOpen": value},
-                },
+                lambda value: DeltaPro3SetMessage(
+                    self.device_info.sn, "cfgHvAcOutOpen", value
+                ),
                 enableValue=2,
             ),
             EnabledEntity(
@@ -240,15 +255,9 @@ class DeltaPro3(BaseDevice):
                 self,
                 "xboostEn",
                 const.XBOOST_ENABLED,
-                lambda value: {
-                    "sn": self.device_info.sn,
-                    "cmdId": 17,
-                    "dirDest": 1,
-                    "dirSrc": 1,
-                    "cmdFunc": 254,
-                    "dest": 2,
-                    "params": {"cfgXboostEn": value},
-                },
+                lambda value: DeltaPro3SetMessage(
+                    self.device_info.sn, "xboostEn", value
+                ),
             ),
         ]
 
