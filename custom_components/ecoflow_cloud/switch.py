@@ -55,7 +55,8 @@ class EnabledEntity(BaseSwitchEntity[int]):
 
     def turn_on(self, **kwargs: Any) -> None:
         if self._command:
-            self.send_set_message(1, self.command_dict(1))
+            value = 1 if self._enable_value is None else self._enable_value
+            self.send_set_message(value, self.command_dict(value))
 
     def turn_off(self, **kwargs: Any) -> None:
         if self._command:
