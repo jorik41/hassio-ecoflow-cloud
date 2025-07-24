@@ -37,10 +37,7 @@ class DeltaPro3SetMessage(Message, PrivateAPIMessageProtocol):
         self.device_sn = device_sn
         self.field = field
         self.value = value
-        if data_len is None:
-            self.data_len = 3 if value > 127 else 2
-        else:
-            self.data_len = data_len
+        self.data_len = data_len
 
     def _build(self) -> deltapro3_pb2.setMessage:
         msg = deltapro3_pb2.setMessage()
@@ -62,8 +59,11 @@ class DeltaPro3SetMessage(Message, PrivateAPIMessageProtocol):
         # ``setattr`` to set the value.
         setattr(header, "from", "HomeAssistant")
         header.device_sn = self.device_sn
-        header.data_len = self.data_len
         setattr(header.pdata, self.field, int(self.value))
+        if self.data_len is None:
+            header.data_len = header.pdata.ByteSize()
+        else:
+            header.data_len = self.data_len
         return msg
 
     def private_api_to_mqtt_payload(self):
