@@ -27,6 +27,10 @@ from ...sensor import (
     LevelSensorEntity,
     OutWattsSensorEntity,
     RemainSensorEntity,
+    TempSensorEntity,
+    VoltSensorEntity,
+    AmpSensorEntity,
+    FrequencySensorEntity,
 )
 from ...switch import BeeperEntity, EnabledEntity
 from .. import BaseDevice, const
@@ -210,7 +214,7 @@ class DeltaPro3(BaseDevice):
             EnabledEntity(
                 client,
                 self,
-                "flowInfoDc12v",
+                "flowInfo12v",
                 const.DC_ENABLED,
                 lambda value: {
                     "sn": self.device_info.sn,
