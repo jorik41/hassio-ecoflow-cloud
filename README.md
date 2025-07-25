@@ -1,10 +1,10 @@
 # EcoFlow Cloud Integration for Home Assistant
-[![GitHub release](https://img.shields.io/github/release/tolwi/hassio-ecoflow-cloud?include_prereleases=&sort=semver&color=blue)](https://github.com/tolwi/hassio-ecoflow-cloud/releases/)
-[![issues - hassio-ecoflow-cloud](https://img.shields.io/github/issues/tolwi/hassio-ecoflow-cloud)](https://github.com/tolwi/hassio-ecoflow-cloud/issues)
-[![GH-code-size](https://img.shields.io/github/languages/code-size/tolwi/hassio-ecoflow-cloud?color=red)](https://github.com/tolwi/hassio-ecoflow-cloud)
-[![GH-last-commit](https://img.shields.io/github/last-commit/tolwi/hassio-ecoflow-cloud?style=flat-square)](https://github.com/tolwi/hassio-ecoflow-cloud/commits/main)
+[![GitHub release](https://img.shields.io/github/release/jorik41/hassio-ecoflow-cloud?include_prereleases=&sort=semver&color=blue)](https://github.com/jorik41/hassio-ecoflow-cloud/releases/)
+[![issues - hassio-ecoflow-cloud](https://img.shields.io/github/issues/jorik41/hassio-ecoflow-cloud)](https://github.com/jorik41/hassio-ecoflow-cloud/issues)
+[![GH-code-size](https://img.shields.io/github/languages/code-size/jorik41/hassio-ecoflow-cloud?color=red)](https://github.com/jorik41/hassio-ecoflow-cloud)
+[![GH-last-commit](https://img.shields.io/github/last-commit/jorik41/hassio-ecoflow-cloud?style=flat-square)](https://github.com/jorik41/hassio-ecoflow-cloud/commits/main)
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-[![HACS validation](https://github.com/tolwi/hassio-ecoflow-cloud/workflows/Validate%20with%20hassfest%20and%20HACS/badge.svg)](https://github.com/tolwi/hassio-ecoflow-cloud/actions?query=workflow:"Validate%20with%20hassfest%20and%20HACS")
+[![HACS validation](https://github.com/jorik41/hassio-ecoflow-cloud/workflows/Validate%20with%20hassfest%20and%20HACS/badge.svg)](https://github.com/jorik41/hassio-ecoflow-cloud/actions?query=workflow:"Validate%20with%20hassfest%20and%20HACS")
 
 Inspired by [hassio-ecoflow](https://github.com/vwt12eh8/hassio-ecoflow) and [ecoflow-mqtt-prometheus-exporter](https://github.com/berezhinskiy/ecoflow-mqtt-prometheus-exporter) this integration uses EcoFlow MQTT Broker `mqtt.ecoflow.com` to monitor and control the device.
 
