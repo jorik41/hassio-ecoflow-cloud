@@ -239,9 +239,11 @@ class DeltaPro3(BaseDevice):
                 const.AC_CHARGING_POWER,
                 400,
                 2900,
+
                 lambda value: DeltaPro3SetMessage(
                     self.device_info.sn, "plugInInfoAcInChgPowMax", value
                 ),
+
             ),
         ]
 

@@ -216,6 +216,7 @@ class DeltaPro3(BaseDevice):
                 lambda value: DeltaPro3SetMessage(
                     self.device_info.sn, "plugInInfoAcInChgPowMax", value
                 ),
+
             ),
         ]
 
