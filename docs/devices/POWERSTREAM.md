@@ -60,9 +60,12 @@
 - Heartbeat Frequency (`20_1.heartbeatFrequency`)   _(disabled)_
 - PV1 Today Energy Total (`254_32.watthPv1`)
 - PV2 Today Energy Total (`254_32.watthPv2`)
+- Total In Energy (`254_32.watthPv1` + `254_32.watthPv2`)
 - From Battery Today Energy Total (`254_32.watthFromBattery`)
 - To Battery Today Energy Total (`254_32.watthToBattery`)
 - To Smart Plugs Today Energy Total (`254_32.watthToSmartPlugs`)
+- Total Out Energy (`254_32.watthToBattery` + `254_32.watthToSmartPlugs`)
+- Total Energy (`254_32.watthPv1` + `254_32.watthPv2` + `254_32.watthFromBattery` + `254_32.watthToBattery` + `254_32.watthToSmartPlugs`)
 - Status
 
 *Switches*

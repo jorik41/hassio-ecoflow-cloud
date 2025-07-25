@@ -80,12 +80,29 @@ async def async_setup_entry(
                     store,
                 )
             )
+            sensors.append(
+                DailyEnergySensorEntity(
+                    client,
+                    device,
+                    [
+                        "254_32.watthPv1",
+                        "254_32.watthPv2",
+                        "254_32.watthFromBattery",
+                        "254_32.watthToBattery",
+                        "254_32.watthToSmartPlugs",
+                    ],
+                    const.TOTAL_ENERGY,
+                    store,
+                )
+            )
 
         name_to_sensor = {s.name: s for s in sensors}
 
         energy_groups: dict[str, list[str]] = {
             const.TOTAL_IN_ENERGY: [const.TOTAL_IN_POWER],
             const.TOTAL_OUT_ENERGY: [const.TOTAL_OUT_POWER],
+            const.TOTAL_ENERGY: [const.TOTAL_IN_POWER, const.TOTAL_OUT_POWER],
+            const.AC_IN_ENERGY: [const.AC_IN_POWER],
             const.CHARGE_AC_ENERGY: [const.AC_IN_POWER],
             const.DISCHARGE_AC_ENERGY: [const.AC_OUT_POWER],
             const.SOLAR_IN_ENERGY: [const.SOLAR_IN_POWER, const.SOLAR_1_IN_POWER, const.SOLAR_2_IN_POWER],
@@ -96,6 +113,10 @@ async def async_setup_entry(
                 const.DC_12V_OUT_POWER,
                 const.DC_24V_OUT_POWER,
             ],
+            const.PV_HV_ENERGY: [const.PV_HV_POWER],
+            const.POWER_INOUT_PORT_ENERGY: [const.POWER_INOUT_PORT],
+            const.EXTRA_BATTERY_1_ENERGY: [const.EXTRA_BATTERY_1_OUT_POWER],
+            const.EXTRA_BATTERY_2_ENERGY: [const.EXTRA_BATTERY_2_OUT_POWER],
             const.TYPEC_OUT_ENERGY: [const.TYPEC_OUT_POWER, const.TYPEC_1_OUT_POWER, const.TYPEC_2_OUT_POWER],
             const.USB_OUT_ENERGY: [
                 const.USB_OUT_POWER,
