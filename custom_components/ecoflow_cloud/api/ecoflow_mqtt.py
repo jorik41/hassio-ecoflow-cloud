@@ -1,6 +1,6 @@
 import logging
 import ssl
-import time
+import asyncio
 from _socket import SocketType
 from typing import Any
 
@@ -63,6 +63,12 @@ class EcoflowMQTTClient:
             _LOGGER.error(e)
             return False
 
+    async def _schedule_reconnect(self) -> None:
+        """Wait and then attempt to reconnect."""
+        await asyncio.sleep(5)
+        if not self.reconnect():
+            _LOGGER.error("Failed to reconnect MQTT after scheduled disconnect")
+
     @callback
     def _on_socket_close(self, client, userdata: Any, sock: SocketType) -> None:
         _LOGGER.warning(
@@ -92,9 +98,7 @@ class EcoflowMQTTClient:
         self.connected = False
         if rc != 0:
             self.__log_with_reason("disconnect", client, userdata, rc)
-            time.sleep(5)
-            if not self.reconnect():
-                _LOGGER.error("Failed to reconnect MQTT after disconnect")
+            asyncio.create_task(self._schedule_reconnect())
 
     @callback
     def _on_message(self, client, userdata, message: MQTTMessage):
