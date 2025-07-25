@@ -504,7 +504,8 @@ class CalculatedEnergySensorEntity(BaseSensorEntity):
             keys = [mqtt_keys]
         else:
             keys = mqtt_keys
-        super().__init__(client, device, keys[0], title, True)
+        unique_key = title.replace(" ", "_")
+        super().__init__(client, device, unique_key, title, True)
         self._keys = [jp.parse(self._adopt_json_key(k)) for k in keys]
         self._store = store
         self._store_key = f"{device.device_data.sn}:{title}"
@@ -559,8 +560,9 @@ class DailyEnergySensorEntity(BaseSensorEntity):
         title: str,
         store: "EnergyStore",
     ) -> None:
-        # mqtt_key is not used but required by base class
-        super().__init__(client, device, mqtt_keys[0], title, True)
+        # Use title as unique key to avoid collisions with other sensors
+        unique_key = title.replace(" ", "_")
+        super().__init__(client, device, unique_key, title, True)
         self._keys = [jp.parse(self._adopt_json_key(k)) for k in mqtt_keys]
         self._store = store
         self._store_key = f"{device.device_data.sn}:{title}"
