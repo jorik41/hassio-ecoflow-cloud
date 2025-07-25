@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 from homeassistant.core import HomeAssistant
+import asyncio
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -11,6 +12,9 @@ class EnergyStore:
         self._hass = hass
         self._path = hass.config.path("ecoflow_energy.json")
         self._data: dict[str, dict[str, float | str]] = {}
+        self._save_lock = asyncio.Lock()
+        self._save_task: asyncio.Task | None = None
+        self._pending_save = False
 
     @classmethod
     async def async_create(cls, hass: HomeAssistant) -> "EnergyStore":
@@ -40,13 +44,37 @@ class EnergyStore:
         except Exception as err:
             _LOGGER.error("Failed to save energy store: %s", err)
 
+    async def _save_worker(self) -> None:
+        async with self._save_lock:
+            await self._hass.async_add_executor_job(self._save_sync)
+            while self._pending_save:
+                self._pending_save = False
+                await self._hass.async_add_executor_job(self._save_sync)
+        self._save_task = None
+
+    def _ensure_save(self) -> None:
+        if self._save_task is None or self._save_task.done():
+            self._save_task = self._hass.async_create_task(self._save_worker())
+        else:
+            self._pending_save = True
+
     async def async_save(self) -> None:
-        """Save data to disk without blocking the event loop."""
-        await self._hass.async_add_executor_job(self._save_sync)
+        """Public method to force an immediate save."""
+        self._ensure_save()
+        if self._save_task is not None:
+            await self._save_task
 
     def get(self, key: str, default: dict[str, float | str] | None = None):
         return self._data.get(key, default)
 
     def set(self, key: str, value: dict[str, float | str]) -> None:
         self._data[key] = value
-        self._hass.async_create_task(self.async_save())
+        self._ensure_save()
+
+    async def async_close(self) -> None:
+        if self._save_task:
+            self._save_task.cancel()
+            try:
+                await self._save_task
+            except asyncio.CancelledError:
+                pass

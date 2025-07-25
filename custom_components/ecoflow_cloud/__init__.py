@@ -220,6 +220,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     client = hass.data[ECOFLOW_DOMAIN].pop(entry.entry_id)
     client.stop()
     await client.close()
+    store = hass.data[ECOFLOW_DOMAIN].get("energy_store")
+    if store is not None:
+        await store.async_close()
     return True
 
 
