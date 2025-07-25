@@ -95,6 +95,20 @@ async def async_setup_entry(
                     store,
                 )
             )
+            inv_power = next(
+                (s for s in sensors if s.name == "Inverter Output Watts"),
+                None,
+            )
+            if inv_power is not None:
+                sensors.append(
+                    CalculatedEnergySensorEntity(
+                        client,
+                        device,
+                        inv_power.mqtt_key,
+                        const.INVERTER_OUT_ENERGY,
+                        store,
+                    )
+                )
 
         name_to_sensor = {s.name: s for s in sensors}
 
@@ -117,6 +131,7 @@ async def async_setup_entry(
             const.POWER_INOUT_PORT_ENERGY: [const.POWER_INOUT_PORT],
             const.EXTRA_BATTERY_1_ENERGY: [const.EXTRA_BATTERY_1_OUT_POWER],
             const.EXTRA_BATTERY_2_ENERGY: [const.EXTRA_BATTERY_2_OUT_POWER],
+            const.INVERTER_OUT_ENERGY: [const.AC_OUT_POWER],
             const.TYPEC_OUT_ENERGY: [const.TYPEC_OUT_POWER, const.TYPEC_1_OUT_POWER, const.TYPEC_2_OUT_POWER],
             const.USB_OUT_ENERGY: [
                 const.USB_OUT_POWER,
