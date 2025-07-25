@@ -905,6 +905,9 @@
 - From Battery Today Energy Total
 - To Battery Today Energy Total
 - To Smart Plugs Today Energy Total
+- Total In Energy
+- Total Out Energy
+- Total Energy
 - Status
 
 *Switches*
@@ -1785,7 +1788,7 @@
 
 </p></details>
 
-<details><summary> PowerStream (API) <i>(sensors: 58, switches: 0, sliders: 4, selects: 1)</i> </summary>
+<details><summary> PowerStream (API) <i>(sensors: 61, switches: 0, sliders: 4, selects: 1)</i> </summary>
 <p>
 
 *Sensors*
@@ -1906,7 +1909,7 @@
 
 </p></details>
 
-<details><summary> Delta Pro 3 (API) <i>(sensors: 23, switches: 4, sliders: 6, selects: 0)</i> </summary>
+<details><summary> Delta Pro 3 (API) <i>(sensors: 32, switches: 4, sliders: 6, selects: 0)</i> </summary>
 <p>
 
 *Sensors*
@@ -1933,6 +1936,15 @@
 - Extra Battery Port 2 Power
 - Charge Remaining Time
 - Discharge Remaining Time
+- AC In Energy
+- Solar In Energy
+- Solar (HV) In Energy
+- Power In/Out Port Energy
+- Extra Battery Port 1 Energy
+- Extra Battery Port 2 Energy
+- Total In Energy
+- Total Out Energy
+- Total Energy
 
 *Switches*
 - Beeper

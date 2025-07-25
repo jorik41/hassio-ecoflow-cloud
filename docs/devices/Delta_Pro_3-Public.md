@@ -24,6 +24,15 @@
 - Extra Battery Port 2 Power (`powGet4p82`)
 - Charge Remaining Time (`cmsChgRemTime`)
 - Discharge Remaining Time (`cmsDsgRemTime`)
+- AC In Energy (`powGetAcIn`)
+- Solar In Energy (`powGetPvL`)
+- Solar (HV) In Energy (`powGetPvH`)
+- Power In/Out Port Energy (`powGet5p8`)
+- Extra Battery Port 1 Energy (`powGet4p81`)
+- Extra Battery Port 2 Energy (`powGet4p82`)
+- Total In Energy (`powInSumW`)
+- Total Out Energy (`powOutSumW`)
+- Total Energy (`powInSumW` + `powOutSumW`)
 
 
 *Switches*
