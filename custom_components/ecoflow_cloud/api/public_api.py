@@ -5,6 +5,7 @@ import random
 import time
 
 import aiohttp
+from aiohttp import ClientSession
 
 from ..device_data import DeviceData
 from ..devices import DiagnosticDevice, EcoflowDeviceInfo
@@ -29,8 +30,10 @@ class EcoflowPublicApiClient(EcoflowApiClient):
         self.group = group
         self.nonce = str(random.randint(10000, 1000000))
         self.timestamp = str(int(time.time() * 1000))
+        self.session: ClientSession | None = None
 
     async def login(self):
+        self.session = ClientSession()
         _LOGGER.info("Requesting IoT MQTT credentials")
         response = await self.call_api("/certification")
         self._accept_mqqt_certification(response)
@@ -115,33 +118,33 @@ class EcoflowPublicApiClient(EcoflowApiClient):
     async def call_api(self, endpoint: str, params: dict[str, str] = None) -> dict:
         self.nonce = str(random.randint(10000, 1000000))
         self.timestamp = str(int(time.time() * 1000))
-        async with aiohttp.ClientSession() as session:
-            params_str = ""
-            if params is not None:
-                params_str = self.__sort_and_concat_params(params)
+        assert self.session is not None
+        params_str = ""
+        if params is not None:
+            params_str = self.__sort_and_concat_params(params)
 
-            sign = self.__gen_sign(params_str)
+        sign = self.__gen_sign(params_str)
 
-            headers = {
-                "accessKey": self.access_key,
-                "nonce": self.nonce,
-                "timestamp": self.timestamp,
-                "sign": sign,
-            }
+        headers = {
+            "accessKey": self.access_key,
+            "nonce": self.nonce,
+            "timestamp": self.timestamp,
+            "sign": sign,
+        }
 
-            _LOGGER.debug("Request: %s %s.", str(endpoint), str(params_str))
-            resp = await session.get(
-                f"https://{self.api_domain}/iot-open/sign{endpoint}?{params_str}",
-                headers=headers,
-            )
-            json_resp = await self._get_json_response(resp)
-            _LOGGER.debug(
-                "Request: %s %s. Response : %s",
-                str(endpoint),
-                str(params_str),
-                str(json_resp),
-            )
-            return json_resp
+        _LOGGER.debug("Request: %s %s.", str(endpoint), str(params_str))
+        resp = await self.session.get(
+            f"https://{self.api_domain}/iot-open/sign{endpoint}?{params_str}",
+            headers=headers,
+        )
+        json_resp = await self._get_json_response(resp)
+        _LOGGER.debug(
+            "Request: %s %s. Response : %s",
+            str(endpoint),
+            str(params_str),
+            str(json_resp),
+        )
+        return json_resp
 
     def __create_device_info(
         self, device_sn: str, device_name: str, device_type: str, status: int = -1

@@ -2,7 +2,7 @@ import logging
 from abc import ABC, abstractmethod
 from typing import Any
 
-from aiohttp import ClientResponse
+from aiohttp import ClientResponse, ClientSession
 from attr import dataclass
 
 from ..device_data import DeviceData
@@ -29,6 +29,7 @@ class EcoflowApiClient(ABC):
         self.mqtt_info: EcoflowMqttInfo
         self.devices: dict[str, Any] = {}
         self.mqtt_client = None
+        self.session: ClientSession | None = None
 
     @abstractmethod
     async def login(self):
@@ -113,3 +114,8 @@ class EcoflowApiClient(ABC):
     def stop(self):
         assert self.mqtt_client is not None
         self.mqtt_client.stop()
+
+    async def close(self):
+        if self.session is not None:
+            await self.session.close()
+            self.session = None
