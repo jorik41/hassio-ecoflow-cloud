@@ -56,7 +56,9 @@ async def async_setup_entry(
 ):
     client: EcoflowApiClient = hass.data[ECOFLOW_DOMAIN][entry.entry_id]
     if "energy_store" not in hass.data[ECOFLOW_DOMAIN]:
-        hass.data[ECOFLOW_DOMAIN]["energy_store"] = EnergyStore(hass)
+        hass.data[ECOFLOW_DOMAIN]["energy_store"] = await EnergyStore.async_create(
+            hass
+        )
     store: EnergyStore = hass.data[ECOFLOW_DOMAIN]["energy_store"]
     for sn, device in client.devices.items():
         sensors = list(device.sensors(client))
