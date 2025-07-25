@@ -1,7 +1,7 @@
 {
     "custom_components": {
         "ecoflow_cloud": {
-            "documentation": "https://github.com/tolwi/hassio-ecoflow-cloud",
+            "documentation": "https://github.com/jorik41/hassio-ecoflow-cloud",
             "requirements": ["paho-mqtt==1.6.1", "reactivex==4.0.4", "protobuf>=4.23.0"],
             "version": "0.13.4"
         },
@@ -2423,14 +2423,14 @@
         "virtualenv": false
     },
     "integration_manifest": {
-        "codeowners": ["tolwi"],
+        "codeowners": ["jorik41"],
         "config_flow": true,
-        "documentation": "https://github.com/tolwi/hassio-ecoflow-cloud",
+        "documentation": "https://github.com/jorik41/hassio-ecoflow-cloud",
         "domain": "ecoflow_cloud",
         "iot_class": "cloud_push",
         "is_built_in": false,
-        "issue_tracker": "https://github.com/tolwi/hassio-ecoflow-cloud/issues",
-        "name": "Ecoflow-Cloud",
+        "issue_tracker": "https://github.com/jorik41/hassio-ecoflow-cloud/issues",
+        "name": "EcoFlow Cloud AI Playground",
         "requirements": ["paho-mqtt==1.6.1", "reactivex==4.0.4", "protobuf>=4.23.0"],
         "version": "0.13.4"
     },
