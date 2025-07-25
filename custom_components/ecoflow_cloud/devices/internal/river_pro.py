@@ -90,7 +90,6 @@ class RiverPro(BaseDevice):
             ),
             TempSensorEntity(client, self, "inv.inTemp", const.INV_IN_TEMP),
             TempSensorEntity(client, self, "inv.outTemp", const.INV_OUT_TEMP),
-            # https://github.com/tolwi/hassio-ecoflow-cloud/discussions/87
             InEnergySensorEntity(client, self, "pd.chgSunPower", const.SOLAR_IN_ENERGY),
             InEnergySensorEntity(client, self, "pd.chgPowerAC", const.CHARGE_AC_ENERGY),
             InEnergySensorEntity(client, self, "pd.chgPowerDC", const.CHARGE_DC_ENERGY),

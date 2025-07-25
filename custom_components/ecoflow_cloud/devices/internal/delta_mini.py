@@ -130,7 +130,6 @@ class DeltaMini(BaseDevice):
             )
             .attr("bmsMaster.minCellVol", const.ATTR_MIN_CELL_VOLT, 0)
             .attr("bmsMaster.maxCellVol", const.ATTR_MAX_CELL_VOLT, 0),
-            # https://github.com/tolwi/hassio-ecoflow-cloud/discussions/87
             InEnergySensorEntity(client, self, "pd.chgSunPower", const.SOLAR_IN_ENERGY),
             InEnergySensorEntity(client, self, "pd.chgPowerAc", const.CHARGE_AC_ENERGY),
             InEnergySensorEntity(client, self, "pd.chgPowerDc", const.CHARGE_DC_ENERGY),
