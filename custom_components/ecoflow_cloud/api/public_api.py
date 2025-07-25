@@ -3,6 +3,7 @@ import hmac
 import logging
 import random
 import time
+import asyncio
 
 import aiohttp
 from aiohttp import ClientSession
@@ -106,14 +107,17 @@ class EcoflowPublicApiClient(EcoflowApiClient):
         else:
             target_devices = [device_sn]
 
-        for sn in target_devices:
-            try:
-                raw = await self.call_api("/device/quota/all", {"sn": sn})
-                if "data" in raw:
-                    self.devices[sn].data.update_data({"params": raw["data"]})
-            except Exception as exception:
-                _LOGGER.error(exception, exc_info=True)
+        tasks = {
+            sn: self.call_api("/device/quota/all", {"sn": sn}) for sn in target_devices
+        }
+        results = await asyncio.gather(*tasks.values(), return_exceptions=True)
+        for sn, result in zip(tasks.keys(), results):
+            if isinstance(result, Exception):
+                _LOGGER.error(result, exc_info=True)
                 _LOGGER.error("Erreur recuperation %s", sn)
+            else:
+                if "data" in result:
+                    self.devices[sn].data.update_data({"params": result["data"]})
 
     async def call_api(self, endpoint: str, params: dict[str, str] = None) -> dict:
         self.nonce = str(random.randint(10000, 1000000))
