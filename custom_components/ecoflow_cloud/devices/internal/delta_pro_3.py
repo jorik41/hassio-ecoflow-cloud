@@ -239,15 +239,11 @@ class DeltaPro3(BaseDevice):
                 const.AC_CHARGING_POWER,
                 400,
                 2900,
-                lambda value: {
-                    "sn": self.device_info.sn,
-                    "cmdId": 17,
-                    "dirDest": 1,
-                    "dirSrc": 1,
-                    "cmdFunc": 254,
-                    "dest": 2,
-                    "params": {"plugInInfoAcInChgPowMax": value},
-                },
+
+                lambda value: DeltaPro3SetMessage(
+                    self.device_info.sn, "plugInInfoAcInChgPowMax", value
+                ),
+
             ),
         ]
 
