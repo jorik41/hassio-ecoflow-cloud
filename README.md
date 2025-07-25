@@ -23,7 +23,7 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 
 ## Current state
 ### Devices available with private_api
-<details><summary> DELTA_2 <i>(sensors: 45, switches: 8, sliders: 6, selects: 5)</i> </summary>
+<details><summary> DELTA_2 <i>(sensors: 50, switches: 8, sliders: 6, selects: 5)</i> </summary>
 <p>
 
 *Sensors*
@@ -57,6 +57,11 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 - Battery Volts  _(disabled)_
 - Min Cell Volts  _(disabled)_
 - Max Cell Volts  _(disabled)_
+- Solar In Energy
+- Battery Charge Energy from AC
+- Battery Charge Energy from DC
+- Battery Discharge Energy to AC
+- Battery Discharge Energy to DC
 - Slave Battery Level  _(auto)_
 - Slave Design Capacity  _(disabled)_
 - Slave Full Capacity  _(disabled)_
@@ -369,6 +374,65 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 - Screen Timeout 
 - Unit Timeout 
 - AC Timeout 
+
+</p></details>
+
+<details><summary> DELTA_PRO_3 <i>(sensors: 36, switches: 4, sliders: 6, selects: 0)</i> </summary>
+<p>
+
+*Sensors*
+- Main Battery Level
+- Main Design Capacity  _(disabled)_
+- State of Health
+- Charge Remaining Time
+- Discharge Remaining Time
+- Min Cell Temperature  _(disabled)_
+- Max Cell Temperature  _(disabled)_
+- Min MOS Temperature  _(disabled)_
+- Max MOS Temperature  _(disabled)_
+- Battery Level
+- State of Health
+- Total In Power
+- Total Out Power
+- AC In Power
+- AC Out Power
+- Solar In Power
+- Solar (HV) In Power
+- AC High Voltage Out Power
+- Type-C (1) Out Power
+- Type-C (2) Out Power
+- 12V Out Power
+- 24V Out Power
+- AC Low Voltage Out Power
+- AC Low Voltage TT30 Out Power
+- Power In/Out Port Power
+- USB QC (1) Out Power
+- USB QC (2) Out Power
+- Extra Battery Port 1 Power
+- Extra Battery Port 2 Power
+- AC Input Frequency
+- PV Voltage  _(disabled)_
+- PV Current  _(disabled)_
+- PV Voltage  _(disabled)_
+- PV Current  _(disabled)_
+- Charge Remaining Time
+- Discharge Remaining Time
+
+*Switches*
+- Beeper 
+- DC (12V) Enabled 
+- AC Enabled 
+- X-Boost Enabled 
+
+*Sliders (numbers)*
+- Max Charge Level 
+- Min Discharge Level 
+- Backup Reserve Level 
+- Generator Auto Start Level 
+- Generator Auto Stop Level 
+- AC Charging Power 
+
+*Selects*
 
 </p></details>
 
@@ -814,7 +878,7 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 
 </p></details>
 
-<details><summary> POWERSTREAM <i>(sensors: 63, switches: 1, sliders: 0, selects: 1)</i> </summary>
+<details><summary> POWERSTREAM <i>(sensors: 63, switches: 1, sliders: 4, selects: 1)</i> </summary>
 <p>
 
 *Sensors*
@@ -886,6 +950,10 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 - Feed-in Control 
 
 *Sliders (numbers)*
+- Min Discharge Level 
+- Max Charge Level 
+- Brightness 
+- Custom load power settings 
 
 *Selects*
 - Power supply mode 
@@ -944,7 +1012,7 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 
 </p></details>
 
-<details><summary> WAVE_2 <i>(sensors: 31, switches: 0, sliders: 1, selects: 4)</i> </summary>
+<details><summary> WAVE_2 <i>(sensors: 27, switches: 0, sliders: 1, selects: 4)</i> </summary>
 <p>
 
 *Sensors*
@@ -963,10 +1031,6 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 - Evaporation zone return air temperature  _(disabled)_
 - Air outlet temperature  _(disabled)_
 - Ambient temperature  _(disabled)_
-- Condensing Fan RPM  _(disabled)_
-- Evaporator Fan RPM  _(disabled)_
-- Four-way Valve State  _(disabled)_
-- Motor Status
 - PV input power
 - Battery output power
 - PV charging power
@@ -1412,6 +1476,11 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 - Battery Volts  _(disabled)_
 - Min Cell Volts  _(disabled)_
 - Max Cell Volts  _(disabled)_
+- Solar In Energy
+- Battery Charge Energy from AC
+- Battery Charge Energy from DC
+- Battery Discharge Energy to AC
+- Battery Discharge Energy to DC
 - Slave Battery Level  _(auto)_
 - Slave Design Capacity  _(disabled)_
 - Slave Full Capacity  _(disabled)_
@@ -1426,11 +1495,6 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 - Slave Cycles  _(auto)_
 - Slave In Power  _(auto)_
 - Slave Out Power  _(auto)_
-- Solar In Energy
-- Battery Charge Energy from AC
-- Battery Charge Energy from DC
-- Battery Discharge Energy to AC
-- Battery Discharge Energy to DC
 - Status
 
 *Switches*
@@ -1881,21 +1945,21 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 
 </p></details>
 
-<details><summary> Delta Pro 3 (API) <i>(sensors: 36, switches: 0, sliders: 1, selects: 0)</i> </summary>
+<details><summary> Delta Pro 3 (API) <i>(sensors: 36, switches: 4, sliders: 6, selects: 0)</i> </summary>
 <p>
 
 *Sensors*
 - Main Battery Level
 - Main Design Capacity  _(disabled)_
-- Main Battery SOH
-- Main Charge Remaining Time
-- Main Discharge Remaining Time
+- State of Health
+- Charge Remaining Time
+- Discharge Remaining Time
 - Min Cell Temperature  _(disabled)_
 - Max Cell Temperature  _(disabled)_
 - Min MOS Temperature  _(disabled)_
 - Max MOS Temperature  _(disabled)_
 - Battery Level
-- Combined Battery SOH
+- State of Health
 - Total In Power
 - Total Out Power
 - AC In Power
@@ -1914,55 +1978,31 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 - USB QC (2) Out Power
 - Extra Battery Port 1 Power
 - Extra Battery Port 2 Power
-- AC Output Frequency
-- HV PV Max Voltage
-- HV PV Max Current
-- LV PV Max Voltage
-- LV PV Max Current
+- AC Input Frequency
+- PV Voltage  _(disabled)_
+- PV Current  _(disabled)_
+- PV Voltage  _(disabled)_
+- PV Current  _(disabled)_
 - Charge Remaining Time
 - Discharge Remaining Time
-- Total In Energy
-- Total Out Energy
-- Total Energy
 
 *Switches*
+- Beeper 
+- DC (12V) Enabled 
+- AC Enabled 
+- X-Boost Enabled 
 
 *Sliders (numbers)*
+- Max Charge Level 
+- Min Discharge Level 
+- Backup Reserve Level 
+- Generator Auto Start Level 
+- Generator Auto Stop Level 
 - AC Charging Power 
 
 *Selects*
 
 </p></details>
-<details><summary> Delta 3 Plus (API) <i>(sensors: 34, switches: 7, sliders: 3, selects: 0)</i> </summary>
-<p>
-
-*Sensors*
-- Total In Power
-- Total Out Power
-- AC In Power
-- AC Out Power
-- Solar In Power
-- DC Out Power
-- USB-A (1) Out Power
-- USB-A (2) Out Power
-- USB QC (1) Out Power
-- USB QC (2) Out Power
-- USB-C (1) Out Power
-- USB-C (2) Out Power
-- Charge Remaining Time
-- Discharge Remaining Time
-- Total In Energy
-- Total Out Energy
-- Total Energy
-
-*Switches*
-
-*Sliders (numbers)*
-
-*Selects*
-
-</p></details>
-
 
 <details><summary> Power Kits (API) <i>(sensors: 161, switches: 10, sliders: 1, selects: 0)</i> </summary>
 <p>
@@ -2410,7 +2450,7 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 
 </p></details>
 
-<details><summary> Stream Microinverter (API) <i>(sensors: 10, switches: 0, sliders: 0, selects: 0)</i> </summary>
+<details><summary> Stream Microinverter (API) <i>(sensors: 12, switches: 0, sliders: 0, selects: 0)</i> </summary>
 <p>
 
 *Sensors*
@@ -2423,6 +2463,8 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 - Power In Amps  _(disabled)_
 - Power PV1 In Amps  _(auto)_
 - Power PV2 In Amps  _(auto)_
+- Inverter NTC Temperature
+- Grid Frequency
 - Status
 
 *Switches*
@@ -2473,7 +2515,6 @@ Basic decoding for additional Delta Pro 3 protobuf reports is now included.
 - Economic Mode 
 
 </p></details>
-
 
 
 ## How to
