@@ -209,7 +209,7 @@ class DeltaPro3(BaseDevice):
             ChargingPowerEntity(
                 client,
                 self,
-                "cfgPlugInInfoAcInChgPowMax",
+                "plugInInfoAcInChgPowMax",
                 const.AC_CHARGING_POWER,
                 400,
                 2900,
@@ -220,7 +220,7 @@ class DeltaPro3(BaseDevice):
                     "dirSrc": 1,
                     "cmdFunc": 254,
                     "dest": 2,
-                    "params": {"cfgPlugInInfoAcInChgPowMax": value},
+                    "params": {"plugInInfoAcInChgPowMax": value},
                 },
             ),
         ]
