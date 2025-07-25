@@ -107,11 +107,11 @@ class EcoflowPublicApiClient(EcoflowApiClient):
         else:
             target_devices = [device_sn]
 
-        tasks = {
-            sn: self.call_api("/device/quota/all", {"sn": sn}) for sn in target_devices
-        }
-        results = await asyncio.gather(*tasks.values(), return_exceptions=True)
-        for sn, result in zip(tasks.keys(), results):
+        tasks = [
+            self.call_api("/device/quota/all", {"sn": sn}) for sn in target_devices
+        ]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        for sn, result in zip(target_devices, results):
             if isinstance(result, Exception):
                 _LOGGER.error(result, exc_info=True)
                 _LOGGER.error("Erreur recuperation %s", sn)
