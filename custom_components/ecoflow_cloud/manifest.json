@@ -2,19 +2,19 @@
   "domain": "ecoflow_cloud",
   "name": "Ecoflow-Cloud",
   "codeowners": [
-    "@tolwi"
+    "@jorik41"
   ],
   "config_flow": true,
   "dependencies": [
     "mqtt"
   ],
-  "documentation": "https://github.com/tolwi/hassio-ecoflow-cloud",
+  "documentation": "https://github.com/jorik41/hassio-ecoflow-cloud",
   "iot_class": "cloud_push",
-  "issue_tracker": "https://github.com/tolwi/hassio-ecoflow-cloud/issues",
+  "issue_tracker": "https://github.com/jorik41/hassio-ecoflow-cloud/issues",
   "requirements": [
     "paho-mqtt>=2.1.0",
     "protobuf>=4.23.0",
     "jsonpath-ng>=1.7.0"
   ],
-  "version": "1.4.0-beta1"
+  "version": "v0.33"
 }
