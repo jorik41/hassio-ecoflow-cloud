@@ -3,6 +3,8 @@ import logging
 import struct
 from typing import Any, Mapping, OrderedDict, override
 
+import jsonpath_ng.ext as jp
+
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
@@ -38,12 +40,13 @@ from . import (
     ECOFLOW_DOMAIN,
 )
 from .api import EcoflowApiClient
-from .devices import BaseDevice
+from .devices import BaseDevice, const
 from .entities import (
     BaseSensorEntity,
     EcoFlowAbstractEntity,
     EcoFlowDictEntity,
 )
+from .energy_store import EnergyStore
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -52,8 +55,68 @@ async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ):
     client: EcoflowApiClient = hass.data[ECOFLOW_DOMAIN][entry.entry_id]
+    if "energy_store" not in hass.data[ECOFLOW_DOMAIN]:
+        hass.data[ECOFLOW_DOMAIN]["energy_store"] = EnergyStore(hass)
+    store: EnergyStore = hass.data[ECOFLOW_DOMAIN]["energy_store"]
     for sn, device in client.devices.items():
-        async_add_entities(device.sensors(client))
+        sensors = list(device.sensors(client))
+
+        if device.device_info.device_type.upper() == "POWERSTREAM":
+            sensors.append(
+                DailyEnergySensorEntity(
+                    client,
+                    device,
+                    ["254_32.watthPv1", "254_32.watthPv2"],
+                    const.TOTAL_IN_ENERGY,
+                    store,
+                )
+            )
+            sensors.append(
+                DailyEnergySensorEntity(
+                    client,
+                    device,
+                    ["254_32.watthToBattery", "254_32.watthToSmartPlugs"],
+                    const.TOTAL_OUT_ENERGY,
+                    store,
+                )
+            )
+
+        name_to_sensor = {s.name: s for s in sensors}
+
+        energy_groups: dict[str, list[str]] = {
+            const.TOTAL_IN_ENERGY: [const.TOTAL_IN_POWER],
+            const.TOTAL_OUT_ENERGY: [const.TOTAL_OUT_POWER],
+            const.CHARGE_AC_ENERGY: [const.AC_IN_POWER],
+            const.DISCHARGE_AC_ENERGY: [const.AC_OUT_POWER],
+            const.SOLAR_IN_ENERGY: [const.SOLAR_IN_POWER, const.SOLAR_1_IN_POWER, const.SOLAR_2_IN_POWER],
+            const.DISCHARGE_DC_ENERGY: [
+                const.DC_OUT_POWER,
+                const.DC_CAR_OUT_POWER,
+                const.DC_ANDERSON_OUT_POWER,
+                const.DC_12V_OUT_POWER,
+                const.DC_24V_OUT_POWER,
+            ],
+            const.TYPEC_OUT_ENERGY: [const.TYPEC_OUT_POWER, const.TYPEC_1_OUT_POWER, const.TYPEC_2_OUT_POWER],
+            const.USB_OUT_ENERGY: [
+                const.USB_OUT_POWER,
+                const.USB_1_OUT_POWER,
+                const.USB_2_OUT_POWER,
+                const.USB_3_OUT_POWER,
+                const.USB_QC_1_OUT_POWER,
+                const.USB_QC_2_OUT_POWER,
+            ],
+        }
+
+        for energy_title, power_names in energy_groups.items():
+            if any(s.name == energy_title for s in sensors):
+                continue
+            keys = [name_to_sensor[name].mqtt_key for name in power_names if name in name_to_sensor]
+            if keys:
+                sensors.append(
+                    CalculatedEnergySensorEntity(client, device, keys, energy_title, store)
+                )
+
+        async_add_entities(sensors)
 
 
 class MiscBinarySensorEntity(BinarySensorEntity, EcoFlowDictEntity):
@@ -399,6 +462,120 @@ class ResettingInEnergySolarSensorEntity(_ResettingMixin, InEnergySolarSensorEnt
 
 class ResettingOutEnergySensorEntity(_ResettingMixin, OutEnergySensorEntity):
     pass
+
+
+class CalculatedEnergySensorEntity(BaseSensorEntity):
+    """Energy sensor calculated from power values."""
+
+    _attr_device_class = SensorDeviceClass.ENERGY
+    _attr_native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
+    _attr_state_class = SensorStateClass.TOTAL_INCREASING
+
+    def __init__(
+        self,
+        client: EcoflowApiClient,
+        device: BaseDevice,
+        mqtt_keys: str | list[str],
+        title: str,
+        store: "EnergyStore",
+    ) -> None:
+        if isinstance(mqtt_keys, str):
+            keys = [mqtt_keys]
+        else:
+            keys = mqtt_keys
+        super().__init__(client, device, keys[0], title, True)
+        self._keys = [jp.parse(self._adopt_json_key(k)) for k in keys]
+        self._store = store
+        self._store_key = f"{device.device_data.sn}:{title}"
+        data = self._store.get(self._store_key, {"value": 0.0, "time": None})
+        self._attr_native_value = data.get("value", 0.0)
+        self._last_time = (
+            dt.parse_datetime(data["time"])
+            if data.get("time") is not None
+            else None
+        )
+        self._attr_extra_state_attributes = {"source": "calculated"}
+
+    def _handle_coordinator_update(self) -> None:
+        params = self.coordinator.data.data_holder.params
+        total = 0.0
+        found = False
+        for expr in self._keys:
+            values = expr.find(params)
+            if len(values) == 1:
+                total += float(values[0].value)
+                found = True
+        if not found:
+            return
+        now = dt.utcnow()
+        if self._last_time is not None:
+            dt_seconds = (now - self._last_time).total_seconds()
+            if dt_seconds > 0:
+                self._attr_native_value = round(
+                    self._attr_native_value + (total * dt_seconds) / 3600000,
+                    5,
+                )
+        self._last_time = now
+        self._store.set(
+            self._store_key,
+            {"value": self._attr_native_value, "time": now.isoformat()},
+        )
+        self.schedule_update_ha_state()
+
+
+class DailyEnergySensorEntity(BaseSensorEntity):
+    """Energy sensor calculated from daily counter values."""
+
+    _attr_device_class = SensorDeviceClass.ENERGY
+    _attr_native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
+    _attr_state_class = SensorStateClass.TOTAL_INCREASING
+
+    def __init__(
+        self,
+        client: EcoflowApiClient,
+        device: BaseDevice,
+        mqtt_keys: list[str],
+        title: str,
+        store: "EnergyStore",
+    ) -> None:
+        # mqtt_key is not used but required by base class
+        super().__init__(client, device, mqtt_keys[0], title, True)
+        self._keys = [jp.parse(self._adopt_json_key(k)) for k in mqtt_keys]
+        self._store = store
+        self._store_key = f"{device.device_data.sn}:{title}"
+        data = self._store.get(
+            self._store_key, {"value": 0.0, "counter": 0.0}
+        )
+        self._attr_native_value = data.get("value", 0.0)
+        self._last_counter = float(data.get("counter", 0.0))
+        self._attr_extra_state_attributes = {"source": "daily"}
+
+    def _handle_coordinator_update(self) -> None:
+        params = self.coordinator.data.data_holder.params
+        total = 0.0
+        found = False
+        for expr in self._keys:
+            values = expr.find(params)
+            if len(values) == 1:
+                total += float(values[0].value)
+                found = True
+        if not found:
+            return
+
+        diff = total - self._last_counter
+        if diff < 0:
+            diff = total
+        if diff != 0:
+            self._attr_native_value = round(
+                self._attr_native_value + diff / 1000, 5
+            )
+            self._store.set(
+                self._store_key,
+                {"value": self._attr_native_value, "counter": total},
+            )
+            self._last_counter = total
+            self.schedule_update_ha_state()
+
 
 
 class FrequencySensorEntity(BaseSensorEntity):
