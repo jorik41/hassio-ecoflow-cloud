@@ -194,7 +194,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     if "energy_store" not in hass.data[ECOFLOW_DOMAIN]:
         from .energy_store import EnergyStore
 
-        hass.data[ECOFLOW_DOMAIN]["energy_store"] = EnergyStore(hass)
+        hass.data[ECOFLOW_DOMAIN]["energy_store"] = await EnergyStore.async_create(
+            hass
+        )
 
     for sn, device_data in devices_list.items():
         device = api_client.configure_device(device_data)
