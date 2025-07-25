@@ -38,7 +38,7 @@
 - Backup Reserve Level (`cfgEnergyBackup.energyBackupStartSoc` -> `{"sn": "SN", "cmdId": 17, "dirDest": 1, "dirSrc": 1, "cmdFunc": 254, "dest": 2, "params": {"cfgEnergyBackup": {"energyBackupStartSoc": "VALUE", "energyBackupEn": true}}}` [5 - 100])
 - Generator Auto Start Level (`cfgCmsOilOnSoc` -> `{"sn": "SN", "cmdId": 17, "dirDest": 1, "dirSrc": 1, "cmdFunc": 254, "dest": 2, "params": {"cfgCmsOilOnSoc": "VALUE"}}` [0 - 30])
 - Generator Auto Stop Level (`cfgCmsOilOffSoc` -> `{"sn": "SN", "cmdId": 17, "dirDest": 1, "dirSrc": 1, "cmdFunc": 254, "dest": 2, "params": {"cfgCmsOilOffSoc": "VALUE"}}` [50 - 100])
-- AC Charging Power (`cfgPlugInInfoAcInChgPowMax` -> `{"sn": "SN", "cmdId": 17, "dirDest": 1, "dirSrc": 1, "cmdFunc": 254, "dest": 2, "params": {"cfgPlugInInfoAcInChgPowMax": "VALUE"}}` [400 - 2900])
+- AC Charging Power (`plugInInfoAcInChgPowMax` -> `{"sn": "SN", "cmdId": 17, "dirDest": 1, "dirSrc": 1, "cmdFunc": 254, "dest": 2, "params": {"plugInInfoAcInChgPowMax": "VALUE"}}` [400 - 2900])
 
 *Selects*
 
