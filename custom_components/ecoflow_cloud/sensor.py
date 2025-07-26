@@ -583,7 +583,8 @@ class CalculatedEnergySensorEntity(BaseSensorEntity):
         for expr, scale in zip(self._keys, self._scales):
             values = expr.find(params)
             if len(values) == 1:
-                total += float(values[0].value) * scale
+                value = float(values[0].value) * scale
+                total += abs(value)
                 found = True
         if not found:
             return
