@@ -152,7 +152,12 @@ async def async_setup_entry(
             const.POWER_INOUT_PORT_ENERGY: [const.POWER_INOUT_PORT],
             const.EXTRA_BATTERY_1_ENERGY: [const.EXTRA_BATTERY_1_OUT_POWER],
             const.EXTRA_BATTERY_2_ENERGY: [const.EXTRA_BATTERY_2_OUT_POWER],
-            const.INVERTER_OUT_ENERGY: [const.AC_OUT_POWER],
+            const.INVERTER_OUT_ENERGY: [
+                const.AC_OUT_POWER,
+                const.AC_HV_OUT_POWER,
+                const.AC_LV_OUT_POWER,
+                const.AC_LV_TT30_OUT_POWER,
+            ],
             const.TYPEC_OUT_ENERGY: [
                 const.TYPEC_OUT_POWER,
                 const.TYPEC_1_OUT_POWER,
