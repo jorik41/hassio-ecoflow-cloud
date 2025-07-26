@@ -30,6 +30,7 @@
 - Power In/Out Port Energy (`powGet5p8`)
 - Extra Battery Port 1 Energy (`powGet4p81`)
 - Extra Battery Port 2 Energy (`powGet4p82`)
+- Battery Discharge Energy to AC (`powGetAc`)
 - Total In Energy (`powInSumW`)
 - Total Out Energy (`powOutSumW`)
 - Total Energy (`powInSumW` + `powOutSumW`)

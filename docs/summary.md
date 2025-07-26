@@ -386,8 +386,17 @@
 - USB QC (1) Out Power
 - USB QC (2) Out Power
 - Extra Battery Port 1 Power
-- Extra Battery Port 2 Power
-- AC Input Frequency
+  - Extra Battery Port 2 Power
+  - AC In Energy
+  - Solar In Energy
+  - Solar (HV) In Energy
+  - Power In/Out Port Energy
+  - Extra Battery Port 1 Energy
+  - Extra Battery Port 2 Energy
+  - Battery Discharge Energy to AC
+  - Total In Energy
+  - Total Out Energy
+  - AC Input Frequency
 - PV Voltage  _(disabled)_
 - PV Current  _(disabled)_
 - PV Voltage  _(disabled)_
@@ -1954,8 +1963,17 @@
 - USB QC (1) Out Power
 - USB QC (2) Out Power
 - Extra Battery Port 1 Power
-- Extra Battery Port 2 Power
-- AC Input Frequency
+  - Extra Battery Port 2 Power
+  - AC In Energy
+  - Solar In Energy
+  - Solar (HV) In Energy
+  - Power In/Out Port Energy
+  - Extra Battery Port 1 Energy
+  - Extra Battery Port 2 Energy
+  - Battery Discharge Energy to AC
+  - Total In Energy
+  - Total Out Energy
+  - AC Input Frequency
 - PV Voltage  _(disabled)_
 - PV Current  _(disabled)_
 - PV Voltage  _(disabled)_

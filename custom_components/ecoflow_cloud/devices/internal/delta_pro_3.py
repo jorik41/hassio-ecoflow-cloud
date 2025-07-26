@@ -25,6 +25,9 @@ from custom_components.ecoflow_cloud.sensor import (
     VoltSensorEntity,
     AmpSensorEntity,
     FrequencySensorEntity,
+    InEnergySensorEntity,
+    InEnergySolarSensorEntity,
+    OutEnergySensorEntity,
 )
 from custom_components.ecoflow_cloud.switch import BeeperEntity, EnabledEntity
 from custom_components.ecoflow_cloud.devices import BaseDevice, const
@@ -129,6 +132,15 @@ class DeltaPro3(BaseDevice):
             OutWattsSensorEntity(
                 client, self, "powGet4p82", const.EXTRA_BATTERY_2_OUT_POWER
             ),
+            InEnergySensorEntity(client, self, "powGetAcIn", const.AC_IN_ENERGY),
+            InEnergySolarSensorEntity(client, self, "powGetPvL", const.SOLAR_IN_ENERGY),
+            InEnergySensorEntity(client, self, "powGetPvH", const.PV_HV_ENERGY),
+            OutEnergySensorEntity(client, self, "powGet5p8", const.POWER_INOUT_PORT_ENERGY),
+            OutEnergySensorEntity(client, self, "powGet4p81", const.EXTRA_BATTERY_1_ENERGY),
+            OutEnergySensorEntity(client, self, "powGet4p82", const.EXTRA_BATTERY_2_ENERGY),
+            OutEnergySensorEntity(client, self, "powGetAc", const.DISCHARGE_AC_ENERGY),
+            InEnergySensorEntity(client, self, "powInSumW", const.TOTAL_IN_ENERGY),
+            OutEnergySensorEntity(client, self, "powOutSumW", const.TOTAL_OUT_ENERGY),
             FrequencySensorEntity(client, self, "acOutFreq", const.AC_FREQUENCY),
             VoltSensorEntity(
                 client, self, "plugInInfoPvHChgVolMax", const.PV_VOLTAGE, False
