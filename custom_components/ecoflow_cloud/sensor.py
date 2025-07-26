@@ -51,6 +51,22 @@ from .energy_store import EnergyStore
 _LOGGER = logging.getLogger(__name__)
 
 
+def _power_scale_for_sensor(sensor: BaseSensorEntity) -> float:
+    """Return the scale factor for the given power sensor."""
+    if isinstance(
+        sensor,
+        (
+            DeciwattsSensorEntity,
+            InWattsSolarSensorEntity,
+            OutWattsDcSensorEntity,
+        ),
+    ):
+        return 0.1
+    if isinstance(sensor, InRawTotalWattsSolarSensorEntity):
+        return 0.001
+    return 1.0
+
+
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ):
@@ -109,6 +125,7 @@ async def async_setup_entry(
                         inv_power.mqtt_key,
                         const.INVERTER_OUT_ENERGY,
                         store,
+                        _power_scale_for_sensor(inv_power),
                     )
                 )
 
@@ -148,10 +165,18 @@ async def async_setup_entry(
         for energy_title, power_names in energy_groups.items():
             if any(s.name == energy_title for s in sensors):
                 continue
-            keys = [name_to_sensor[name].mqtt_key for name in power_names if name in name_to_sensor]
+            keys: list[str] = []
+            scales: list[float] = []
+            for name in power_names:
+                sensor = name_to_sensor.get(name)
+                if sensor is not None:
+                    keys.append(sensor.mqtt_key)
+                    scales.append(_power_scale_for_sensor(sensor))
             if keys:
                 sensors.append(
-                    CalculatedEnergySensorEntity(client, device, keys, energy_title, store)
+                    CalculatedEnergySensorEntity(
+                        client, device, keys, energy_title, store, scales
+                    )
                 )
 
         async_add_entities(sensors)
@@ -516,6 +541,7 @@ class CalculatedEnergySensorEntity(BaseSensorEntity):
         mqtt_keys: str | list[str],
         title: str,
         store: "EnergyStore",
+        scales: float | list[float] | None = None,
     ) -> None:
         if isinstance(mqtt_keys, str):
             keys = [mqtt_keys]
@@ -524,6 +550,12 @@ class CalculatedEnergySensorEntity(BaseSensorEntity):
         unique_key = title.replace(" ", "_")
         super().__init__(client, device, unique_key, title, True)
         self._keys = [jp.parse(self._adopt_json_key(k)) for k in keys]
+        if scales is None:
+            self._scales = [1.0] * len(self._keys)
+        elif isinstance(scales, (int, float)):
+            self._scales = [float(scales)] * len(self._keys)
+        else:
+            self._scales = [float(s) for s in scales]
         self._store = store
         self._store_key = f"{device.device_data.sn}:{title}"
         data = self._store.get(self._store_key, {"value": 0.0, "time": None})
@@ -539,10 +571,10 @@ class CalculatedEnergySensorEntity(BaseSensorEntity):
         params = self.coordinator.data.data_holder.params
         total = 0.0
         found = False
-        for expr in self._keys:
+        for expr, scale in zip(self._keys, self._scales):
             values = expr.find(params)
             if len(values) == 1:
-                total += float(values[0].value)
+                total += float(values[0].value) * scale
                 found = True
         if not found:
             return
