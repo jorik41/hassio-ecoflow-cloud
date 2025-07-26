@@ -72,9 +72,7 @@ async def async_setup_entry(
 ):
     client: EcoflowApiClient = hass.data[ECOFLOW_DOMAIN][entry.entry_id]
     if "energy_store" not in hass.data[ECOFLOW_DOMAIN]:
-        hass.data[ECOFLOW_DOMAIN]["energy_store"] = await EnergyStore.async_create(
-            hass
-        )
+        hass.data[ECOFLOW_DOMAIN]["energy_store"] = await EnergyStore.async_create(hass)
     store: EnergyStore = hass.data[ECOFLOW_DOMAIN]["energy_store"]
     for sn, device in client.devices.items():
         sensors = list(device.sensors(client))
@@ -138,7 +136,11 @@ async def async_setup_entry(
             const.AC_IN_ENERGY: [const.AC_IN_POWER],
             const.CHARGE_AC_ENERGY: [const.AC_IN_POWER],
             const.DISCHARGE_AC_ENERGY: [const.AC_OUT_POWER],
-            const.SOLAR_IN_ENERGY: [const.SOLAR_IN_POWER, const.SOLAR_1_IN_POWER, const.SOLAR_2_IN_POWER],
+            const.SOLAR_IN_ENERGY: [
+                const.SOLAR_IN_POWER,
+                const.SOLAR_1_IN_POWER,
+                const.SOLAR_2_IN_POWER,
+            ],
             const.DISCHARGE_DC_ENERGY: [
                 const.DC_OUT_POWER,
                 const.DC_CAR_OUT_POWER,
@@ -151,7 +153,11 @@ async def async_setup_entry(
             const.EXTRA_BATTERY_1_ENERGY: [const.EXTRA_BATTERY_1_OUT_POWER],
             const.EXTRA_BATTERY_2_ENERGY: [const.EXTRA_BATTERY_2_OUT_POWER],
             const.INVERTER_OUT_ENERGY: [const.AC_OUT_POWER],
-            const.TYPEC_OUT_ENERGY: [const.TYPEC_OUT_POWER, const.TYPEC_1_OUT_POWER, const.TYPEC_2_OUT_POWER],
+            const.TYPEC_OUT_ENERGY: [
+                const.TYPEC_OUT_POWER,
+                const.TYPEC_1_OUT_POWER,
+                const.TYPEC_2_OUT_POWER,
+            ],
             const.USB_OUT_ENERGY: [
                 const.USB_OUT_POWER,
                 const.USB_1_OUT_POWER,
@@ -561,9 +567,7 @@ class CalculatedEnergySensorEntity(BaseSensorEntity):
         data = self._store.get(self._store_key, {"value": 0.0, "time": None})
         self._attr_native_value = data.get("value", 0.0)
         self._last_time = (
-            dt.parse_datetime(data["time"])
-            if data.get("time") is not None
-            else None
+            dt.parse_datetime(data["time"]) if data.get("time") is not None else None
         )
         self._attr_extra_state_attributes = {"source": "calculated"}
 
@@ -597,6 +601,9 @@ class CalculatedEnergySensorEntity(BaseSensorEntity):
 class DailyEnergySensorEntity(BaseSensorEntity):
     """Energy sensor calculated from daily counter values."""
 
+    # Ignore spikes that imply an average power higher than this value (kW)
+    max_avg_power_kw: float = 50.0
+
     _attr_device_class = SensorDeviceClass.ENERGY
     _attr_native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
     _attr_state_class = SensorStateClass.TOTAL_INCREASING
@@ -616,10 +623,13 @@ class DailyEnergySensorEntity(BaseSensorEntity):
         self._store = store
         self._store_key = f"{device.device_data.sn}:{title}"
         data = self._store.get(
-            self._store_key, {"value": 0.0, "counter": 0.0}
+            self._store_key, {"value": 0.0, "counter": 0.0, "time": None}
         )
         self._attr_native_value = data.get("value", 0.0)
         self._last_counter = float(data.get("counter", 0.0))
+        self._last_update = (
+            dt.parse_datetime(data.get("time")) if data.get("time") else None
+        )
         self._attr_extra_state_attributes = {"source": "daily"}
 
     def _handle_coordinator_update(self) -> None:
@@ -634,20 +644,44 @@ class DailyEnergySensorEntity(BaseSensorEntity):
         if not found:
             return
 
+        now = dt.utcnow()
         diff = total - self._last_counter
         if diff < 0:
-            diff = total
+            if self._last_update and now.date() != self._last_update.date():
+                _LOGGER.info("day counter reset detected for %s", self.name)
+                diff = total
+            else:
+                _LOGGER.debug(
+                    "ignoring unexpected counter decrease for %s: %s -> %s",
+                    self.name,
+                    self._last_counter,
+                    total,
+                )
+                return
+        elif self._last_update:
+            dt_hours = (now - self._last_update).total_seconds() / 3600
+            if dt_hours > 0 and diff / 1000 > dt_hours * self.max_avg_power_kw:
+                _LOGGER.debug(
+                    "ignoring unrealistic counter jump for %s: %.2f kWh over %.2f h",
+                    self.name,
+                    diff / 1000,
+                    dt_hours,
+                )
+                return
+
         if diff != 0:
-            self._attr_native_value = round(
-                self._attr_native_value + diff / 1000, 5
-            )
+            self._attr_native_value = round(self._attr_native_value + diff / 1000, 5)
             self._store.set(
                 self._store_key,
-                {"value": self._attr_native_value, "counter": total},
+                {
+                    "value": self._attr_native_value,
+                    "counter": total,
+                    "time": now.isoformat(),
+                },
             )
             self._last_counter = total
+            self._last_update = now
             self.schedule_update_ha_state()
-
 
 
 class FrequencySensorEntity(BaseSensorEntity):
