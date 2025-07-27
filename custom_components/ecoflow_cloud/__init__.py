@@ -11,7 +11,7 @@ from .device_data import DeviceData, DeviceOptions
 _LOGGER = logging.getLogger(__name__)
 
 ECOFLOW_DOMAIN = "ecoflow_cloud"
-CONFIG_VERSION = 9
+CONFIG_VERSION = 10
 
 _PLATFORMS = {
     Platform.NUMBER,
@@ -53,6 +53,12 @@ OPTS_POWER_STEP: Final = "power_step"
 OPTS_REFRESH_PERIOD_SEC: Final = "refresh_period_sec"
 
 DEFAULT_REFRESH_PERIOD_SEC: Final = 5
+
+# MQTT override options
+CONF_LOCAL_MQTT_ENABLED: Final = "local_mqtt_enabled"
+CONF_LOCAL_MQTT_HOST: Final = "local_mqtt_host"
+CONF_LOCAL_MQTT_PORT: Final = "local_mqtt_port"
+CONF_LOCAL_MQTT_SSL: Final = "local_mqtt_ssl"
 
 
 async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry):
@@ -131,6 +137,18 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry):
         )
         _LOGGER.info("Config entries updated to version %d", config_entry.version)
 
+    if config_entry.version == 9:
+        new_data = dict(config_entry.data)
+        new_data[CONF_LOCAL_MQTT_ENABLED] = False
+        new_data[CONF_LOCAL_MQTT_HOST] = ""
+        new_data[CONF_LOCAL_MQTT_PORT] = 1883
+        new_data[CONF_LOCAL_MQTT_SSL] = False
+
+        updated = hass.config_entries.async_update_entry(
+            config_entry, version=10, data=new_data
+        )
+        _LOGGER.info("Config entries updated to version %d", config_entry.version)
+
     return updated
 
 
@@ -190,6 +208,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     devices_list: dict[str, DeviceData] = extract_devices(entry)
 
     await api_client.login()
+
+    if entry.data.get(CONF_LOCAL_MQTT_ENABLED):
+        api_client.mqtt_info.url = entry.data.get(CONF_LOCAL_MQTT_HOST, api_client.mqtt_info.url)
+        api_client.mqtt_info.port = entry.data.get(CONF_LOCAL_MQTT_PORT, api_client.mqtt_info.port)
+        api_client.mqtt_info.ssl = entry.data.get(CONF_LOCAL_MQTT_SSL, True)
 
     if "energy_store" not in hass.data[ECOFLOW_DOMAIN]:
         from .energy_store import EnergyStore

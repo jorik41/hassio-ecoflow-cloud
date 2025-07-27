@@ -22,6 +22,7 @@ class EcoflowMqttInfo:
     username: str
     password: str
     client_id: str | None = None
+    ssl: bool = True
 
 
 class EcoflowApiClient(ABC):

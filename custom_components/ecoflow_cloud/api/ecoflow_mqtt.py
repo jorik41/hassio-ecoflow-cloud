@@ -34,8 +34,9 @@ class EcoflowMQTTClient:
         self.__client.username_pw_set(
             self.__mqtt_info.username, self.__mqtt_info.password
         )
-        self.__client.tls_set(certfile=None, keyfile=None, cert_reqs=ssl.CERT_REQUIRED)
-        self.__client.tls_insecure_set(False)
+        if self.__mqtt_info.ssl:
+            self.__client.tls_set(certfile=None, keyfile=None, cert_reqs=ssl.CERT_REQUIRED)
+            self.__client.tls_insecure_set(False)
         self.__client.on_connect = self._on_connect
         self.__client.on_disconnect = self._on_disconnect
         self.__client.on_message = self._on_message
