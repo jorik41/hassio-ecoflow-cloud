@@ -35,6 +35,10 @@ from . import (
     OPTS_DIAGNOSTIC_MODE,
     OPTS_POWER_STEP,
     OPTS_REFRESH_PERIOD_SEC,
+    CONF_LOCAL_MQTT_ENABLED,
+    CONF_LOCAL_MQTT_HOST,
+    CONF_LOCAL_MQTT_PORT,
+    CONF_LOCAL_MQTT_SSL,
     DeviceData,
     DeviceOptions,
     extract_devices,
@@ -59,6 +63,7 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
         self.cloud_device = None
         self.cloud_devices: dict[str, EcoflowDeviceInfo] = {}
         self.local_devices: dict[str, DeviceData] = {}
+        self._auth_type = None
 
     def set_current_config_entry(self, config_entry: ConfigEntry) -> None:
         self.config_entry = config_entry
@@ -231,6 +236,7 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
             self.new_data[CONF_PASSWORD],
             self.new_data[CONF_GROUP],
         )
+        self._auth_type = "manual"
 
         errors: Dict[str, str] = {}
         try:
@@ -252,10 +258,10 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
 
             return self.async_show_menu(
                 step_id="manual",
-                menu_options=["manual_add_device", "remove_device", "finish"],
+                menu_options=["manual_add_device", "remove_device", "mqtt", "finish"],
             )
         else:
-            return await self.async_step_manual_device_input()
+            return await self.async_step_mqtt()
 
     async def async_step_manual_add_device(
         self, user_input: dict[str, Any] | None = None
@@ -305,6 +311,43 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
 
         return await self.update_or_create()
 
+    async def async_step_mqtt(self, user_input: dict[str, Any] | None = None):
+        schema = vol.Schema(
+            {
+                vol.Required(
+                    CONF_LOCAL_MQTT_ENABLED,
+                    default=self.new_data.get(CONF_LOCAL_MQTT_ENABLED, False),
+                ): bool,
+                vol.Optional(
+                    CONF_LOCAL_MQTT_HOST,
+                    default=self.new_data.get(CONF_LOCAL_MQTT_HOST, ""),
+                ): str,
+                vol.Optional(
+                    CONF_LOCAL_MQTT_PORT,
+                    default=self.new_data.get(CONF_LOCAL_MQTT_PORT, 1883),
+                ): int,
+                vol.Optional(
+                    CONF_LOCAL_MQTT_SSL,
+                    default=self.new_data.get(CONF_LOCAL_MQTT_SSL, False),
+                ): bool,
+            }
+        )
+
+        if user_input is None:
+            return self.async_show_form(step_id="mqtt", data_schema=schema)
+
+        self.new_data[CONF_LOCAL_MQTT_ENABLED] = user_input[CONF_LOCAL_MQTT_ENABLED]
+        self.new_data[CONF_LOCAL_MQTT_HOST] = user_input.get(CONF_LOCAL_MQTT_HOST, "")
+        self.new_data[CONF_LOCAL_MQTT_PORT] = user_input.get(CONF_LOCAL_MQTT_PORT, 1883)
+        self.new_data[CONF_LOCAL_MQTT_SSL] = user_input.get(CONF_LOCAL_MQTT_SSL, False)
+
+        if self.config_entry:
+            return await self.update_or_create()
+
+        if self._auth_type == "api":
+            return await self.async_step_select_device()
+        return await self.async_step_manual_device_input()
+
     async def async_step_api(self, user_input: dict[str, Any] | None = None):
         api_keys_auth_schema = vol.Schema(
             {
@@ -338,6 +381,7 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
             self.new_data[CONF_SECRET_KEY],
             self.new_data[CONF_GROUP],
         )
+        self._auth_type = "api"
 
         errors: Dict[str, str] = {}
         try:
@@ -359,10 +403,10 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
 
             return self.async_show_menu(
                 step_id="api",
-                menu_options=["api_add_device", "remove_device", "finish"],
+                menu_options=["api_add_device", "remove_device", "mqtt", "finish"],
             )
         else:
-            return await self.async_step_select_device()
+            return await self.async_step_mqtt()
 
     async def async_step_api_add_device(self, user_input: dict[str, Any] | None = None):
         return await self.async_step_select_device()
