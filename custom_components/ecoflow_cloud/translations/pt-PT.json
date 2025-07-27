@@ -11,6 +11,7 @@
         "menu_options": {
           "api_add_device": "Adicionar dispositivo",
           "remove_device": "Remover dispositivo",
+          "mqtt": "MQTT",
           "finish": "Concluir"
         },
         "data": {
@@ -41,6 +42,7 @@
         "menu_options": {
           "manual_add_device": "Adicionar dispositivo",
           "remove_device": "Remover dispositivo",
+          "mqtt": "MQTT",
           "finish": "Concluir"
         },
         "data": {
@@ -53,6 +55,14 @@
           "device_type": "Tipo de dispositivo",
           "device_name": "Nome do dispositivo",
           "device_id": "SN do dispositivo"
+        }
+      },
+      "mqtt": {
+        "data": {
+          "local_mqtt_enabled": "Ativar MQTT local",
+          "local_mqtt_host": "Host MQTT",
+          "local_mqtt_port": "Porta MQTT",
+          "local_mqtt_ssl": "Usar SSL"
         }
       }
     }

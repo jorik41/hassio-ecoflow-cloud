@@ -11,6 +11,7 @@
         "menu_options": {
           "api_add_device": "Додати пристрій",
           "remove_device": "Видалити пристрій",
+          "mqtt": "MQTT",
           "finish": "Завершити"
         },
         "data": {
@@ -41,6 +42,7 @@
         "menu_options": {
           "manual_add_device": "Додати пристрій",
           "remove_device": "Видалити пристрій",
+          "mqtt": "MQTT",
           "finish": "Завершити"
         },
         "data": {
@@ -53,6 +55,14 @@
           "device_type": "Тип пристрою",
           "device_name": "Назва пристрою",
           "device_id": "SN пристрою"
+        }
+      },
+      "mqtt": {
+        "data": {
+          "local_mqtt_enabled": "Увімкнути локальний MQTT",
+          "local_mqtt_host": "Хост MQTT",
+          "local_mqtt_port": "Порт MQTT",
+          "local_mqtt_ssl": "Використовувати SSL"
         }
       }
     }
