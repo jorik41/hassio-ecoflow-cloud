@@ -2,6 +2,7 @@ import enum
 import logging
 import struct
 from typing import Any, Mapping, OrderedDict, override
+import datetime
 
 import jsonpath_ng.ext as jp
 
@@ -536,6 +537,61 @@ class ResettingInEnergySolarSensorEntity(_ResettingMixin, InEnergySolarSensorEnt
 
 class ResettingOutEnergySensorEntity(_ResettingMixin, OutEnergySensorEntity):
     pass
+
+
+class _AbsurdProtectMixin(EnergySensorEntity):
+    """Mixin to ignore sudden absurd jumps in energy counters."""
+
+    # Maximum average power allowed (kW) when deriving difference from counter
+    max_avg_power_kw: float = 50.0
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self._last_update: datetime.datetime | None = None
+
+    def _update_value(self, val: Any) -> bool:  # type: ignore[override]
+        ival = int(val)
+        if ival <= 0:
+            return False
+
+        now = dt.utcnow()
+        if self._last_update is not None:
+            diff = ival - int(self._attr_native_value or 0)
+            if diff < 0:
+                _LOGGER.debug(
+                    "ignoring unexpected counter decrease for %s: %s -> %s",
+                    self.name,
+                    self._attr_native_value,
+                    ival,
+                )
+                return False
+
+            dt_hours = (now - self._last_update).total_seconds() / 3600
+            if dt_hours > 0 and diff / 1000 > dt_hours * self.max_avg_power_kw:
+                _LOGGER.debug(
+                    "ignoring unrealistic counter jump for %s: %.2f kWh over %.2f h",
+                    self.name,
+                    diff / 1000,
+                    dt_hours,
+                )
+                return False
+
+        self._last_update = now
+        return super()._update_value(ival)
+
+
+class InProtectedEnergySensorEntity(_AbsurdProtectMixin, InEnergySensorEntity):
+    """In energy sensor with protection against absurd values."""
+
+
+class OutProtectedEnergySensorEntity(_AbsurdProtectMixin, OutEnergySensorEntity):
+    """Out energy sensor with protection against absurd values."""
+
+
+class InProtectedEnergySolarSensorEntity(
+    _AbsurdProtectMixin, InEnergySolarSensorEntity
+):
+    """Solar in energy sensor with protection against absurd values."""
 
 
 class CalculatedEnergySensorEntity(BaseSensorEntity):
