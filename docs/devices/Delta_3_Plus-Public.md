@@ -90,7 +90,7 @@ message Delta3PlusHeartbeat {
 - X-Boost Enabled
 - AC Enabled
 - AC Always On
-- DC Enabled
+- DC Enabled (`cfgDc12vOutOpen`)
 - USB Enabled
 - Beeper Enabled
 - Charging Pause
