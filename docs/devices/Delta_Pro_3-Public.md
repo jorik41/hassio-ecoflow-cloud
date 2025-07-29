@@ -34,6 +34,7 @@
 - Total In Energy (`powInSumW`)
 - Total Out Energy (`powOutSumW`)
 - Total Energy (`powInSumW` + `powOutSumW`)
+- Status
 
 
 *Switches*

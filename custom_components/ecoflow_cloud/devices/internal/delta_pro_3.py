@@ -28,6 +28,7 @@ from custom_components.ecoflow_cloud.sensor import (
     InProtectedEnergySensorEntity,
     InProtectedEnergySolarSensorEntity,
     OutProtectedEnergySensorEntity,
+    QuotaStatusSensorEntity,
 )
 from custom_components.ecoflow_cloud.switch import BeeperEntity, EnabledEntity
 from custom_components.ecoflow_cloud.devices import BaseDevice, const
@@ -160,6 +161,7 @@ class DeltaPro3(BaseDevice):
             RemainSensorEntity(
                 client, self, "cmsDsgRemTime", const.DISCHARGE_REMAINING_TIME
             ),
+            QuotaStatusSensorEntity(client, self),
         ]
 
     def numbers(self, client: EcoflowApiClient) -> list[BaseNumberEntity]:
