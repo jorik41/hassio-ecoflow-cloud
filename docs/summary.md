@@ -2000,6 +2000,46 @@
 
 </p></details>
 
+<details><summary> Delta 3 Plus (API) <i>(sensors: 17, switches: 7, sliders: 3, selects: 0)</i> </summary>
+<p>
+
+*Sensors*
+- Total In Power
+- Total Out Power
+- AC In Power
+- AC Out Power
+- Solar In Power
+- DC Out Power
+- USB-A (1) Out Power
+- USB-A (2) Out Power
+- USB QC (1) Out Power
+- USB QC (2) Out Power
+- USB-C (1) Out Power
+- USB-C (2) Out Power
+- Charge Remaining Time
+- Discharge Remaining Time
+- Total In Energy
+- Total Out Energy
+- Total Energy
+
+*Switches*
+- X-Boost Enabled
+- AC Always On
+- DC Enabled
+- USB Enabled
+- Beeper Enabled
+- Charging Pause
+- Generator Auto Start
+
+*Sliders (numbers)*
+- Backup Reserve Level
+- Max Charge Level
+- Min Discharge Level
+
+*Selects*
+
+</p></details>
+
 <details><summary> Power Kits (API) <i>(sensors: 161, switches: 10, sliders: 1, selects: 0)</i> </summary>
 <p>
 
