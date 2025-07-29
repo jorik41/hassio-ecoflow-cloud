@@ -18,14 +18,15 @@ from ...sensor import (
     CapacitySensorEntity,
     CyclesSensorEntity,
     InMilliampSolarSensorEntity,
-    InEnergySensorEntity,
+    InProtectedEnergySensorEntity,
+    InProtectedEnergySolarSensorEntity,
     InMilliVoltSensorEntity,
     InVoltSolarSensorEntity,
     InWattsSensorEntity,
     InWattsSolarSensorEntity,
     LevelSensorEntity,
     MilliVoltSensorEntity,
-    OutEnergySensorEntity,
+    OutProtectedEnergySensorEntity,
     OutMilliVoltSensorEntity,
     OutVoltDcSensorEntity,
     OutWattsDcSensorEntity,
@@ -141,13 +142,13 @@ class DeltaPro(BaseDevice):
             MilliVoltSensorEntity(
                 client, self, "bmsMaster.maxCellVol", const.MAX_CELL_VOLT, False
             ),
-            InEnergySensorEntity(client, self, "pd.chgSunPower", const.SOLAR_IN_ENERGY),
-            InEnergySensorEntity(client, self, "pd.chgPowerAc", const.CHARGE_AC_ENERGY),
-            InEnergySensorEntity(client, self, "pd.chgPowerDc", const.CHARGE_DC_ENERGY),
-            OutEnergySensorEntity(
+            InProtectedEnergySolarSensorEntity(client, self, "pd.chgSunPower", const.SOLAR_IN_ENERGY),
+            InProtectedEnergySensorEntity(client, self, "pd.chgPowerAc", const.CHARGE_AC_ENERGY),
+            InProtectedEnergySensorEntity(client, self, "pd.chgPowerDc", const.CHARGE_DC_ENERGY),
+            OutProtectedEnergySensorEntity(
                 client, self, "pd.dsgPowerAc", const.DISCHARGE_AC_ENERGY
             ),
-            OutEnergySensorEntity(
+            OutProtectedEnergySensorEntity(
                 client, self, "pd.dsgPowerDc", const.DISCHARGE_DC_ENERGY
             ),
             # Optional Slave Batteries

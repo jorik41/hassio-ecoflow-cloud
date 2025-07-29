@@ -12,9 +12,10 @@ from custom_components.ecoflow_cloud.sensor import (
     WattsSensorEntity,
     TempSensorEntity,
     CyclesSensorEntity,
-    InEnergySensorEntity,
+    InProtectedEnergySensorEntity,
+    InProtectedEnergySolarSensorEntity,
     InWattsSensorEntity,
-    OutEnergySensorEntity,
+    OutProtectedEnergySensorEntity,
     OutWattsSensorEntity,
     MilliampSensorEntity,
     InMilliVoltSensorEntity,
@@ -39,13 +40,13 @@ class RiverMini(BaseDevice):
             MilliampSensorEntity(client, self, "inv.dcInAmp", const.SOLAR_IN_CURRENT),
             TempSensorEntity(client, self, "inv.inTemp", const.INV_IN_TEMP),
             TempSensorEntity(client, self, "inv.outTemp", const.INV_OUT_TEMP),
-            InEnergySensorEntity(client, self, "pd.chgSunPower", const.SOLAR_IN_ENERGY),
-            InEnergySensorEntity(client, self, "pd.chgPowerAC", const.CHARGE_AC_ENERGY),
-            InEnergySensorEntity(client, self, "pd.chgPowerDC", const.CHARGE_DC_ENERGY),
-            OutEnergySensorEntity(
+            InProtectedEnergySolarSensorEntity(client, self, "pd.chgSunPower", const.SOLAR_IN_ENERGY),
+            InProtectedEnergySensorEntity(client, self, "pd.chgPowerAC", const.CHARGE_AC_ENERGY),
+            InProtectedEnergySensorEntity(client, self, "pd.chgPowerDC", const.CHARGE_DC_ENERGY),
+            OutProtectedEnergySensorEntity(
                 client, self, "pd.dsgPowerAC", const.DISCHARGE_AC_ENERGY
             ),
-            OutEnergySensorEntity(
+            OutProtectedEnergySensorEntity(
                 client, self, "pd.dsgPowerDC", const.DISCHARGE_DC_ENERGY
             ),
             WattsSensorEntity(client, self, "pd.wattsInSum", const.TOTAL_IN_POWER),
