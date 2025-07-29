@@ -2000,7 +2000,7 @@
 
 </p></details>
 
-<details><summary> Delta 3 Plus (API) <i>(sensors: 17, switches: 7, sliders: 3, selects: 0)</i> </summary>
+<details><summary> Delta 3 Plus (API) <i>(sensors: 17, switches: 8, sliders: 3, selects: 0)</i> </summary>
 <p>
 
 *Sensors*
@@ -2024,6 +2024,7 @@
 
 *Switches*
 - X-Boost Enabled
+- AC Enabled
 - AC Always On
 - DC Enabled
 - USB Enabled
