@@ -9,9 +9,9 @@ from .delta_pro_3 import DeltaPro3SetMessage
 class Delta3Plus(Delta3):
     """Device class for Delta 3 Plus.
 
-    The ``cfgLvAcOutOpen`` field defined in ``deltapro3.proto`` controls the
-    low-voltage AC output. A value of ``2`` enables the outlet, while ``0``
-    disables it.
+    The AC output does not expose separate high- or low-voltage modes.
+    Instead, the generic ``acOutCfg`` command toggles power delivery.
+    The current state can be read from ``flowInfoAcOut``.
     """
 
     def switches(self, client: EcoflowApiClient) -> list[BaseSwitchEntity]:
@@ -23,11 +23,16 @@ class Delta3Plus(Delta3):
                     self,
                     "flowInfoAcOut",
                     const.AC_ENABLED,
-                    # ``cfgLvAcOutOpen`` toggles the LV AC output on the device.
-                    # The API expects ``2`` to enable and ``0`` to disable it.
-                    lambda value: DeltaPro3SetMessage(
-                        self.device_info.sn, "cfgLvAcOutOpen", value
-                    ),
+                    lambda value: {
+                        "moduleType": 5,
+                        "operateType": "acOutCfg",
+                        "params": {
+                            "enabled": value,
+                            "out_voltage": -1,
+                            "out_freq": 255,
+                            "xboost": 255,
+                        },
+                    },
                     enableValue=2,
                 ),
                 EnabledEntity(
