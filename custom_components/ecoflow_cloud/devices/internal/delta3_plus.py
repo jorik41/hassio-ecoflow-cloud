@@ -38,7 +38,7 @@ class Delta3Plus(Delta3):
                 EnabledEntity(
                     client,
                     self,
-                    "flowInfo12v",
+                    "cfgDc12vOutOpen",
                     const.DC_ENABLED,
                     lambda value: DeltaPro3SetMessage(
                         self.device_info.sn, "cfgDc12vOutOpen", value
