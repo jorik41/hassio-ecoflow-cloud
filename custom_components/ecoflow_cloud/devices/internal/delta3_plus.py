@@ -19,7 +19,7 @@ class Delta3Plus(Delta3):
                     "flowInfoAcOut",
                     const.AC_ENABLED,
                     lambda value: DeltaPro3SetMessage(
-                        self.device_info.sn, "cfgAcOutOpen", value
+                        self.device_info.sn, "cfgLvAcOutOpen", value
                     ),
                     enableValue=2,
                 ),
