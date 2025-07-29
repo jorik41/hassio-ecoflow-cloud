@@ -88,6 +88,7 @@ message Delta3PlusHeartbeat {
 
 *Switches*
 - X-Boost Enabled
+- AC Enabled
 - AC Always On
 - DC Enabled
 - USB Enabled
