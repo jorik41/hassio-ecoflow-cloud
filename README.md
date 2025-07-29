@@ -419,6 +419,7 @@ This repository is a fork of the original project by tolwi — I really apprecia
 - PV Current  _(disabled)_
 - Charge Remaining Time
 - Discharge Remaining Time
+- Status
 
 *Switches*
 - Beeper 
@@ -1947,7 +1948,7 @@ This repository is a fork of the original project by tolwi — I really apprecia
 
 </p></details>
 
-<details><summary> Delta Pro 3 (API) <i>(sensors: 36, switches: 4, sliders: 6, selects: 0)</i> </summary>
+<details><summary> Delta Pro 3 (API) <i>(sensors: 37, switches: 4, sliders: 6, selects: 0)</i> </summary>
 <p>
 
 *Sensors*

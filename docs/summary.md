@@ -403,6 +403,7 @@
 - PV Current  _(disabled)_
 - Charge Remaining Time
 - Discharge Remaining Time
+- Status
 
 *Switches*
 - Beeper 
@@ -1931,7 +1932,7 @@
 
 </p></details>
 
-<details><summary> Delta Pro 3 (API) <i>(sensors: 36, switches: 4, sliders: 6, selects: 0)</i> </summary>
+<details><summary> Delta Pro 3 (API) <i>(sensors: 37, switches: 4, sliders: 6, selects: 0)</i> </summary>
 <p>
 
 *Sensors*
