@@ -16,11 +16,18 @@ class Delta3Plus(Delta3):
                 EnabledEntity(
                     client,
                     self,
-                    "flowInfoAcHvOut",
+                    "mppt.cfgAcEnabled",
                     const.AC_ENABLED,
-                    lambda value: DeltaPro3SetMessage(
-                        self.device_info.sn, "cfgHvAcOutOpen", value
-                    ),
+                    lambda value: {
+                        "moduleType": 5,
+                        "operateType": "acOutCfg",
+                        "params": {
+                            "enabled": value,
+                            "out_voltage": -1,
+                            "out_freq": 255,
+                            "xboost": 255,
+                        },
+                    },
                     enableValue=2,
                 ),
                 EnabledEntity(
