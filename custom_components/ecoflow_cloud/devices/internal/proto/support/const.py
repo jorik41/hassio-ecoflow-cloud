@@ -52,6 +52,7 @@ class Command(enum.Enum):
     WN511_SET_BAT_LOWER_PACK = CommandFuncAndId(func=CommandFunc.POWERSTREAM, id=132)
     WN511_SET_BAT_UPPER_PACK = CommandFuncAndId(func=CommandFunc.POWERSTREAM, id=133)
     WN511_SET_BRIGHTNESS_PACK = CommandFuncAndId(func=CommandFunc.POWERSTREAM, id=135)
+    WN511_SET_VALUE_PACK = CommandFuncAndId(func=CommandFunc.POWERSTREAM, id=136)
 
     PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT = CommandFuncAndId(
         func=CommandFunc.POWERSTREAM, id=143
@@ -89,6 +90,7 @@ def get_expected_payload_type(cmd: Command) -> type[ProtoMessageRaw]:
                     Command.WN511_SET_BAT_LOWER_PACK: socket_sys.bat_lower_pack,
                     Command.WN511_SET_BAT_UPPER_PACK: socket_sys.bat_upper_pack,
                     Command.WN511_SET_BRIGHTNESS_PACK: socket_sys.brightness_pack,
+                    Command.WN511_SET_VALUE_PACK: powerstream.SetValue,
                     Command.PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT: powerstream.SetValue,
                     Command.PRIVATE_API_PLATFORM_WATTH: platform.BatchEnergyTotalReport,
                 },

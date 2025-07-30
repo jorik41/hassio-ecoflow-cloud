@@ -87,6 +87,20 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
                 )
             except Exception:
                 result["params"]["raw_payload"] = payload.hex()
+        elif (
+            message.cmd_func == CommandFunc.POWERSTREAM
+            and message.cmd_id == Command.WN511_SET_VALUE_PACK.id
+        ):
+            set_value = powerstream_pb2.SetValue()
+            try:
+                set_value.ParseFromString(payload)
+                data = MessageToDict(set_value, preserving_proto_field_name=True)
+                _log_proto("SetValue136", data)
+                result["params"].update(
+                    MessageToDict(set_value, preserving_proto_field_name=False)
+                )
+            except Exception:
+                result["params"]["raw_payload"] = payload.hex()
         elif message.cmd_func == 254 and message.cmd_id == 21:
             display = deltapro3_pb2.DisplayPropertyUpload()
             try:
