@@ -39,6 +39,7 @@ from . import (
     CONF_LOCAL_MQTT_HOST,
     CONF_LOCAL_MQTT_PORT,
     CONF_LOCAL_MQTT_SSL,
+    CONF_INTERACTION_LOG_ENABLED,
     DeviceData,
     DeviceOptions,
     extract_devices,
@@ -258,7 +259,13 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
 
             return self.async_show_menu(
                 step_id="manual",
-                menu_options=["manual_add_device", "remove_device", "mqtt", "finish"],
+                menu_options=[
+                    "manual_add_device",
+                    "remove_device",
+                    "mqtt",
+                    "interaction_log",
+                    "finish",
+                ],
             )
         else:
             return await self.async_step_mqtt()
@@ -344,6 +351,30 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
         if self.config_entry:
             return await self.update_or_create()
 
+        return await self.async_step_interaction_log()
+
+    async def async_step_interaction_log(
+        self, user_input: dict[str, Any] | None = None
+    ):
+        schema = vol.Schema(
+            {
+                vol.Required(
+                    CONF_INTERACTION_LOG_ENABLED,
+                    default=self.new_data.get(CONF_INTERACTION_LOG_ENABLED, False),
+                ): bool,
+            }
+        )
+
+        if user_input is None:
+            return self.async_show_form(step_id="interaction_log", data_schema=schema)
+
+        self.new_data[CONF_INTERACTION_LOG_ENABLED] = user_input[
+            CONF_INTERACTION_LOG_ENABLED
+        ]
+
+        if self.config_entry:
+            return await self.update_or_create()
+
         if self._auth_type == "api":
             return await self.async_step_select_device()
         return await self.async_step_manual_device_input()
@@ -403,7 +434,13 @@ class EcoflowConfigFlow(ConfigFlow, domain=ECOFLOW_DOMAIN):
 
             return self.async_show_menu(
                 step_id="api",
-                menu_options=["api_add_device", "remove_device", "mqtt", "finish"],
+                menu_options=[
+                    "api_add_device",
+                    "remove_device",
+                    "mqtt",
+                    "interaction_log",
+                    "finish",
+                ],
             )
         else:
             return await self.async_step_mqtt()

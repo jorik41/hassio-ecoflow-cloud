@@ -178,7 +178,11 @@ class EcoflowPrivateApiClient(EcoflowApiClient):
             super().send_get_message(device_sn, command)
 
     def send_set_message(
-        self, device_sn: str, mqtt_state: dict[str, Any], command: dict | Message
+        self,
+        device_sn: str,
+        mqtt_state: dict[str, Any],
+        command: dict | Message,
+        interaction: str | None = None,
     ):
         if isinstance(command, PrivateAPIMessageProtocol):
             self.devices[device_sn].data.update_to_target_state(mqtt_state)
@@ -186,5 +190,12 @@ class EcoflowPrivateApiClient(EcoflowApiClient):
                 self.devices[device_sn].device_info.set_topic,
                 command.private_api_to_mqtt_payload(),
             )
+            if interaction is not None:
+                _LOGGER.info(
+                    "Interaction '%s' triggered set on %s with %s",
+                    interaction,
+                    device_sn,
+                    mqtt_state,
+                )
         else:
-            super().send_set_message(device_sn, mqtt_state, command)
+            super().send_set_message(device_sn, mqtt_state, command, interaction)

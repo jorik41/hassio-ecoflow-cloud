@@ -23,10 +23,18 @@ async def async_setup_entry(
 class EnabledButtonEntity(BaseButtonEntity):
     def press(self, **kwargs: Any) -> None:
         if self._command:
-            self.send_set_message(0, self.command_dict(0))
+            self.send_set_message(
+                0,
+                self.command_dict(0),
+                interaction="press",
+            )
 
 
 class DisabledButtonEntity(BaseButtonEntity):
     async def async_press(self, **kwargs: Any) -> None:
         if self._command:
-            self.send_set_message(0, self.command_dict(0))
+            self.send_set_message(
+                0,
+                self.command_dict(0),
+                interaction="async_press",
+            )

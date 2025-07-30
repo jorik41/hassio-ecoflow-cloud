@@ -12,6 +12,7 @@
           "api_add_device": "Додати пристрій",
           "remove_device": "Видалити пристрій",
           "mqtt": "MQTT",
+          "interaction_log": "Журнал взаємодій",
           "finish": "Завершити"
         },
         "data": {
@@ -43,6 +44,7 @@
           "manual_add_device": "Додати пристрій",
           "remove_device": "Видалити пристрій",
           "mqtt": "MQTT",
+          "interaction_log": "Журнал взаємодій",
           "finish": "Завершити"
         },
         "data": {
@@ -63,6 +65,11 @@
           "local_mqtt_host": "Хост MQTT",
           "local_mqtt_port": "Порт MQTT",
           "local_mqtt_ssl": "Використовувати SSL"
+        }
+      },
+      "interaction_log": {
+        "data": {
+          "interaction_log_enabled": "Увімкнути журнал взаємодій"
         }
       }
     }
