@@ -89,7 +89,7 @@ def get_expected_payload_type(cmd: Command) -> type[ProtoMessageRaw]:
                     Command.WN511_SET_BAT_LOWER_PACK: socket_sys.bat_lower_pack,
                     Command.WN511_SET_BAT_UPPER_PACK: socket_sys.bat_upper_pack,
                     Command.WN511_SET_BRIGHTNESS_PACK: socket_sys.brightness_pack,
-                    Command.PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT: powerstream.PrivateAPIGenericSetValue,
+                    Command.PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT: powerstream.SetValue,
                     Command.PRIVATE_API_PLATFORM_WATTH: platform.BatchEnergyTotalReport,
                 },
             )
