@@ -1,8 +1,18 @@
 from __future__ import annotations
 
+import logging
 from typing import Any, Dict
 
 from google.protobuf.json_format import MessageToDict
+
+_LOGGER = logging.getLogger(__name__)
+
+
+def _log_proto(msg_name: str, data: Dict[str, Any]) -> None:
+    if any(key.startswith("unknown") for key in data):
+        _LOGGER.info("Protobuf %s contains unknown fields: %s", msg_name, data)
+    else:
+        _LOGGER.debug("Protobuf %s: %s", msg_name, data)
 
 from .devices.internal.proto import (
     ecopacket_pb2,
@@ -47,6 +57,8 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
             heartbeat = powerstream_pb2.InverterHeartbeat()
             try:
                 heartbeat.ParseFromString(message.pdata)
+                data = MessageToDict(heartbeat, preserving_proto_field_name=True)
+                _log_proto("InverterHeartbeat", data)
                 result["params"].update(
                     MessageToDict(heartbeat, preserving_proto_field_name=False)
                 )
@@ -56,6 +68,8 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
             display = deltapro3_pb2.DisplayPropertyUpload()
             try:
                 display.ParseFromString(payload)
+                data = MessageToDict(display, preserving_proto_field_name=True)
+                _log_proto("DisplayPropertyUpload", data)
                 result["params"].update(
                     MessageToDict(display, preserving_proto_field_name=False)
                 )
@@ -65,6 +79,8 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
             runtime = deltapro3_pb2.RuntimePropertyUpload()
             try:
                 runtime.ParseFromString(payload)
+                data = MessageToDict(runtime, preserving_proto_field_name=True)
+                _log_proto("RuntimePropertyUpload", data)
                 result["params"].update(
                     MessageToDict(runtime, preserving_proto_field_name=False)
                 )
@@ -74,6 +90,8 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
             report = deltapro3_pb2.cmdFunc254_cmdId23_Report()
             try:
                 report.ParseFromString(payload)
+                data = MessageToDict(report, preserving_proto_field_name=True)
+                _log_proto("cmdFunc254_cmdId23_Report", data)
                 result["params"].update(
                     MessageToDict(report, preserving_proto_field_name=False)
                 )
@@ -83,6 +101,8 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
             report = deltapro3_pb2.cmdFunc32_cmdId2_Report()
             try:
                 report.ParseFromString(payload)
+                data = MessageToDict(report, preserving_proto_field_name=True)
+                _log_proto("cmdFunc32_cmdId2_Report", data)
                 result["params"].update(
                     MessageToDict(report, preserving_proto_field_name=False)
                 )
@@ -92,6 +112,8 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
             report = deltapro3_pb2.cmdFunc50_cmdId30_Report()
             try:
                 report.ParseFromString(payload)
+                data = MessageToDict(report, preserving_proto_field_name=True)
+                _log_proto("cmdFunc50_cmdId30_Report", data)
                 result["params"].update(
                     MessageToDict(report, preserving_proto_field_name=False)
                 )
