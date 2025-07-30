@@ -28,7 +28,11 @@ class ValueUpdateEntity(BaseNumberEntity):
     async def async_set_native_value(self, value: float):
         if self._command:
             ival = int(value)
-            self.send_set_message(ival, self.command_dict(ival))
+            self.send_set_message(
+                ival,
+                self.command_dict(ival),
+                interaction="set_value",
+            )
 
 
 class ChargingPowerEntity(ValueUpdateEntity):
@@ -75,7 +79,11 @@ class DeciChargingPowerEntity(ChargingPowerEntity):
     async def async_set_native_value(self, value: float):
         if self._command:
             ival = int(value * 10)
-            self.send_set_message(ival, self.command_dict(ival))
+            self.send_set_message(
+                ival,
+                self.command_dict(ival),
+                interaction="set_value",
+            )
 
 
 class AcChargingPowerInAmpereEntity(ValueUpdateEntity):
@@ -87,7 +95,11 @@ class AcChargingPowerInAmpereEntity(ValueUpdateEntity):
 
     async def async_set_native_value(self, value: int):
         if self._command:
-            self.send_set_message(value, self.command_dict(value))
+            self.send_set_message(
+                value,
+                self.command_dict(value),
+                interaction="set_value",
+            )
 
 
 class MinMaxLevelEntity(ValueUpdateEntity):

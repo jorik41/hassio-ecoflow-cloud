@@ -97,7 +97,11 @@ class EcoflowApiClient(ABC):
         )
 
     def send_set_message(
-        self, device_sn: str, mqtt_state: dict[str, Any], command: dict | Message
+        self,
+        device_sn: str,
+        mqtt_state: dict[str, Any],
+        command: dict | Message,
+        interaction: str | None = None,
     ):
         if isinstance(command, dict):
             command = JSONMessage(command)
@@ -106,6 +110,13 @@ class EcoflowApiClient(ABC):
         self.mqtt_client.publish(
             self.devices[device_sn].device_info.set_topic, command.to_mqtt_payload()
         )
+        if interaction is not None:
+            _LOGGER.info(
+                "Interaction '%s' triggered set on %s with %s",
+                interaction,
+                device_sn,
+                mqtt_state,
+            )
 
     def start(self):
         from custom_components.ecoflow_cloud.api.ecoflow_mqtt import EcoflowMQTTClient

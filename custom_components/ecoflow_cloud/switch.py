@@ -58,11 +58,19 @@ class EnabledEntity(BaseSwitchEntity[int]):
     def turn_on(self, **kwargs: Any) -> None:
         if self._command:
             value = 1 if self._enable_value is None else self._enable_value
-            self.send_set_message(value, self.command_dict(value))
+            self.send_set_message(
+                value,
+                self.command_dict(value),
+                interaction="turn_on",
+            )
 
     def turn_off(self, **kwargs: Any) -> None:
         if self._command:
-            self.send_set_message(0, self.command_dict(0))
+            self.send_set_message(
+                0,
+                self.command_dict(0),
+                interaction="turn_off",
+            )
 
 
 class BitMaskEnableEntity(EnabledEntity):
@@ -147,11 +155,19 @@ class BitMaskEnableEntity(EnabledEntity):
             # 128 is `1000000`, what is the bitmask ofset to turn on things
             # TODO: if this class should be used for other bitmap switches,
             # this 128 needs to be replaced, with the correct offset
-            self.send_set_message(1, self.command_dict(128 + (self.switchNumber - 1)))
+            self.send_set_message(
+                1,
+                self.command_dict(128 + (self.switchNumber - 1)),
+                interaction="turn_on",
+            )
 
     def turn_off(self, **kwargs: Any) -> None:
         if self._command:
-            self.send_set_message(0, self.command_dict((self.switchNumber - 1)))
+            self.send_set_message(
+                0,
+                self.command_dict((self.switchNumber - 1)),
+                interaction="turn_off",
+            )
 
 
 class DisabledEntity(BaseSwitchEntity[int]):
@@ -162,11 +178,19 @@ class DisabledEntity(BaseSwitchEntity[int]):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         if self._command:
-            self.send_set_message(0, self.command_dict(0))
+            self.send_set_message(
+                0,
+                self.command_dict(0),
+                interaction="async_turn_on",
+            )
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         if self._command:
-            self.send_set_message(1, self.command_dict(1))
+            self.send_set_message(
+                1,
+                self.command_dict(1),
+                interaction="async_turn_off",
+            )
 
 
 class FanModeEntity(BaseSwitchEntity[int]):  # for River Max
@@ -177,11 +201,11 @@ class FanModeEntity(BaseSwitchEntity[int]):  # for River Max
 
     def turn_on(self, **kwargs: Any) -> None:
         if self._command:
-            self.send_set_message(1, self.command_dict(1))
+            self.send_set_message(1, self.command_dict(1), interaction="turn_on")
 
     def turn_off(self, **kwargs: Any) -> None:
         if self._command:
-            self.send_set_message(3, self.command_dict(3))
+            self.send_set_message(3, self.command_dict(3), interaction="turn_off")
 
 
 class BeeperEntity(DisabledEntity):

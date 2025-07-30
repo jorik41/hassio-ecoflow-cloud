@@ -11,7 +11,7 @@ from .device_data import DeviceData, DeviceOptions
 _LOGGER = logging.getLogger(__name__)
 
 ECOFLOW_DOMAIN = "ecoflow_cloud"
-CONFIG_VERSION = 10
+CONFIG_VERSION = 11
 
 _PLATFORMS = {
     Platform.NUMBER,
@@ -59,6 +59,9 @@ CONF_LOCAL_MQTT_ENABLED: Final = "local_mqtt_enabled"
 CONF_LOCAL_MQTT_HOST: Final = "local_mqtt_host"
 CONF_LOCAL_MQTT_PORT: Final = "local_mqtt_port"
 CONF_LOCAL_MQTT_SSL: Final = "local_mqtt_ssl"
+
+# Interaction logging option
+CONF_INTERACTION_LOG_ENABLED: Final = "interaction_log_enabled"
 
 
 async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry):
@@ -149,6 +152,15 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry):
         )
         _LOGGER.info("Config entries updated to version %d", config_entry.version)
 
+    if config_entry.version == 10:
+        new_data = dict(config_entry.data)
+        new_data[CONF_INTERACTION_LOG_ENABLED] = False
+
+        updated = hass.config_entries.async_update_entry(
+            config_entry, version=11, data=new_data
+        )
+        _LOGGER.info("Config entries updated to version %d", config_entry.version)
+
     return updated
 
 
@@ -180,6 +192,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         return False
 
     _LOGGER.info("Setup entry %s (data = %s)", str(entry), str(entry.data))
+
+    if entry.data.get(CONF_INTERACTION_LOG_ENABLED):
+        log_path = hass.config.path("ecoflow_interactions.log")
+        if not any(
+            isinstance(handler, logging.FileHandler)
+            and getattr(handler, "baseFilename", None) == log_path
+            for handler in _LOGGER.handlers
+        ):
+            handler = logging.FileHandler(log_path)
+            handler.setFormatter(
+                logging.Formatter("%(asctime)s %(levelname)s %(message)s")
+            )
+            _LOGGER.addHandler(handler)
     if ECOFLOW_DOMAIN not in hass.data:
         hass.data[ECOFLOW_DOMAIN] = {}
 

@@ -12,6 +12,7 @@
           "api_add_device": "Adicionar dispositivo",
           "remove_device": "Remover dispositivo",
           "mqtt": "MQTT",
+          "interaction_log": "Registo de interações",
           "finish": "Concluir"
         },
         "data": {
@@ -43,6 +44,7 @@
           "manual_add_device": "Adicionar dispositivo",
           "remove_device": "Remover dispositivo",
           "mqtt": "MQTT",
+          "interaction_log": "Registo de interações",
           "finish": "Concluir"
         },
         "data": {
@@ -63,6 +65,11 @@
           "local_mqtt_host": "Host MQTT",
           "local_mqtt_port": "Porta MQTT",
           "local_mqtt_ssl": "Usar SSL"
+        }
+      },
+      "interaction_log": {
+        "data": {
+          "interaction_log_enabled": "Ativar registo de interações"
         }
       }
     }

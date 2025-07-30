@@ -182,9 +182,17 @@ class EcoFlowBaseCommandEntity[_CommandArg](EcoFlowDictEntity):
         else:
             return None
 
-    def send_set_message(self, target_value: Any, command: dict | Message):
+    def send_set_message(
+        self,
+        target_value: Any,
+        command: dict | Message,
+        interaction: str | None = None,
+    ):
         self._client.send_set_message(
-            self._device.device_info.sn, {self._mqtt_key_adopted: target_value}, command
+            self._device.device_info.sn,
+            {self._mqtt_key_adopted: target_value},
+            command,
+            interaction,
         )
 
 

@@ -12,6 +12,7 @@
           "api_add_device": "Gerät hinzufügen",
           "remove_device": "Gerät entfernen",
           "mqtt": "MQTT",
+          "interaction_log": "Interaktionsprotokoll",
           "finish": "Abschließen"
         },
         "data": {
@@ -43,6 +44,7 @@
           "manual_add_device": "Gerät hinzufügen",
           "remove_device": "Gerät entfernen",
           "mqtt": "MQTT",
+          "interaction_log": "Interaktionsprotokoll",
           "finish": "Abschließen"
         },
         "data": {
@@ -63,6 +65,11 @@
           "local_mqtt_host": "MQTT Host",
           "local_mqtt_port": "MQTT Port",
           "local_mqtt_ssl": "SSL verwenden"
+        }
+      },
+      "interaction_log": {
+        "data": {
+          "interaction_log_enabled": "Interaktionsprotokoll aktivieren"
         }
       }
     }

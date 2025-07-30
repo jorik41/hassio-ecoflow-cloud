@@ -67,7 +67,11 @@ class DictSelectEntity(BaseSelectEntity[int]):
     def select_option(self, option: str) -> None:
         if self._command:
             val = self._options_dict[option]
-            self.send_set_message(val, self.command_dict(val))
+            self.send_set_message(
+                val,
+                self.command_dict(val),
+                interaction=f"select_option:{option}",
+            )
 
 
 class TimeoutDictSelectEntity(DictSelectEntity):
