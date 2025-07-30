@@ -14,6 +14,9 @@ sys.modules.setdefault(
     "model.protos", import_module(".devices.internal.proto.model.protos", __package__)
 )
 
+from .devices.internal.proto.model.protos import (  # noqa: F401
+    options_pb2,  # noqa: F401 # pyright: ignore[reportUnusedImport]
+)
 from .devices.internal.proto import (  # noqa: F401
     ecopacket_pb2,  # noqa: F401 # pyright: ignore[reportUnusedImport]
     platform_pb2,  # noqa: F401 # pyright: ignore[reportUnusedImport]
