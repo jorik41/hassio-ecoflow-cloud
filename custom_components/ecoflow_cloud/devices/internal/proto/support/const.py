@@ -4,6 +4,7 @@ from typing import NamedTuple, cast
 from google.protobuf.message import Message as ProtoMessageRaw
 
 from .. import platform_pb2 as platform
+from .. import wn511_socket_sys_pb2 as socket_sys
 
 
 # https://github.com/tomvd/local-powerstream/issues/4#issuecomment-2781354316
@@ -83,11 +84,11 @@ def get_expected_payload_type(cmd: Command) -> type[ProtoMessageRaw]:
                 dict[Command, type[ProtoMessageRaw]],
                 {
                     Command.PRIVATE_API_POWERSTREAM_HEARTBEAT: powerstream.InverterHeartbeat,
-                    Command.WN511_SET_PERMANENT_WATTS_PACK: powerstream.PermanentWattsPack,
-                    Command.WN511_SET_SUPPLY_PRIORITY_PACK: powerstream.SupplyPriorityPack,
-                    Command.WN511_SET_BAT_LOWER_PACK: powerstream.BatLowerPack,
-                    Command.WN511_SET_BAT_UPPER_PACK: powerstream.BatUpperPack,
-                    Command.WN511_SET_BRIGHTNESS_PACK: powerstream.BrightnessPack,
+                    Command.WN511_SET_PERMANENT_WATTS_PACK: socket_sys.permanent_watts_pack,
+                    Command.WN511_SET_SUPPLY_PRIORITY_PACK: socket_sys.include_plug,
+                    Command.WN511_SET_BAT_LOWER_PACK: socket_sys.bat_lower_pack,
+                    Command.WN511_SET_BAT_UPPER_PACK: socket_sys.bat_upper_pack,
+                    Command.WN511_SET_BRIGHTNESS_PACK: socket_sys.brightness_pack,
                     Command.PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT: powerstream.PrivateAPIGenericSetValue,
                     Command.PRIVATE_API_PLATFORM_WATTH: platform.BatchEnergyTotalReport,
                 },
