@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package model.protos;
+
+import "model/protos/options.proto";
+
+message rtc_data {
+  optional int32 week = 1;
+  optional int32 sec = 2;
+  optional int32 min = 3;
+  optional int32 hour = 4;
+  optional int32 day = 5;
+  optional int32 month = 6;
+  optional int32 year = 7;
+}
+
+message time_range_strategy {
+  optional bool is_config = 1;
+  optional bool is_enable = 2;
+  optional int32 time_mode = 3;
+  optional int32 time_data = 4;
+  optional rtc_data start_time = 5;
+  optional rtc_data stop_time = 6;
+}
+
+message plug_ack_message {
+  optional int32 ack = 1;
+}
+
+message plug_heartbeat_pack {
+  option (homie_node) = { id: "states", name: "States", type: "states"};
+  option (homie_node) = { id: "controls", name: "Controls", type: "controls"};
+
+  optional int32 err_code = 1;
+  optional int32 warn_code = 2;
+  optional int32 country = 3;
+  optional int32 town = 4;
+  optional int32 max_cur = 5;
+  optional int32 temp = 6 [(mapping_options) = { unit: "C", node: "states" }];
+  optional int32 freq = 7 [(mapping_options) = { unit: "Hz", node: "states" }];
+  optional int32 current = 8;
+  optional int32 volt = 9 [(mapping_options) = { unit: "V", node: "states" }];
+  optional int32 watts = 10 [(mapping_options) = { divisor: 10, unit: "W", node: "states", simulated_settable: true }];
+  optional bool switch = 11[(mapping_options) = { node: "controls", settable: true }];
+  optional int32 brightness = 12 [(mapping_options) = { divisor: 10, unit: "%", node: "states", settable: true }];
+  optional int32 max_watts = 13 [(mapping_options) = { unit: "W", node: "states", settable: true }];
+  optional int32 heartbeat_frequency = 14;
+  optional bool mesh_enable = 15 [(mapping_options) = { node: "controls", settable: true }];
+}
+
+message plug_switch_message {
+  optional uint32 plug_switch = 1;
+}
+
+message brightness_pack {
+  optional int32 brightness = 1;
+}
+
+message max_cur_pack {
+  optional int32 max_cur = 1;
+}
+
+message bat_upper_pack {
+  optional int32 upper_limit = 1;
+}
+
+message bat_lower_pack {
+  optional int32 lower_limit = 1;
+}
+
+message permanent_watts_pack {
+  optional int32 permanent_watts = 1;
+}
+
+message time_task_config {
+  optional string task_name = 1;
+  optional time_range_strategy time_range = 2;
+  optional int32 type = 3;
+}
+
+message time_task_config_post {
+  repeated time_task_config task_config = 1;
+}
+
+message PowerItem {
+  optional int64 timestamp = 1;
+  optional string timezone = 2;
+  optional int32 plug_power = 3;
+}
+
+message PowerPack {
+  optional int32 sys_seq = 1;
+  repeated PowerItem sys_power_stream = 2;
+}
+
+message PowerAckPack {
+  optional int32 sys_seq = 1;
+}
+
+message max_watts_pack {
+  optional int32 max_watts = 1;
+}
+
+message mesh_ctrl_pack {
+  optional uint32 mesh_enable = 1;
+}
+
+message ret_pack {
+  optional bool ret_sta = 1;
+}
+
+message include_plug {
+	optional bool include_plug = 1;
+  }

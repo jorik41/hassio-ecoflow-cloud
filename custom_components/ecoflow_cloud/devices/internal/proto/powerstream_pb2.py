@@ -6,42 +6,264 @@ from google.protobuf.internal import builder as _builder
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import symbol_database as _symbol_database
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
+from model.protos import options_pb2 as model_dot_protos_dot_options__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11powerstream.proto\"\xfd\x15\n\x11InverterHeartbeat\x12\x1b\n\x0einv_error_code\x18\x01 \x01(\rH\x00\x88\x01\x01\x12\x1d\n\x10inv_warning_code\x18\x03 \x01(\rH\x01\x88\x01\x01\x12\x1b\n\x0epv1_error_code\x18\x02 \x01(\rH\x02\x88\x01\x01\x12\x1d\n\x10pv1_warning_code\x18\x04 \x01(\rH\x03\x88\x01\x01\x12\x1b\n\x0epv2_error_code\x18\x05 \x01(\rH\x04\x88\x01\x01\x12\x1d\n\x10pv2_warning_code\x18\x06 \x01(\rH\x05\x88\x01\x01\x12\x1b\n\x0e\x62\x61t_error_code\x18\x07 \x01(\rH\x06\x88\x01\x01\x12\x1d\n\x10\x62\x61t_warning_code\x18\x08 \x01(\rH\x07\x88\x01\x01\x12\x1b\n\x0ellc_error_code\x18\t \x01(\rH\x08\x88\x01\x01\x12\x1d\n\x10llc_warning_code\x18\n \x01(\rH\t\x88\x01\x01\x12\x17\n\npv1_statue\x18\x0b \x01(\rH\n\x88\x01\x01\x12\x17\n\npv2_statue\x18\x0c \x01(\rH\x0b\x88\x01\x01\x12\x17\n\nbat_statue\x18\r \x01(\rH\x0c\x88\x01\x01\x12\x17\n\nllc_statue\x18\x0e \x01(\rH\r\x88\x01\x01\x12\x17\n\ninv_statue\x18\x0f \x01(\rH\x0e\x88\x01\x01\x12\x1b\n\x0epv1_input_volt\x18\x10 \x01(\x05H\x0f\x88\x01\x01\x12\x18\n\x0bpv1_op_volt\x18\x11 \x01(\x05H\x10\x88\x01\x01\x12\x1a\n\rpv1_input_cur\x18\x12 \x01(\x05H\x11\x88\x01\x01\x12\x1c\n\x0fpv1_input_watts\x18\x13 \x01(\x05H\x12\x88\x01\x01\x12\x15\n\x08pv1_temp\x18\x14 \x01(\x05H\x13\x88\x01\x01\x12\x1b\n\x0epv2_input_volt\x18\x15 \x01(\x05H\x14\x88\x01\x01\x12\x18\n\x0bpv2_op_volt\x18\x16 \x01(\x05H\x15\x88\x01\x01\x12\x1a\n\rpv2_input_cur\x18\x17 \x01(\x05H\x16\x88\x01\x01\x12\x1c\n\x0fpv2_input_watts\x18\x18 \x01(\x05H\x17\x88\x01\x01\x12\x15\n\x08pv2_temp\x18\x19 \x01(\x05H\x18\x88\x01\x01\x12\x1b\n\x0e\x62\x61t_input_volt\x18\x1a \x01(\x05H\x19\x88\x01\x01\x12\x18\n\x0b\x62\x61t_op_volt\x18\x1b \x01(\x05H\x1a\x88\x01\x01\x12\x1a\n\rbat_input_cur\x18\x1c \x01(\x05H\x1b\x88\x01\x01\x12\x1c\n\x0f\x62\x61t_input_watts\x18\x1d \x01(\x05H\x1c\x88\x01\x01\x12\x15\n\x08\x62\x61t_temp\x18\x1e \x01(\x05H\x1d\x88\x01\x01\x12\x14\n\x07\x62\x61t_soc\x18\x1f \x01(\rH\x1e\x88\x01\x01\x12\x1b\n\x0ellc_input_volt\x18  \x01(\x05H\x1f\x88\x01\x01\x12\x18\n\x0bllc_op_volt\x18! \x01(\x05H \x88\x01\x01\x12\x15\n\x08llc_temp\x18\" \x01(\x05H!\x88\x01\x01\x12\x1b\n\x0einv_input_volt\x18# \x01(\x05H\"\x88\x01\x01\x12\x18\n\x0binv_op_volt\x18$ \x01(\x05H#\x88\x01\x01\x12\x1b\n\x0einv_output_cur\x18% \x01(\x05H$\x88\x01\x01\x12\x1d\n\x10inv_output_watts\x18& \x01(\x05H%\x88\x01\x01\x12\x15\n\x08inv_temp\x18\' \x01(\x05H&\x88\x01\x01\x12\x15\n\x08inv_freq\x18( \x01(\x05H\'\x88\x01\x01\x12\x17\n\ninv_dc_cur\x18) \x01(\x05H(\x88\x01\x01\x12\x14\n\x07\x62p_type\x18* \x01(\x05H)\x88\x01\x01\x12\x1d\n\x10inv_relay_status\x18+ \x01(\x05H*\x88\x01\x01\x12\x1d\n\x10pv1_relay_status\x18, \x01(\x05H+\x88\x01\x01\x12\x1d\n\x10pv2_relay_status\x18- \x01(\x05H,\x88\x01\x01\x12\x1c\n\x0finstall_country\x18. \x01(\rH-\x88\x01\x01\x12\x19\n\x0cinstall_town\x18/ \x01(\rH.\x88\x01\x01\x12\x1c\n\x0fpermanent_watts\x18\x30 \x01(\rH/\x88\x01\x01\x12\x1a\n\rdynamic_watts\x18\x31 \x01(\rH0\x88\x01\x01\x12\x1c\n\x0fsupply_priority\x18\x32 \x01(\rH1\x88\x01\x01\x12\x18\n\x0blower_limit\x18\x33 \x01(\rH2\x88\x01\x01\x12\x18\n\x0bupper_limit\x18\x34 \x01(\rH3\x88\x01\x01\x12\x17\n\ninv_on_off\x18\x35 \x01(\rH4\x88\x01\x01\x12 \n\x13wireless_error_code\x18\x36 \x01(\rH5\x88\x01\x01\x12\"\n\x15wireless_warning_code\x18\x37 \x01(\rH6\x88\x01\x01\x12\x1b\n\x0einv_brightness\x18\x38 \x01(\rH7\x88\x01\x01\x12 \n\x13heartbeat_frequency\x18\x39 \x01(\rH8\x88\x01\x01\x12\x18\n\x0brated_power\x18: \x01(\rH9\x88\x01\x01\x12\x1c\n\x0f\x63hg_remain_time\x18; \x01(\rH:\x88\x01\x01\x12\x1c\n\x0f\x64sg_remain_time\x18< \x01(\rH;\x88\x01\x01\x12\x19\n\x0c\x66\x65\x65\x64_protect\x18= \x01(\rH<\x88\x01\x01\x42\x11\n\x0f_inv_error_codeB\x13\n\x11_inv_warning_codeB\x11\n\x0f_pv1_error_codeB\x13\n\x11_pv1_warning_codeB\x11\n\x0f_pv2_error_codeB\x13\n\x11_pv2_warning_codeB\x11\n\x0f_bat_error_codeB\x13\n\x11_bat_warning_codeB\x11\n\x0f_llc_error_codeB\x13\n\x11_llc_warning_codeB\r\n\x0b_pv1_statueB\r\n\x0b_pv2_statueB\r\n\x0b_bat_statueB\r\n\x0b_llc_statueB\r\n\x0b_inv_statueB\x11\n\x0f_pv1_input_voltB\x0e\n\x0c_pv1_op_voltB\x10\n\x0e_pv1_input_curB\x12\n\x10_pv1_input_wattsB\x0b\n\t_pv1_tempB\x11\n\x0f_pv2_input_voltB\x0e\n\x0c_pv2_op_voltB\x10\n\x0e_pv2_input_curB\x12\n\x10_pv2_input_wattsB\x0b\n\t_pv2_tempB\x11\n\x0f_bat_input_voltB\x0e\n\x0c_bat_op_voltB\x10\n\x0e_bat_input_curB\x12\n\x10_bat_input_wattsB\x0b\n\t_bat_tempB\n\n\x08_bat_socB\x11\n\x0f_llc_input_voltB\x0e\n\x0c_llc_op_voltB\x0b\n\t_llc_tempB\x11\n\x0f_inv_input_voltB\x0e\n\x0c_inv_op_voltB\x11\n\x0f_inv_output_curB\x13\n\x11_inv_output_wattsB\x0b\n\t_inv_tempB\x0b\n\t_inv_freqB\r\n\x0b_inv_dc_curB\n\n\x08_bp_typeB\x13\n\x11_inv_relay_statusB\x13\n\x11_pv1_relay_statusB\x13\n\x11_pv2_relay_statusB\x12\n\x10_install_countryB\x0f\n\r_install_townB\x12\n\x10_permanent_wattsB\x10\n\x0e_dynamic_wattsB\x12\n\x10_supply_priorityB\x0e\n\x0c_lower_limitB\x0e\n\x0c_upper_limitB\r\n\x0b_inv_on_offB\x16\n\x14_wireless_error_codeB\x18\n\x16_wireless_warning_codeB\x11\n\x0f_inv_brightnessB\x16\n\x14_heartbeat_frequencyB\x0e\n\x0c_rated_powerB\x12\n\x10_chg_remain_timeB\x12\n\x10_dsg_remain_timeB\x0f\n\r_feed_protect\"F\n\x12PermanentWattsPack\x12\x1c\n\x0fpermanent_watts\x18\x01 \x01(\rH\x00\x88\x01\x01\x42\x12\n\x10_permanent_watts\"F\n\x12SupplyPriorityPack\x12\x1c\n\x0fsupply_priority\x18\x01 \x01(\rH\x00\x88\x01\x01\x42\x12\n\x10_supply_priority\"8\n\x0c\x42\x61tLowerPack\x12\x18\n\x0blower_limit\x18\x01 \x01(\x05H\x00\x88\x01\x01\x42\x0e\n\x0c_lower_limit\"8\n\x0c\x42\x61tUpperPack\x12\x18\n\x0bupper_limit\x18\x01 \x01(\x05H\x00\x88\x01\x01\x42\x0e\n\x0c_upper_limit\"8\n\x0e\x42rightnessPack\x12\x17\n\nbrightness\x18\x01 \x01(\x05H\x00\x88\x01\x01\x42\r\n\x0b_brightness\"\xd7\x02\n\tPowerItem\x12\x16\n\ttimestamp\x18\x01 \x01(\rH\x00\x88\x01\x01\x12\x15\n\x08timezone\x18\x02 \x01(\x11H\x01\x88\x01\x01\x12\x1e\n\x11inv_to_grid_power\x18\x03 \x01(\rH\x02\x88\x01\x01\x12\x1e\n\x11inv_to_plug_power\x18\x04 \x01(\rH\x03\x88\x01\x01\x12\x1a\n\rbattery_power\x18\x05 \x01(\x05H\x04\x88\x01\x01\x12\x1d\n\x10pv1_output_power\x18\x06 \x01(\rH\x05\x88\x01\x01\x12\x1d\n\x10pv2_output_power\x18\x07 \x01(\rH\x06\x88\x01\x01\x42\x0c\n\n_timestampB\x0b\n\t_timezoneB\x14\n\x12_inv_to_grid_powerB\x14\n\x12_inv_to_plug_powerB\x10\n\x0e_battery_powerB\x13\n\x11_pv1_output_powerB\x13\n\x11_pv2_output_power\"S\n\tPowerPack\x12\x14\n\x07sys_seq\x18\x01 \x01(\rH\x00\x88\x01\x01\x12$\n\x10sys_power_stream\x18\x02 \x03(\x0b\x32\n.PowerItemB\n\n\x08_sys_seq\"0\n\x0cPowerAckPack\x12\x14\n\x07sys_seq\x18\x01 \x01(\rH\x00\x88\x01\x01\x42\n\n\x08_sys_seq\"?\n\x0bNodeMassage\x12\x0f\n\x02sn\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x03mac\x18\x02 \x01(\x0cH\x01\x88\x01\x01\x42\x05\n\x03_snB\x06\n\x04_mac\"\x9e\x02\n\x11MeshChildNodeInfo\x12\x1a\n\rtopology_type\x18\x01 \x01(\rH\x00\x88\x01\x01\x12\x1a\n\rmesh_protocol\x18\x02 \x01(\rH\x01\x88\x01\x01\x12\x1f\n\x12max_sub_device_num\x18\x03 \x01(\rH\x02\x88\x01\x01\x12\x1a\n\rparent_mac_id\x18\x04 \x01(\x0cH\x03\x88\x01\x01\x12\x14\n\x07mesh_id\x18\x05 \x01(\x0cH\x04\x88\x01\x01\x12%\n\x0fsub_device_list\x18\x06 \x03(\x0b\x32\x0c.NodeMassageB\x10\n\x0e_topology_typeB\x10\n\x0e_mesh_protocolB\x15\n\x13_max_sub_device_numB\x10\n\x0e_parent_mac_idB\n\n\x08_mesh_id\"9\n\x19PrivateAPIGenericSetValue\x12\x12\n\x05value\x18\x01 \x01(\x05H\x00\x88\x01\x01\x42\x08\n\x06_valueb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
+    b'\n\x11powerstream.proto\x12\x0cmodel.protos\x1a\x1amodel/protos/options.proto"\x9d\x1d\n\x11InverterHeartbeat\x12\'\n\ninvErrCode\x18\x01 \x01(\rB\x0e\x92\xb5\x18\n*\x08inverterH\x00\x88\x01\x01\x12(\n\x0binvWarnCode\x18\x03 \x01(\rB\x0e\x92\xb5\x18\n*\x08inverterH\x01\x88\x01\x01\x12"\n\npv1ErrCode\x18\x02 \x01(\rB\t\x92\xb5\x18\x05*\x03pv1H\x02\x88\x01\x01\x12#\n\x0bpv1WarnCode\x18\x04 \x01(\rB\t\x92\xb5\x18\x05*\x03pv1H\x03\x88\x01\x01\x12"\n\npv2ErrCode\x18\x05 \x01(\rB\t\x92\xb5\x18\x05*\x03pv2H\x04\x88\x01\x01\x12&\n\x0epv2WarningCode\x18\x06 \x01(\rB\t\x92\xb5\x18\x05*\x03pv2H\x05\x88\x01\x01\x12&\n\nbatErrCode\x18\x07 \x01(\rB\r\x92\xb5\x18\t*\x07\x62\x61tteryH\x06\x88\x01\x01\x12*\n\x0e\x62\x61tWarningCode\x18\x08 \x01(\rB\r\x92\xb5\x18\t*\x07\x62\x61tteryH\x07\x88\x01\x01\x12"\n\nllcErrCode\x18\t \x01(\rB\t\x92\xb5\x18\x05*\x03llcH\x08\x88\x01\x01\x12&\n\x0ellcWarningCode\x18\n \x01(\rB\t\x92\xb5\x18\x05*\x03llcH\t\x88\x01\x01\x12!\n\tpv1Status\x18\x0b \x01(\rB\t\x92\xb5\x18\x05*\x03pv1H\n\x88\x01\x01\x12!\n\tpv2Status\x18\x0c \x01(\rB\t\x92\xb5\x18\x05*\x03pv2H\x0b\x88\x01\x01\x12%\n\tbatStatus\x18\r \x01(\rB\r\x92\xb5\x18\t*\x07\x62\x61tteryH\x0c\x88\x01\x01\x12!\n\tllcStatus\x18\x0e \x01(\rB\t\x92\xb5\x18\x05*\x03llcH\r\x88\x01\x01\x12&\n\tinvStatus\x18\x0f \x01(\rB\x0e\x92\xb5\x18\n*\x08inverterH\x0e\x88\x01\x01\x12)\n\x0cpv1InputVolt\x18\x10 \x01(\x05\x42\x0e\x92\xb5\x18\n\x08\n\x12\x01V*\x03pv1H\x0f\x88\x01\x01\x12&\n\tpv1OpVolt\x18\x11 \x01(\x05\x42\x0e\x92\xb5\x18\n\x08\x64\x12\x01V*\x03pv1H\x10\x88\x01\x01\x12(\n\x0bpv1InputCur\x18\x12 \x01(\x05\x42\x0e\x92\xb5\x18\n\x08\n\x12\x01\x41*\x03pv1H\x11\x88\x01\x01\x12*\n\rpv1InputWatts\x18\x13 \x01(\x05\x42\x0e\x92\xb5\x18\n\x08\n\x12\x01W*\x03pv1H\x12\x88\x01\x01\x12&\n\x07pv1Temp\x18\x14 \x01(\x05\x42\x10\x92\xb5\x18\x0c\x08\n\x12\x03\xc2\xb0\x43*\x03pv1H\x13\x88\x01\x01\x12)\n\x0cpv2InputVolt\x18\x15 \x01(\x05\x42\x0e\x92\xb5\x18\n\x08\n\x12\x01V*\x03pv2H\x14\x88\x01\x01\x12&\n\tpv2OpVolt\x18\x16 \x01(\x05\x42\x0e\x92\xb5\x18\n\x08\x64\x12\x01V*\x03pv2H\x15\x88\x01\x01\x12(\n\x0bpv2InputCur\x18\x17 \x01(\x05\x42\x0e\x92\xb5\x18\n\x08\n\x12\x01\x41*\x03pv2H\x16\x88\x01\x01\x12*\n\rpv2InputWatts\x18\x18 \x01(\x05\x42\x0e\x92\xb5\x18\n\x08\n\x12\x01W*\x03pv2H\x17\x88\x01\x01\x12&\n\x07pv2Temp\x18\x19 \x01(\x05\x42\x10\x92\xb5\x18\x0c\x08\n\x12\x03\xc2\xb0\x43*\x03pv2H\x18\x88\x01\x01\x12-\n\x0c\x62\x61tInputVolt\x18\x1a \x01(\x05\x42\x12\x92\xb5\x18\x0e\x08\n\x12\x01V*\x07\x62\x61tteryH\x19\x88\x01\x01\x12*\n\tbatOpVolt\x18\x1b \x01(\x05\x42\x12\x92\xb5\x18\x0e\x08\n\x12\x01V*\x07\x62\x61tteryH\x1a\x88\x01\x01\x12-\n\x0b\x62\x61tInputCur\x18\x1c \x01(\x05\x42\x13\x92\xb5\x18\x0f\x08\xe8\x07\x12\x01\x41*\x07\x62\x61tteryH\x1b\x88\x01\x01\x12.\n\rbatInputWatts\x18\x1d \x01(\x05\x42\x12\x92\xb5\x18\x0e\x08\n\x12\x01W*\x07\x62\x61tteryH\x1c\x88\x01\x01\x12*\n\x07\x62\x61tTemp\x18\x1e \x01(\x05\x42\x14\x92\xb5\x18\x10\x08\n\x12\x03\xc2\xb0\x43*\x07\x62\x61tteryH\x1d\x88\x01\x01\x12%\n\x06\x62\x61tSoc\x18\x1f \x01(\rB\x10\x92\xb5\x18\x0c\x12\x01%*\x07\x62\x61tteryH\x1e\x88\x01\x01\x12)\n\x0cllcInputVolt\x18  \x01(\x05\x42\x0e\x92\xb5\x18\n\x08\n\x12\x01V*\x03llcH\x1f\x88\x01\x01\x12&\n\tllcOpVolt\x18! \x01(\x05\x42\x0e\x92\xb5\x18\n\x08\x64\x12\x01V*\x03llcH \x88\x01\x01\x12&\n\x07llcTemp\x18" \x01(\x05\x42\x10\x92\xb5\x18\x0c\x08\n\x12\x03\xc2\xb0\x43*\x03llcH!\x88\x01\x01\x12.\n\x0cinvInputVolt\x18# \x01(\x05\x42\x13\x92\xb5\x18\x0f\x08\x64\x12\x01V*\x08inverterH"\x88\x01\x01\x12+\n\tinvOpVolt\x18$ \x01(\x05\x42\x13\x92\xb5\x18\x0f\x08\n\x12\x01V*\x08inverterH#\x88\x01\x01\x12/\n\x0cinvOutputCur\x18% \x01(\x05\x42\x14\x92\xb5\x18\x10\x08\xe8\x07\x12\x01\x41*\x08inverterH$\x88\x01\x01\x12\x30\n\x0einvOutputWatts\x18& \x01(\x05\x42\x13\x92\xb5\x18\x0f\x08\n\x12\x01W*\x08inverterH%\x88\x01\x01\x12+\n\x07invTemp\x18\' \x01(\x05\x42\x15\x92\xb5\x18\x11\x08\n\x12\x03\xc2\xb0\x43*\x08inverterH&\x88\x01\x01\x12*\n\x07invFreq\x18( \x01(\x05\x42\x14\x92\xb5\x18\x10\x08\n\x12\x02Hz*\x08inverterH\'\x88\x01\x01\x12+\n\x08invDcCur\x18) \x01(\x05\x42\x14\x92\xb5\x18\x10\x08\xe8\x07\x12\x01\x41*\x08inverterH(\x88\x01\x01\x12\x13\n\x06\x62pType\x18* \x01(\x05H)\x88\x01\x01\x12+\n\x0einvRelayStatus\x18+ \x01(\x05\x42\x0e\x92\xb5\x18\n*\x08inverterH*\x88\x01\x01\x12&\n\x0epv1RelayStatus\x18, \x01(\x05\x42\t\x92\xb5\x18\x05*\x03pv1H+\x88\x01\x01\x12&\n\x0epv2RelayStatus\x18- \x01(\x05\x42\t\x92\xb5\x18\x05*\x03pv2H,\x88\x01\x01\x12\x1b\n\x0einstallCountry\x18. \x01(\rH-\x88\x01\x01\x12\x18\n\x0binstallTown\x18/ \x01(\rH.\x88\x01\x01\x12\x30\n\x0epermanentWatts\x18\x30 \x01(\rB\x13\x92\xb5\x18\x0f\x08\n\x12\x01W*\x06states8\x01H/\x88\x01\x01\x12,\n\x0c\x64ynamicWatts\x18\x31 \x01(\rB\x11\x92\xb5\x18\r\x08\n\x12\x01W*\x06statesH0\x88\x01\x01\x12+\n\x0esupplyPriority\x18\x32 \x01(\rB\x0e\x92\xb5\x18\n*\x06states8\x01H1\x88\x01\x01\x12*\n\nlowerLimit\x18\x33 \x01(\rB\x11\x92\xb5\x18\r\x12\x01%*\x06states8\x01H2\x88\x01\x01\x12*\n\nupperLimit\x18\x34 \x01(\rB\x11\x92\xb5\x18\r\x12\x01%*\x06states8\x01H3\x88\x01\x01\x12%\n\x08invOnOff\x18\x35 \x01(\rB\x0e\x92\xb5\x18\n*\x08inverterH4\x88\x01\x01\x12\x1c\n\x0fwirelessErrCode\x18\x36 \x01(\rH5\x88\x01\x01\x12\x1d\n\x10wirelessWarnCode\x18\x37 \x01(\rH6\x88\x01\x01\x12\x31\n\rinvBrightness\x18\x38 \x01(\rB\x15\x92\xb5\x18\x11\x08\n\x12\x01%*\x08inverter8\x01H7\x88\x01\x01\x12\x1f\n\x12heartbeatFrequency\x18\x39 \x01(\rH8\x88\x01\x01\x12*\n\nratedPower\x18: \x01(\rB\x11\x92\xb5\x18\r\x08\n\x12\x01W*\x06statesH9\x88\x01\x01\x12\x34\n\x0f\x62\x61tChargingTime\x18; \x01(\x05\x42\x16\x92\xb5\x18\x12\x1a\x07minutes*\x07\x62\x61tteryH:\x88\x01\x01\x12\x37\n\x12\x62\x61tDischargingTime\x18< \x01(\x05\x42\x16\x92\xb5\x18\x12\x1a\x07minutes*\x07\x62\x61tteryH;\x88\x01\x01\x12)\n\x0c\x66\x65\x65\x64Priority\x18= \x01(\rB\x0e\x92\xb5\x18\n*\x06states8\x01H<\x88\x01\x01:\xd6\x01\x8a\xb5\x18\x0f\n\x03pv1\x12\x03PV1\x1a\x03pv1\x8a\xb5\x18\x0f\n\x03pv2\x12\x03PV2\x1a\x03pv2\x8a\xb5\x18\x1b\n\x07\x62\x61ttery\x12\x07\x42\x61ttery\x1a\x07\x62\x61ttery\x8a\xb5\x18\x1e\n\x08inverter\x12\x08Inverter\x1a\x08inverter\x8a\xb5\x18\x0f\n\x03llc\x12\x03LLC\x1a\x03llc\x8a\xb5\x18\x18\n\x06states\x12\x06States\x1a\x06states\x92\xb5\x18<\x12\x07pvTotal\x1a\x08PV total"\x06states2\rpv1InputWatts2\rpv2InputWatts:\x01WB\r\n\x0b_invErrCodeB\x0e\n\x0c_invWarnCodeB\r\n\x0b_pv1ErrCodeB\x0e\n\x0c_pv1WarnCodeB\r\n\x0b_pv2ErrCodeB\x11\n\x0f_pv2WarningCodeB\r\n\x0b_batErrCodeB\x11\n\x0f_batWarningCodeB\r\n\x0b_llcErrCodeB\x11\n\x0f_llcWarningCodeB\x0c\n\n_pv1StatusB\x0c\n\n_pv2StatusB\x0c\n\n_batStatusB\x0c\n\n_llcStatusB\x0c\n\n_invStatusB\x0f\n\r_pv1InputVoltB\x0c\n\n_pv1OpVoltB\x0e\n\x0c_pv1InputCurB\x10\n\x0e_pv1InputWattsB\n\n\x08_pv1TempB\x0f\n\r_pv2InputVoltB\x0c\n\n_pv2OpVoltB\x0e\n\x0c_pv2InputCurB\x10\n\x0e_pv2InputWattsB\n\n\x08_pv2TempB\x0f\n\r_batInputVoltB\x0c\n\n_batOpVoltB\x0e\n\x0c_batInputCurB\x10\n\x0e_batInputWattsB\n\n\x08_batTempB\t\n\x07_batSocB\x0f\n\r_llcInputVoltB\x0c\n\n_llcOpVoltB\n\n\x08_llcTempB\x0f\n\r_invInputVoltB\x0c\n\n_invOpVoltB\x0f\n\r_invOutputCurB\x11\n\x0f_invOutputWattsB\n\n\x08_invTempB\n\n\x08_invFreqB\x0b\n\t_invDcCurB\t\n\x07_bpTypeB\x11\n\x0f_invRelayStatusB\x11\n\x0f_pv1RelayStatusB\x11\n\x0f_pv2RelayStatusB\x11\n\x0f_installCountryB\x0e\n\x0c_installTownB\x11\n\x0f_permanentWattsB\x0f\n\r_dynamicWattsB\x11\n\x0f_supplyPriorityB\r\n\x0b_lowerLimitB\r\n\x0b_upperLimitB\x0b\n\t_invOnOffB\x12\n\x10_wirelessErrCodeB\x13\n\x11_wirelessWarnCodeB\x10\n\x0e_invBrightnessB\x15\n\x13_heartbeatFrequencyB\r\n\x0b_ratedPowerB\x12\n\x10_batChargingTimeB\x15\n\x13_batDischargingTimeB\x0f\n\r_feedPriority"\xfe\x13\n\x12InverterHeartbeat2\x12\x19\n\x0cH2_pv1Active\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x19\n\x0cH2_pv1Status\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x19\n\x0cH2_pv2Active\x18\x03 \x01(\x05H\x02\x88\x01\x01\x12\x19\n\x0cH2_pv2Status\x18\x04 \x01(\x05H\x03\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_05\x18\x05 \x01(\x05H\x04\x88\x01\x01\x12\x19\n\x0cH2_status_06\x18\x06 \x01(\x05H\x05\x88\x01\x01\x12#\n\rH2_upperLimit\x18\x07 \x01(\x05\x42\x07\x92\xb5\x18\x03\x12\x01%H\x06\x88\x01\x01\x12#\n\rH2_lowerLimit\x18\x08 \x01(\x05\x42\x07\x92\xb5\x18\x03\x12\x01%H\x07\x88\x01\x01\x12\x19\n\x0cH2_status_09\x18\t \x01(\x05H\x08\x88\x01\x01\x12\x19\n\x0cH2_status_10\x18\n \x01(\x05H\t\x88\x01\x01\x12\x18\n\x0bH2_baseLoad\x18\x0b \x01(\x05H\n\x88\x01\x01\x12\x1d\n\x10H2_powerPlugsPos\x18\x0c \x01(\x05H\x0b\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_13\x18\r \x01(\x05H\x0c\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_14\x18\x0e \x01(\x05H\r\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_15\x18\x0f \x01(\x05H\x0e\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_16\x18\x10 \x01(\x05H\x0f\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_17\x18\x11 \x01(\x05H\x10\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_18\x18\x12 \x01(\x05H\x11\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_19\x18\x13 \x01(\x05H\x12\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_20\x18\x14 \x01(\x05H\x13\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_21\x18\x15 \x01(\x05H\x14\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_22\x18\x16 \x01(\x05H\x15\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_23\x18\x17 \x01(\x05H\x16\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_24\x18\x18 \x01(\x05H\x17\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_25\x18\x19 \x01(\x05H\x18\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_26\x18\x1a \x01(\x05H\x19\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_27\x18\x1b \x01(\x05H\x1a\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_28\x18\x1c \x01(\x05H\x1b\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_29\x18\x1d \x01(\x05H\x1c\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_30\x18\x1e \x01(\x05H\x1d\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_31\x18\x1f \x01(\x05H\x1e\x88\x01\x01\x12\x16\n\tH2_uptime\x18  \x01(\x05H\x1f\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_33\x18! \x01(\x05H \x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_34\x18" \x01(\x05H!\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_35\x18# \x01(\x05H"\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_36\x18$ \x01(\x05H#\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_37\x18% \x01(\x05H$\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_38\x18& \x01(\x05H%\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_39\x18\' \x01(\x05H&\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_40\x18( \x01(\x05H\'\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_41\x18) \x01(\x05H(\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_42\x18* \x01(\x05H)\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_43\x18+ \x01(\x05H*\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_44\x18, \x01(\x05H+\x88\x01\x01\x12\x1b\n\x0eH2_gridWatt_45\x18- \x01(\x05H,\x88\x01\x01\x12\x1d\n\x10H2_powerPlugsNeg\x18. \x01(\x05H-\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_47\x18/ \x01(\x05H.\x88\x01\x01\x12\x1b\n\x0eH2_unixtime_48\x18\x30 \x01(\x05H/\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_49\x18\x31 \x01(\x05H0\x88\x01\x01\x12\x1b\n\x0eH2_unixtime_50\x18\x32 \x01(\x05H1\x88\x01\x01\x12\x1c\n\x0fH2_X_Unknown_51\x18\x33 \x01(\x05H2\x88\x01\x01\x12\x18\n\x0bH2_wifiRssi\x18\x34 \x01(\x05H3\x88\x01\x01\x42\x0f\n\r_H2_pv1ActiveB\x0f\n\r_H2_pv1StatusB\x0f\n\r_H2_pv2ActiveB\x0f\n\r_H2_pv2StatusB\x12\n\x10_H2_X_Unknown_05B\x0f\n\r_H2_status_06B\x10\n\x0e_H2_upperLimitB\x10\n\x0e_H2_lowerLimitB\x0f\n\r_H2_status_09B\x0f\n\r_H2_status_10B\x0e\n\x0c_H2_baseLoadB\x13\n\x11_H2_powerPlugsPosB\x12\n\x10_H2_X_Unknown_13B\x12\n\x10_H2_X_Unknown_14B\x12\n\x10_H2_X_Unknown_15B\x12\n\x10_H2_X_Unknown_16B\x12\n\x10_H2_X_Unknown_17B\x12\n\x10_H2_X_Unknown_18B\x12\n\x10_H2_X_Unknown_19B\x12\n\x10_H2_X_Unknown_20B\x12\n\x10_H2_X_Unknown_21B\x12\n\x10_H2_X_Unknown_22B\x12\n\x10_H2_X_Unknown_23B\x12\n\x10_H2_X_Unknown_24B\x12\n\x10_H2_X_Unknown_25B\x12\n\x10_H2_X_Unknown_26B\x12\n\x10_H2_X_Unknown_27B\x12\n\x10_H2_X_Unknown_28B\x12\n\x10_H2_X_Unknown_29B\x12\n\x10_H2_X_Unknown_30B\x12\n\x10_H2_X_Unknown_31B\x0c\n\n_H2_uptimeB\x12\n\x10_H2_X_Unknown_33B\x12\n\x10_H2_X_Unknown_34B\x12\n\x10_H2_X_Unknown_35B\x12\n\x10_H2_X_Unknown_36B\x12\n\x10_H2_X_Unknown_37B\x12\n\x10_H2_X_Unknown_38B\x12\n\x10_H2_X_Unknown_39B\x12\n\x10_H2_X_Unknown_40B\x12\n\x10_H2_X_Unknown_41B\x12\n\x10_H2_X_Unknown_42B\x12\n\x10_H2_X_Unknown_43B\x12\n\x10_H2_X_Unknown_44B\x11\n\x0f_H2_gridWatt_45B\x13\n\x11_H2_powerPlugsNegB\x12\n\x10_H2_X_Unknown_47B\x11\n\x0f_H2_unixtime_48B\x12\n\x10_H2_X_Unknown_49B\x11\n\x0f_H2_unixtime_50B\x12\n\x10_H2_X_Unknown_51B\x0e\n\x0c_H2_wifiRssi"\xb8\x06\n\x06Header\x12\x12\n\x05pdata\x18\x01 \x01(\x0cH\x00\x88\x01\x01\x12\x10\n\x03src\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x11\n\x04\x64\x65st\x18\x03 \x01(\x05H\x02\x88\x01\x01\x12\x12\n\x05\x64_src\x18\x04 \x01(\x05H\x03\x88\x01\x01\x12\x13\n\x06\x64_dest\x18\x05 \x01(\x05H\x04\x88\x01\x01\x12\x15\n\x08\x65nc_type\x18\x06 \x01(\x05H\x05\x88\x01\x01\x12\x17\n\ncheck_type\x18\x07 \x01(\x05H\x06\x88\x01\x01\x12\x15\n\x08\x63md_func\x18\x08 \x01(\x05H\x07\x88\x01\x01\x12\x13\n\x06\x63md_id\x18\t \x01(\x05H\x08\x88\x01\x01\x12\x15\n\x08\x64\x61ta_len\x18\n \x01(\x05H\t\x88\x01\x01\x12\x15\n\x08need_ack\x18\x0b \x01(\x05H\n\x88\x01\x01\x12\x13\n\x06is_ack\x18\x0c \x01(\x05H\x0b\x88\x01\x01\x12\x10\n\x03seq\x18\x0e \x01(\x05H\x0c\x88\x01\x01\x12\x17\n\nproduct_id\x18\x0f \x01(\x05H\r\x88\x01\x01\x12\x14\n\x07version\x18\x10 \x01(\x05H\x0e\x88\x01\x01\x12\x18\n\x0bpayload_ver\x18\x11 \x01(\x05H\x0f\x88\x01\x01\x12\x16\n\ttime_snap\x18\x12 \x01(\x05H\x10\x88\x01\x01\x12\x16\n\tis_rw_cmd\x18\x13 \x01(\x05H\x11\x88\x01\x01\x12\x15\n\x08is_queue\x18\x14 \x01(\x05H\x12\x88\x01\x01\x12\x15\n\x08\x61\x63k_type\x18\x15 \x01(\x05H\x13\x88\x01\x01\x12\x11\n\x04\x63ode\x18\x16 \x01(\tH\x14\x88\x01\x01\x12\x11\n\x04\x66rom\x18\x17 \x01(\tH\x15\x88\x01\x01\x12\x16\n\tmodule_sn\x18\x18 \x01(\tH\x16\x88\x01\x01\x12\x16\n\tdevice_sn\x18\x19 \x01(\tH\x17\x88\x01\x01\x42\x08\n\x06_pdataB\x06\n\x04_srcB\x07\n\x05_destB\x08\n\x06_d_srcB\t\n\x07_d_destB\x0b\n\t_enc_typeB\r\n\x0b_check_typeB\x0b\n\t_cmd_funcB\t\n\x07_cmd_idB\x0b\n\t_data_lenB\x0b\n\t_need_ackB\t\n\x07_is_ackB\x06\n\x04_seqB\r\n\x0b_product_idB\n\n\x08_versionB\x0e\n\x0c_payload_verB\x0c\n\n_time_snapB\x0c\n\n_is_rw_cmdB\x0b\n\t_is_queueB\x0b\n\t_ack_typeB\x07\n\x05_codeB\x07\n\x05_fromB\x0c\n\n_module_snB\x0c\n\n_device_sn"2\n\rSendHeaderMsg\x12!\n\x03msg\x18\x01 \x03(\x0b\x32\x14.model.protos.Header"/\n\nSetMessage\x12!\n\x03msg\x18\x01 \x01(\x0b\x32\x14.model.protos.Header"(\n\x08SetValue\x12\x12\n\x05value\x18\x01 \x01(\x05H\x00\x88\x01\x01\x42\x08\n\x06_valueb\x06proto3'
+)
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
-_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'powerstream_pb2', globals())
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, "powerstream_pb2", globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
-  DESCRIPTOR._options = None
-  _INVERTERHEARTBEAT._serialized_start=22
-  _INVERTERHEARTBEAT._serialized_end=2835
-  _PERMANENTWATTSPACK._serialized_start=2837
-  _PERMANENTWATTSPACK._serialized_end=2907
-  _SUPPLYPRIORITYPACK._serialized_start=2909
-  _SUPPLYPRIORITYPACK._serialized_end=2979
-  _BATLOWERPACK._serialized_start=2981
-  _BATLOWERPACK._serialized_end=3037
-  _BATUPPERPACK._serialized_start=3039
-  _BATUPPERPACK._serialized_end=3095
-  _BRIGHTNESSPACK._serialized_start=3097
-  _BRIGHTNESSPACK._serialized_end=3153
-  _POWERITEM._serialized_start=3156
-  _POWERITEM._serialized_end=3499
-  _POWERPACK._serialized_start=3501
-  _POWERPACK._serialized_end=3584
-  _POWERACKPACK._serialized_start=3586
-  _POWERACKPACK._serialized_end=3634
-  _NODEMASSAGE._serialized_start=3636
-  _NODEMASSAGE._serialized_end=3699
-  _MESHCHILDNODEINFO._serialized_start=3702
-  _MESHCHILDNODEINFO._serialized_end=3988
-  _PRIVATEAPIGENERICSETVALUE._serialized_start=3990
-  _PRIVATEAPIGENERICSETVALUE._serialized_end=4047
+    DESCRIPTOR._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invErrCode"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invErrCode"]._serialized_options = (
+        b"\222\265\030\n*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invWarnCode"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invWarnCode"]._serialized_options = (
+        b"\222\265\030\n*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv1ErrCode"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv1ErrCode"]._serialized_options = (
+        b"\222\265\030\005*\003pv1"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv1WarnCode"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv1WarnCode"]._serialized_options = (
+        b"\222\265\030\005*\003pv1"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv2ErrCode"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv2ErrCode"]._serialized_options = (
+        b"\222\265\030\005*\003pv2"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv2WarningCode"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv2WarningCode"]._serialized_options = (
+        b"\222\265\030\005*\003pv2"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batErrCode"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batErrCode"]._serialized_options = (
+        b"\222\265\030\t*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batWarningCode"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batWarningCode"]._serialized_options = (
+        b"\222\265\030\t*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["llcErrCode"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["llcErrCode"]._serialized_options = (
+        b"\222\265\030\005*\003llc"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["llcWarningCode"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["llcWarningCode"]._serialized_options = (
+        b"\222\265\030\005*\003llc"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv1Status"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv1Status"]._serialized_options = (
+        b"\222\265\030\005*\003pv1"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv2Status"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv2Status"]._serialized_options = (
+        b"\222\265\030\005*\003pv2"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batStatus"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batStatus"]._serialized_options = (
+        b"\222\265\030\t*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["llcStatus"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["llcStatus"]._serialized_options = (
+        b"\222\265\030\005*\003llc"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invStatus"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invStatus"]._serialized_options = (
+        b"\222\265\030\n*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv1InputVolt"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv1InputVolt"]._serialized_options = (
+        b"\222\265\030\n\010\n\022\001V*\003pv1"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv1OpVolt"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv1OpVolt"]._serialized_options = (
+        b"\222\265\030\n\010d\022\001V*\003pv1"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv1InputCur"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv1InputCur"]._serialized_options = (
+        b"\222\265\030\n\010\n\022\001A*\003pv1"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv1InputWatts"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv1InputWatts"]._serialized_options = (
+        b"\222\265\030\n\010\n\022\001W*\003pv1"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv1Temp"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv1Temp"]._serialized_options = (
+        b"\222\265\030\014\010\n\022\003\302\260C*\003pv1"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv2InputVolt"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv2InputVolt"]._serialized_options = (
+        b"\222\265\030\n\010\n\022\001V*\003pv2"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv2OpVolt"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv2OpVolt"]._serialized_options = (
+        b"\222\265\030\n\010d\022\001V*\003pv2"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv2InputCur"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv2InputCur"]._serialized_options = (
+        b"\222\265\030\n\010\n\022\001A*\003pv2"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv2InputWatts"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv2InputWatts"]._serialized_options = (
+        b"\222\265\030\n\010\n\022\001W*\003pv2"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv2Temp"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv2Temp"]._serialized_options = (
+        b"\222\265\030\014\010\n\022\003\302\260C*\003pv2"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batInputVolt"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batInputVolt"]._serialized_options = (
+        b"\222\265\030\016\010\n\022\001V*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batOpVolt"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batOpVolt"]._serialized_options = (
+        b"\222\265\030\016\010\n\022\001V*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batInputCur"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batInputCur"]._serialized_options = (
+        b"\222\265\030\017\010\350\007\022\001A*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batInputWatts"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batInputWatts"]._serialized_options = (
+        b"\222\265\030\016\010\n\022\001W*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batTemp"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batTemp"]._serialized_options = (
+        b"\222\265\030\020\010\n\022\003\302\260C*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batSoc"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batSoc"]._serialized_options = (
+        b"\222\265\030\014\022\001%*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["llcInputVolt"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["llcInputVolt"]._serialized_options = (
+        b"\222\265\030\n\010\n\022\001V*\003llc"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["llcOpVolt"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["llcOpVolt"]._serialized_options = (
+        b"\222\265\030\n\010d\022\001V*\003llc"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["llcTemp"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["llcTemp"]._serialized_options = (
+        b"\222\265\030\014\010\n\022\003\302\260C*\003llc"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invInputVolt"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invInputVolt"]._serialized_options = (
+        b"\222\265\030\017\010d\022\001V*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invOpVolt"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invOpVolt"]._serialized_options = (
+        b"\222\265\030\017\010\n\022\001V*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invOutputCur"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invOutputCur"]._serialized_options = (
+        b"\222\265\030\020\010\350\007\022\001A*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invOutputWatts"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invOutputWatts"]._serialized_options = (
+        b"\222\265\030\017\010\n\022\001W*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invTemp"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invTemp"]._serialized_options = (
+        b"\222\265\030\021\010\n\022\003\302\260C*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invFreq"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invFreq"]._serialized_options = (
+        b"\222\265\030\020\010\n\022\002Hz*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invDcCur"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invDcCur"]._serialized_options = (
+        b"\222\265\030\020\010\350\007\022\001A*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invRelayStatus"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invRelayStatus"]._serialized_options = (
+        b"\222\265\030\n*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv1RelayStatus"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv1RelayStatus"]._serialized_options = (
+        b"\222\265\030\005*\003pv1"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["pv2RelayStatus"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["pv2RelayStatus"]._serialized_options = (
+        b"\222\265\030\005*\003pv2"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["permanentWatts"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["permanentWatts"]._serialized_options = (
+        b"\222\265\030\017\010\n\022\001W*\006states8\001"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["dynamicWatts"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["dynamicWatts"]._serialized_options = (
+        b"\222\265\030\r\010\n\022\001W*\006states"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["supplyPriority"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["supplyPriority"]._serialized_options = (
+        b"\222\265\030\n*\006states8\001"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["lowerLimit"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["lowerLimit"]._serialized_options = (
+        b"\222\265\030\r\022\001%*\006states8\001"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["upperLimit"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["upperLimit"]._serialized_options = (
+        b"\222\265\030\r\022\001%*\006states8\001"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invOnOff"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invOnOff"]._serialized_options = (
+        b"\222\265\030\n*\010inverter"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["invBrightness"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["invBrightness"]._serialized_options = (
+        b"\222\265\030\021\010\n\022\001%*\010inverter8\001"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["ratedPower"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["ratedPower"]._serialized_options = (
+        b"\222\265\030\r\010\n\022\001W*\006states"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batChargingTime"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batChargingTime"]._serialized_options = (
+        b"\222\265\030\022\032\007minutes*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["batDischargingTime"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["batDischargingTime"]._serialized_options = (
+        b"\222\265\030\022\032\007minutes*\007battery"
+    )
+    _INVERTERHEARTBEAT.fields_by_name["feedPriority"]._options = None
+    _INVERTERHEARTBEAT.fields_by_name["feedPriority"]._serialized_options = (
+        b"\222\265\030\n*\006states8\001"
+    )
+    _INVERTERHEARTBEAT._options = None
+    _INVERTERHEARTBEAT._serialized_options = b'\212\265\030\017\n\003pv1\022\003PV1\032\003pv1\212\265\030\017\n\003pv2\022\003PV2\032\003pv2\212\265\030\033\n\007battery\022\007Battery\032\007battery\212\265\030\036\n\010inverter\022\010Inverter\032\010inverter\212\265\030\017\n\003llc\022\003LLC\032\003llc\212\265\030\030\n\006states\022\006States\032\006states\222\265\030<\022\007pvTotal\032\010PV total"\006states2\rpv1InputWatts2\rpv2InputWatts:\001W'
+    _INVERTERHEARTBEAT2.fields_by_name["H2_upperLimit"]._options = None
+    _INVERTERHEARTBEAT2.fields_by_name["H2_upperLimit"]._serialized_options = (
+        b"\222\265\030\003\022\001%"
+    )
+    _INVERTERHEARTBEAT2.fields_by_name["H2_lowerLimit"]._options = None
+    _INVERTERHEARTBEAT2.fields_by_name["H2_lowerLimit"]._serialized_options = (
+        b"\222\265\030\003\022\001%"
+    )
+    _INVERTERHEARTBEAT._serialized_start = 64
+    _INVERTERHEARTBEAT._serialized_end = 3805
+    _INVERTERHEARTBEAT2._serialized_start = 3808
+    _INVERTERHEARTBEAT2._serialized_end = 6366
+    _HEADER._serialized_start = 6369
+    _HEADER._serialized_end = 7193
+    _SENDHEADERMSG._serialized_start = 7195
+    _SENDHEADERMSG._serialized_end = 7245
+    _SETMESSAGE._serialized_start = 7247
+    _SETMESSAGE._serialized_end = 7294
+    _SETVALUE._serialized_start = 7296
+    _SETVALUE._serialized_end = 7336
 # @@protoc_insertion_point(module_scope)

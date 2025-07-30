@@ -3,6 +3,17 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict
 
+from .devices.internal.proto import (
+    ecopacket_pb2,
+    powerstream_pb2,
+    deltapro3_pb2,
+    wn511_socket_sys_pb2,
+)
+from .devices.internal.proto.support.const import (
+    Command,
+    CommandFunc,
+)
+
 from google.protobuf.json_format import MessageToDict
 
 _LOGGER = logging.getLogger(__name__)
@@ -13,16 +24,6 @@ def _log_proto(msg_name: str, data: Dict[str, Any]) -> None:
         _LOGGER.info("Protobuf %s contains unknown fields: %s", msg_name, data)
     else:
         _LOGGER.debug("Protobuf %s: %s", msg_name, data)
-
-from .devices.internal.proto import (
-    ecopacket_pb2,
-    powerstream_pb2,
-    deltapro3_pb2,
-)
-from .devices.internal.proto.support.const import (
-    Command,
-    CommandFunc,
-)
 
 
 def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
@@ -64,6 +65,28 @@ def decode_ecopacket(raw_data: bytes) -> Dict[str, Any] | None:
                 )
             except Exception:
                 result["params"]["raw_payload"] = message.pdata.hex()
+        elif message.cmd_func == CommandFunc.POWERSTREAM and message.cmd_id == 4:
+            heartbeat2 = powerstream_pb2.InverterHeartbeat2()
+            try:
+                heartbeat2.ParseFromString(payload)
+                data = MessageToDict(heartbeat2, preserving_proto_field_name=True)
+                _log_proto("InverterHeartbeat2", data)
+                result["params"].update(
+                    MessageToDict(heartbeat2, preserving_proto_field_name=False)
+                )
+            except Exception:
+                result["params"]["raw_payload"] = payload.hex()
+        elif message.cmd_func == CommandFunc.POWERSTREAM and message.cmd_id == 134:
+            tasks = wn511_socket_sys_pb2.time_task_config_post()
+            try:
+                tasks.ParseFromString(payload)
+                data = MessageToDict(tasks, preserving_proto_field_name=True)
+                _log_proto("time_task_config_post", data)
+                result["params"].update(
+                    MessageToDict(tasks, preserving_proto_field_name=False)
+                )
+            except Exception:
+                result["params"]["raw_payload"] = payload.hex()
         elif message.cmd_func == 254 and message.cmd_id == 21:
             display = deltapro3_pb2.DisplayPropertyUpload()
             try:
