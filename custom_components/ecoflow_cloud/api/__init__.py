@@ -111,10 +111,12 @@ class EcoflowApiClient(ABC):
             self.devices[device_sn].device_info.set_topic, command.to_mqtt_payload()
         )
         if interaction is not None:
+            device_type = self.devices[device_sn].device_info.device_type
             _LOGGER.info(
-                "Interaction '%s' triggered set on %s with %s",
+                "Interaction '%s' triggered set on %s (%s) with %s",
                 interaction,
                 device_sn,
+                device_type,
                 mqtt_state,
             )
 
