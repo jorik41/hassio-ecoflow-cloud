@@ -49,6 +49,7 @@ from google.protobuf.message import Message as ProtoMessageRaw
 from ...switch import EnabledEntity
 from ..internal.proto import platform_pb2 as platform
 from ..internal.proto import powerstream_pb2 as powerstream
+from ..internal.proto import wn511_socket_sys_pb2 as socket_sys
 from ..internal.proto import AddressId, Command, ProtoMessage
 from .proto import PrivateAPIProtoDeviceMixin
 from .proto.support.const import WatthType, get_expected_payload_type
@@ -276,7 +277,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 lambda value: build_command(
                     device_sn=self.device_info.sn,
                     command=Command.WN511_SET_SUPPLY_PRIORITY_PACK,
-                    payload=powerstream.SupplyPriorityPack(supply_priority=value),
+                    payload=socket_sys.include_plug(include_plug=value),
                 ),
             ),
         ]
@@ -294,7 +295,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 lambda value: build_command(
                     device_sn=self.device_info.sn,
                     command=Command.WN511_SET_BAT_LOWER_PACK,
-                    payload=powerstream.BatLowerPack(lower_limit=value),
+                    payload=socket_sys.bat_lower_pack(lower_limit=value),
                 ),
             ),
             MaxBatteryLevelEntity(
@@ -307,7 +308,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 lambda value: build_command(
                     device_sn=self.device_info.sn,
                     command=Command.WN511_SET_BAT_UPPER_PACK,
-                    payload=powerstream.BatUpperPack(upper_limit=value),
+                    payload=socket_sys.bat_upper_pack(upper_limit=value),
                 ),
             ),
             BrightnessLevelEntity(
@@ -320,7 +321,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 lambda value: build_command(
                     device_sn=self.device_info.sn,
                     command=Command.WN511_SET_BRIGHTNESS_PACK,
-                    payload=powerstream.BrightnessPack(brightness=value),
+                    payload=socket_sys.brightness_pack(brightness=value),
                 ),
             ),
             DeciChargingPowerEntity(
@@ -333,7 +334,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 lambda value: build_command(
                     device_sn=self.device_info.sn,
                     command=Command.WN511_SET_PERMANENT_WATTS_PACK,
-                    payload=powerstream.PermanentWattsPack(permanent_watts=value),
+                    payload=socket_sys.permanent_watts_pack(permanent_watts=value),
                 ),
             ),
         ]
