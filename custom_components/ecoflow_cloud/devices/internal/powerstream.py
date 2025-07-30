@@ -258,7 +258,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 lambda value: build_command(
                     device_sn=self.device_info.sn,
                     command=Command.PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT,
-                    payload=powerstream.PrivateAPIGenericSetValue(value=value),
+                    payload=powerstream.SetValue(value=value),
                 ),
                 enabled=True,
                 enableValue=1,
