@@ -372,7 +372,12 @@ class StreamAC(BaseDevice):
                 if (
                     packet.msg.cmd_id < 0
                 ):  # packet.msg.cmd_id != 21 and packet.msg.cmd_id != 22 and packet.msg.cmd_id != 50:
-                    _LOGGER.info("Unsupported EcoPacket cmd id %u", packet.msg.cmd_id)
+                    _LOGGER.info(
+                        "Unsupported EcoPacket cmd id %u, pdata %s, message %s",
+                        packet.msg.cmd_id,
+                        packet.msg.pdata.hex() if hasattr(packet.msg, "pdata") else "",
+                        packet.msg,
+                    )
 
                 else:
                     _LOGGER.debug('new payload "%s"', str(packet.msg.pdata.hex()))

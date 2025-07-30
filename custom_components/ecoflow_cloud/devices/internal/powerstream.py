@@ -375,9 +375,11 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                     command = Command(command_desc)
                 except ValueError:
                     _LOGGER.info(
-                        "Unsupported EcoPacket cmd_func %u, cmd_id %u",
+                        "Unsupported EcoPacket cmd_func %u, cmd_id %u, pdata %s, message %s",
                         command_desc.func,
                         command_desc.id,
+                        message.pdata.hex(),
+                        message,
                     )
                     continue
 
