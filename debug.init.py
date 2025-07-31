@@ -9,7 +9,12 @@ from homeassistant.core import HomeAssistant
 from custom_components.ecoflow_cloud_ai.devices.powerkit import PowerKit
 from custom_components.ecoflow_cloud_ai import EcoflowAuthentication, EcoflowMQTTClient
 
-logging.basicConfig(level=logging.INFO)
+log_file = os.environ.get("ECOFLOW_LOG_FILE", "powerstream_debug.log")
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+    handlers=[logging.FileHandler(log_file, mode="w"), logging.StreamHandler()],
+)
 _LOGGER = logging.getLogger(__name__)
 
 loop = asyncio.new_event_loop()
