@@ -65,7 +65,10 @@ class ProtoMessage(PrivateAPIMessageProtocol, Message):
             message.cmd_id = self.command.id
 
         if self.payload is not None:
-            payload_serialized = self.payload.SerializeToString()
+            if isinstance(self.payload, bytes):
+                payload_serialized = self.payload
+            else:
+                payload_serialized = self.payload.SerializeToString()
             message.pdata = payload_serialized
             message.data_len = len(payload_serialized)
 
@@ -94,7 +97,7 @@ class ProtoMessage(PrivateAPIMessageProtocol, Message):
         if self.command is not None:
             packet["cmdCode"] = self.command.name
 
-        if self.payload is not None:
+        if self.payload is not None and not isinstance(self.payload, bytes):
             packet["params"] = MessageToDict(
                 self.payload, preserving_proto_field_name=False
             )
