@@ -359,6 +359,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
     @override
     def _prepare_data(self, raw_data: bytes) -> dict[str, Any]:
         res: dict[str, Any] = {"params": {}}
+        _LOGGER.debug("Raw data: %s", raw_data.hex())
         from google.protobuf.json_format import MessageToDict
 
         from .proto import ecopacket_pb2 as ecopacket
@@ -408,12 +409,18 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 }:
                     payload = get_expected_payload_type(command)()
                     _ = payload.ParseFromString(message.pdata)
+                    heartbeat_dict = cast(
+                        JSONDict,
+                        MessageToDict(payload, preserving_proto_field_name=False),
+                    )
+                    _LOGGER.debug(
+                        "Heartbeat %s payload: %s",
+                        command.name,
+                        heartbeat_dict,
+                    )
                     params.update(
                         (f"{command.func}_{command.id}.{key}", value)
-                        for key, value in cast(
-                            JSONDict,
-                            MessageToDict(payload, preserving_proto_field_name=False),
-                        ).items()
+                        for key, value in heartbeat_dict.items()
                     )
                 elif command in {Command.PRIVATE_API_PLATFORM_WATTH}:
                     payload = platform.BatchEnergyTotalReport()
@@ -469,6 +476,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
         except Exception as error:
             _LOGGER.error(error)
             _LOGGER.info(raw_data.hex())
+        _LOGGER.debug("Decoded packet result: %s", res)
         return res
 
     def _status_sensor(self, client: EcoflowApiClient) -> StatusSensorEntity:
