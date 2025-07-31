@@ -432,6 +432,11 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                         command.name,
                         heartbeat_dict,
                     )
+                    _LOGGER.info(
+                        "Heartbeat %s parsed fields: %s",
+                        command.name,
+                        heartbeat_dict,
+                    )
                     params.update(
                         (f"{command.func}_{command.id}.{key}", value)
                         for key, value in heartbeat_dict.items()

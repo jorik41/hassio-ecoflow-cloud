@@ -32,3 +32,7 @@ Current integrations details:
 - [Stream_Microinverter](devices/Stream_Microinverter-Public.md)
 - [PowerStream](devices/PowerStream-Public.md)
 - [Diagnostic](devices/Diagnostic-Public.md)
+
+## Interaction logging
+
+To help troubleshoot issues, you can enable the *Interaction logging* option when configuring the integration. When enabled, a file named `ecoflow_interactions.log` is created in your Home Assistant configuration directory. It records incoming messages like heartbeats and all commands sent to the device. Share this log when reporting problems so the exact payloads are visible.
