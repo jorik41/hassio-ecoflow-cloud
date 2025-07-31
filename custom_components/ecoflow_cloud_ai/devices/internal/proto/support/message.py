@@ -41,7 +41,11 @@ class ProtoMessage(PrivateAPIMessageProtocol, Message):
         if self.command is None or self.payload is None:
             return
 
-        expected_type = _expected_payload_types.get(self.command)
+        try:
+            expected_type = get_expected_payload_type(self.command)
+        except KeyError:
+            expected_type = None
+
         if expected_type is not None and not isinstance(self.payload, expected_type):
             _LOGGER.warning(
                 'Command "%s": allowed payload types %s, got %s',
