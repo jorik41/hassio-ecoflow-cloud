@@ -33,6 +33,7 @@ from ...sensor import (
     DecivoltSensorEntity,
     DeciwattsSensorEntity,
     InWattsSolarSensorEntity,
+    SignalStrengthSensorEntity,
     LevelSensorEntity,
     MilliampSensorEntity,
     MiscSensorEntity,
@@ -191,6 +192,11 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 client, self, "20_1.dynamicWatts", "Smart Plug Loads"
             ),
             DeciwattsSensorEntity(client, self, "20_1.ratedPower", "Rated Power"),
+            DeciwattsSensorEntity(client, self, "20_4.h2BaseLoad", "Base Load"),
+            DeciwattsSensorEntity(client, self, "20_4.h2PowerPlugsPos", "Smart Plug Watts +"),
+            DeciwattsSensorEntity(client, self, "20_4.h2GridWatt45", "Grid Watts"),
+            DeciwattsSensorEntity(client, self, "20_4.h2PowerPlugsNeg", "Smart Plug Watts -"),
+            SignalStrengthSensorEntity(client, self, "20_4.h2WifiRssi", "WiFi RSSI"),
             MiscSensorEntity(
                 client, self, "20_1.lowerLimit", "Lower Battery Limit", False
             ),
@@ -385,7 +391,10 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                     continue
 
                 params = cast(JSONDict, res.setdefault("params", {}))
-                if command in {Command.PRIVATE_API_POWERSTREAM_HEARTBEAT}:
+                if command in {
+                    Command.PRIVATE_API_POWERSTREAM_HEARTBEAT,
+                    Command.PRIVATE_API_POWERSTREAM_HEARTBEAT2,
+                }:
                     payload = get_expected_payload_type(command)()
                     _ = payload.ParseFromString(message.pdata)
                     params.update(

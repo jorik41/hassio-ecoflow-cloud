@@ -1,6 +1,7 @@
 ## POWERSTREAM
 
 *Sensors*
+- Extended heartbeat metrics (`20_4.*`) such as base load and grid wattage
 - ESP Temperature (`20_1.espTempsensor`)
 - Solar 1 Watts (`20_1.pv1InputWatts`)
 - Solar 1 Input Potential (`20_1.pv1InputVolt`)
@@ -52,6 +53,11 @@
 - Other Loads (`20_1.permanentWatts`)
 - Smart Plug Loads (`20_1.dynamicWatts`)
 - Rated Power (`20_1.ratedPower`)
+- Base Load (`20_4.h2BaseLoad`)
+- Smart Plug Watts + (`20_4.h2PowerPlugsPos`)
+- Grid Watts (`20_4.h2GridWatt45`)
+- Smart Plug Watts - (`20_4.h2PowerPlugsNeg`)
+- WiFi RSSI (`20_4.h2WifiRssi`)
 - Lower Battery Limit (`20_1.lowerLimit`)   _(disabled)_
 - Upper Battery Limit (`20_1.upperLimit`)   _(disabled)_
 - Wireless Error Code (`20_1.wirelessErrCode`)   _(disabled)_
