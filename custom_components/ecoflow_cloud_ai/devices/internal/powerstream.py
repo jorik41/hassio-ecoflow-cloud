@@ -193,9 +193,13 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
             ),
             DeciwattsSensorEntity(client, self, "20_1.ratedPower", "Rated Power"),
             DeciwattsSensorEntity(client, self, "20_4.h2BaseLoad", "Base Load"),
-            DeciwattsSensorEntity(client, self, "20_4.h2PowerPlugsPos", "Smart Plug Watts +"),
+            DeciwattsSensorEntity(
+                client, self, "20_4.h2PowerPlugsPos", "Smart Plug Watts +"
+            ),
             DeciwattsSensorEntity(client, self, "20_4.h2GridWatt45", "Grid Watts"),
-            DeciwattsSensorEntity(client, self, "20_4.h2PowerPlugsNeg", "Smart Plug Watts -"),
+            DeciwattsSensorEntity(
+                client, self, "20_4.h2PowerPlugsNeg", "Smart Plug Watts -"
+            ),
             SignalStrengthSensorEntity(client, self, "20_4.h2WifiRssi", "WiFi RSSI"),
             MiscSensorEntity(
                 client, self, "20_1.lowerLimit", "Lower Battery Limit", False
@@ -248,6 +252,13 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 self,
                 "254_32.watthToSmartPlugs",
                 "To Smart Plugs Today Energy Total",
+                enabled=True,
+            ),
+            ResettingInEnergySensorEntity(
+                client,
+                self,
+                "32_11.watth",
+                "Total Energy Report",
                 enabled=True,
             ),
             self._status_sensor(client),
@@ -426,6 +437,29 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                                 f"{command.func}_{command.id}.{field_name}Timestamp": watth_item.timestamp,
                             }
                         )
+
+                elif command is Command.WN511_TIME_TASK_CONFIG_POST:
+                    payload = socket_sys.time_task_config_post()
+                    _ = payload.ParseFromString(message.pdata)
+                    params[f"{command.func}_{command.id}.tasks"] = [
+                        {
+                            "index": task.task_name,
+                            "type": task.type,
+                            "start": f"{task.time_range.start_time.hour:02d}:{task.time_range.start_time.min:02d}",
+                            "stop": f"{task.time_range.stop_time.hour:02d}:{task.time_range.stop_time.min:02d}",
+                        }
+                        for task in payload.task_config
+                    ]
+
+                elif command is Command.WN511_ACK_138:
+                    payload = socket_sys.ret_pack()
+                    _ = payload.ParseFromString(message.pdata)
+                    params[f"{command.func}_{command.id}.retSta"] = payload.ret_sta
+
+                elif command is Command.REPORT_ENERGY_TOTAL:
+                    if len(message.pdata) >= 4:
+                        watth = int.from_bytes(message.pdata[:4], "little")
+                        params[f"{command.func}_{command.id}.watth"] = watth
 
                 # Add cmd information to allow extraction in private_api_extract_quota_message
                 res["cmdFunc"] = command_desc.func
