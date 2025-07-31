@@ -427,6 +427,10 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                         JSONDict,
                         MessageToDict(payload, preserving_proto_field_name=False),
                     )
+                    heartbeat_dict = {
+                        key[:1].lower() + key[1:] if key else key: value
+                        for key, value in heartbeat_dict.items()
+                    }
                     _LOGGER.debug(
                         "Heartbeat %s payload: %s",
                         command.name,
