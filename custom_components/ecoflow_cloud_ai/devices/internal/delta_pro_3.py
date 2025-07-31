@@ -38,6 +38,7 @@ from custom_components.ecoflow_cloud_ai.sensor import (
     OutWattsDcSensorEntity,
     OutWattsSensorEntity,
     QuotaStatusSensorEntity,
+    QuotaScheduledStatusSensorEntity,
     RemainSensorEntity,
     TempSensorEntity,
     VoltSensorEntity,
@@ -236,6 +237,7 @@ class DeltaPro3(BaseDevice):
                 client, self, "cmsDsgRemTime", const.DISCHARGE_REMAINING_TIME
             ),
             QuotaStatusSensorEntity(client, self),
+            QuotaScheduledStatusSensorEntity(client, self, 60 * 60),
         ]
 
     def numbers(self, client: EcoflowApiClient) -> list[BaseNumberEntity]:
