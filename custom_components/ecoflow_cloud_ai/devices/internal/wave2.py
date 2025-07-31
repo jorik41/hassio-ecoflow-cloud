@@ -1,4 +1,5 @@
 from homeassistant.components.switch import SwitchEntity
+from homeassistant.components.climate import ClimateEntity
 
 from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
 from custom_components.ecoflow_cloud_ai.devices import const, BaseDevice
@@ -7,8 +8,6 @@ from custom_components.ecoflow_cloud_ai.entities import (
     BaseNumberEntity,
     BaseSelectEntity,
 )
-from custom_components.ecoflow_cloud_ai.number import SetTempEntity
-from custom_components.ecoflow_cloud_ai.select import DictSelectEntity
 from custom_components.ecoflow_cloud_ai.sensor import (
     LevelSensorEntity,
     RemainSensorEntity,
@@ -94,78 +93,15 @@ class Wave2(BaseDevice):
         ]
 
     def numbers(self, client: EcoflowApiClient) -> list[BaseNumberEntity]:
-        return [
-            SetTempEntity(
-                client,
-                self,
-                "pd.setTemp",
-                "Set Temperature",
-                0,
-                40,
-                lambda value: {
-                    "moduleType": 1,
-                    "operateType": "setTemp",
-                    "sn": self.device_info.sn,
-                    "params": {"setTemp": int(value)},
-                },
-            ),
-        ]
+        return []
 
     def selects(self, client: EcoflowApiClient) -> list[BaseSelectEntity]:
-        return [
-            DictSelectEntity(
-                client,
-                self,
-                "pd.fanValue",
-                const.FAN_MODE,
-                const.FAN_MODE_OPTIONS,
-                lambda value: {
-                    "moduleType": 1,
-                    "operateType": "fanValue",
-                    "sn": self.device_info.sn,
-                    "params": {"fanValue": value},
-                },
-            ),
-            DictSelectEntity(
-                client,
-                self,
-                "pd.mainMode",
-                const.MAIN_MODE,
-                const.MAIN_MODE_OPTIONS,
-                lambda value: {
-                    "moduleType": 1,
-                    "operateType": "mainMode",
-                    "sn": self.device_info.sn,
-                    "params": {"mainMode": value},
-                },
-            ),
-            DictSelectEntity(
-                client,
-                self,
-                "pd.powerMode",
-                const.REMOTE_MODE,
-                const.REMOTE_MODE_OPTIONS,
-                lambda value: {
-                    "moduleType": 1,
-                    "operateType": "powerMode",
-                    "sn": self.device_info.sn,
-                    "params": {"powerMode": value},
-                },
-            ),
-            DictSelectEntity(
-                client,
-                self,
-                "pd.subMode",
-                const.POWER_SUB_MODE,
-                const.POWER_SUB_MODE_OPTIONS,
-                lambda value: {
-                    "moduleType": 1,
-                    "operateType": "subMode",
-                    "sn": self.device_info.sn,
-                    "params": {"subMode": value},
-                },
-            ),
-        ]
+        return []
 
     def switches(self, client: EcoflowApiClient) -> list[SwitchEntity]:
         return []
+
+    def climates(self, client: EcoflowApiClient) -> list[ClimateEntity]:
+        from ...climate import Wave2ClimateEntity
+
+        return [Wave2ClimateEntity(client, self)]
