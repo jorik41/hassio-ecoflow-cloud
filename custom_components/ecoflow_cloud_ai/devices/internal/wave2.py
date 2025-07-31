@@ -1,15 +1,15 @@
 from homeassistant.components.switch import SwitchEntity
 
-from custom_components.ecoflow_cloud.api import EcoflowApiClient
-from custom_components.ecoflow_cloud.devices import const, BaseDevice
-from custom_components.ecoflow_cloud.entities import (
+from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
+from custom_components.ecoflow_cloud_ai.devices import const, BaseDevice
+from custom_components.ecoflow_cloud_ai.entities import (
     BaseSensorEntity,
     BaseNumberEntity,
     BaseSelectEntity,
 )
-from custom_components.ecoflow_cloud.number import SetTempEntity
-from custom_components.ecoflow_cloud.select import DictSelectEntity
-from custom_components.ecoflow_cloud.sensor import (
+from custom_components.ecoflow_cloud_ai.number import SetTempEntity
+from custom_components.ecoflow_cloud_ai.select import DictSelectEntity
+from custom_components.ecoflow_cloud_ai.sensor import (
     LevelSensorEntity,
     RemainSensorEntity,
     TempSensorEntity,

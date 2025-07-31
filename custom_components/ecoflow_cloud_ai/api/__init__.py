@@ -121,7 +121,7 @@ class EcoflowApiClient(ABC):
             )
 
     def start(self):
-        from custom_components.ecoflow_cloud.api.ecoflow_mqtt import EcoflowMQTTClient
+        from custom_components.ecoflow_cloud_ai.api.ecoflow_mqtt import EcoflowMQTTClient
 
         self.mqtt_client = EcoflowMQTTClient(self.mqtt_info, self.devices)
 

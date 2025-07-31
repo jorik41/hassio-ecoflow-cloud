@@ -1,7 +1,7 @@
-from custom_components.ecoflow_cloud.api import EcoflowApiClient
-from custom_components.ecoflow_cloud.devices import const
-from custom_components.ecoflow_cloud.entities import BaseSwitchEntity
-from custom_components.ecoflow_cloud.switch import EnabledEntity
+from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
+from custom_components.ecoflow_cloud_ai.devices import const
+from custom_components.ecoflow_cloud_ai.entities import BaseSwitchEntity
+from custom_components.ecoflow_cloud_ai.switch import EnabledEntity
 from .delta3 import Delta3
 from .delta_pro_3 import DeltaPro3SetMessage
 

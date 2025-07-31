@@ -1,6 +1,6 @@
-from custom_components.ecoflow_cloud.api import EcoflowApiClient
-from custom_components.ecoflow_cloud.devices import const, BaseDevice
-from custom_components.ecoflow_cloud.devices.const import (
+from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
+from custom_components.ecoflow_cloud_ai.devices import const, BaseDevice
+from custom_components.ecoflow_cloud_ai.devices.const import (
     ATTR_DESIGN_CAPACITY,
     ATTR_FULL_CAPACITY,
     ATTR_REMAIN_CAPACITY,
@@ -9,23 +9,23 @@ from custom_components.ecoflow_cloud.devices.const import (
     MAIN_FULL_CAPACITY,
     MAIN_REMAIN_CAPACITY,
 )
-from custom_components.ecoflow_cloud.entities import (
+from custom_components.ecoflow_cloud_ai.entities import (
     BaseSensorEntity,
     BaseNumberEntity,
     BaseSwitchEntity,
     BaseSelectEntity,
 )
-from custom_components.ecoflow_cloud.number import (
+from custom_components.ecoflow_cloud_ai.number import (
     ChargingPowerEntity,
     MaxBatteryLevelEntity,
     MinBatteryLevelEntity,
     BatteryBackupLevel,
 )
-from custom_components.ecoflow_cloud.select import (
+from custom_components.ecoflow_cloud_ai.select import (
     DictSelectEntity,
     TimeoutDictSelectEntity,
 )
-from custom_components.ecoflow_cloud.sensor import (
+from custom_components.ecoflow_cloud_ai.sensor import (
     LevelSensorEntity,
     RemainSensorEntity,
     TempSensorEntity,
@@ -43,7 +43,7 @@ from custom_components.ecoflow_cloud.sensor import (
     StatusSensorEntity,
     QuotaStatusSensorEntity,
 )
-from custom_components.ecoflow_cloud.switch import EnabledEntity
+from custom_components.ecoflow_cloud_ai.switch import EnabledEntity
 
 
 class River2(BaseDevice):

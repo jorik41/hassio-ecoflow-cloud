@@ -6,7 +6,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from custom_components.ecoflow_cloud.devices import (
+from custom_components.ecoflow_cloud_ai.devices import (
     BaseDevice,
 )
 

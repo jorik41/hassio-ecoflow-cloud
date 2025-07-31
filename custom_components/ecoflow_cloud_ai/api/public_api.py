@@ -77,7 +77,7 @@ class EcoflowPublicApiClient(EcoflowApiClient):
                 device_data.sn, device_data.name, device_data.device_type
             )
 
-        from custom_components.ecoflow_cloud.devices.registry import device_by_product
+        from custom_components.ecoflow_cloud_ai.devices.registry import device_by_product
 
         if device_data.device_type in device_by_product:
             device = device_by_product[device_data.device_type](info, device_data)

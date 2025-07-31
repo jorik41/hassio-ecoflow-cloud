@@ -12,6 +12,7 @@ Inspired by [hassio-ecoflow](https://github.com/vwt12eh8/hassio-ecoflow) and [ec
 
 - Install as a custom repository via HACS
 - Manually download and extract to the custom_components directory
+- This fork uses the domain `ecoflow_cloud_ai` to avoid conflicts with the original integration.
 
 Once installed, use Add Integration -> EcoFlow Cloud AI Playground.
 

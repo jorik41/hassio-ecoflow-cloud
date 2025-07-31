@@ -1,13 +1,13 @@
-from custom_components.ecoflow_cloud.api import EcoflowApiClient
-from custom_components.ecoflow_cloud.devices import const, BaseDevice
-from custom_components.ecoflow_cloud.entities import (
+from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
+from custom_components.ecoflow_cloud_ai.devices import const, BaseDevice
+from custom_components.ecoflow_cloud_ai.entities import (
     BaseSensorEntity,
     BaseNumberEntity,
     BaseSwitchEntity,
     BaseSelectEntity,
 )
-from custom_components.ecoflow_cloud.number import MaxBatteryLevelEntity
-from custom_components.ecoflow_cloud.sensor import (
+from custom_components.ecoflow_cloud_ai.number import MaxBatteryLevelEntity
+from custom_components.ecoflow_cloud_ai.sensor import (
     LevelSensorEntity,
     WattsSensorEntity,
     TempSensorEntity,
@@ -21,7 +21,7 @@ from custom_components.ecoflow_cloud.sensor import (
     InMilliVoltSensorEntity,
     BeMilliVoltSensorEntity,
 )
-from custom_components.ecoflow_cloud.switch import EnabledEntity
+from custom_components.ecoflow_cloud_ai.switch import EnabledEntity
 
 
 class RiverMini(BaseDevice):

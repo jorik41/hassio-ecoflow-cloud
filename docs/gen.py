@@ -2,17 +2,17 @@ from typing import Any, List
 import json
 from unittest.mock import Mock
 
-from custom_components.ecoflow_cloud.device_data import DeviceData, DeviceOptions
-from custom_components.ecoflow_cloud.devices import BaseDevice, EcoflowDeviceInfo
-from custom_components.ecoflow_cloud.devices.internal.proto.support.message import (
+from custom_components.ecoflow_cloud_ai.device_data import DeviceData, DeviceOptions
+from custom_components.ecoflow_cloud_ai.devices import BaseDevice, EcoflowDeviceInfo
+from custom_components.ecoflow_cloud_ai.devices.internal.proto.support.message import (
     ProtoMessage,
 )
-from custom_components.ecoflow_cloud.devices.registry import (
+from custom_components.ecoflow_cloud_ai.devices.registry import (
     devices,
     device_by_product,
     device_support_sub_devices,
 )
-from custom_components.ecoflow_cloud.entities import (
+from custom_components.ecoflow_cloud_ai.entities import (
     EcoFlowBaseCommandEntity,
     BaseSwitchEntity,
     BaseSensorEntity,

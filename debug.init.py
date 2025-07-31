@@ -6,8 +6,8 @@ from types import MappingProxyType
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from custom_components.ecoflow_cloud.devices.powerkit import PowerKit
-from custom_components.ecoflow_cloud import EcoflowAuthentication, EcoflowMQTTClient
+from custom_components.ecoflow_cloud_ai.devices.powerkit import PowerKit
+from custom_components.ecoflow_cloud_ai import EcoflowAuthentication, EcoflowMQTTClient
 
 logging.basicConfig(level=logging.INFO)
 _LOGGER = logging.getLogger(__name__)

@@ -7,8 +7,8 @@ from ...entities import (
     BaseSwitchEntity,
     BaseSelectEntity,
 )
-from custom_components.ecoflow_cloud.switch import EnabledEntity
-from custom_components.ecoflow_cloud.select import DictSelectEntity
+from custom_components.ecoflow_cloud_ai.switch import EnabledEntity
+from custom_components.ecoflow_cloud_ai.select import DictSelectEntity
 from ...number import MaxBatteryLevelEntity, ChargingPowerEntity, MinBatteryLevelEntity
 
 

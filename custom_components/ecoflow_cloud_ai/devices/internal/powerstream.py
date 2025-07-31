@@ -8,8 +8,8 @@ from homeassistant.components.number import NumberEntity
 from homeassistant.components.select import SelectEntity
 from homeassistant.util import dt
 
-from custom_components.ecoflow_cloud.devices import const
-from custom_components.ecoflow_cloud.select import PowerDictSelectEntity
+from custom_components.ecoflow_cloud_ai.devices import const
+from custom_components.ecoflow_cloud_ai.select import PowerDictSelectEntity
 
 from ...devices import BaseDevice
 from ...devices.internal.proto.support import (
