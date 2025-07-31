@@ -1,13 +1,13 @@
-from custom_components.ecoflow_cloud.api import EcoflowApiClient
-from custom_components.ecoflow_cloud.api.message import JSONMessage, Message
-from custom_components.ecoflow_cloud.api.private_api import PrivateAPIMessageProtocol
-from custom_components.ecoflow_cloud.entities import (
+from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
+from custom_components.ecoflow_cloud_ai.api.message import JSONMessage, Message
+from custom_components.ecoflow_cloud_ai.api.private_api import PrivateAPIMessageProtocol
+from custom_components.ecoflow_cloud_ai.entities import (
     BaseNumberEntity,
     BaseSelectEntity,
     BaseSensorEntity,
     BaseSwitchEntity,
 )
-from custom_components.ecoflow_cloud.number import (
+from custom_components.ecoflow_cloud_ai.number import (
     BatteryBackupLevel,
     ChargingPowerEntity,
     MaxBatteryLevelEntity,
@@ -15,7 +15,7 @@ from custom_components.ecoflow_cloud.number import (
     MinBatteryLevelEntity,
     MinGenStartLevelEntity,
 )
-from custom_components.ecoflow_cloud.sensor import (
+from custom_components.ecoflow_cloud_ai.sensor import (
     CapacitySensorEntity,
     InWattsSensorEntity,
     LevelSensorEntity,
@@ -30,8 +30,8 @@ from custom_components.ecoflow_cloud.sensor import (
     OutProtectedEnergySensorEntity,
     QuotaStatusSensorEntity,
 )
-from custom_components.ecoflow_cloud.switch import BeeperEntity, EnabledEntity
-from custom_components.ecoflow_cloud.devices import BaseDevice, const
+from custom_components.ecoflow_cloud_ai.switch import BeeperEntity, EnabledEntity
+from custom_components.ecoflow_cloud_ai.devices import BaseDevice, const
 from ..internal.proto import deltapro3_pb2
 
 

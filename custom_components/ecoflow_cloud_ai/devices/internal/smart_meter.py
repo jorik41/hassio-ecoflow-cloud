@@ -1,12 +1,12 @@
-from custom_components.ecoflow_cloud.api import EcoflowApiClient
-from custom_components.ecoflow_cloud.devices import const, BaseDevice
-from custom_components.ecoflow_cloud.entities import (
+from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
+from custom_components.ecoflow_cloud_ai.devices import const, BaseDevice
+from custom_components.ecoflow_cloud_ai.entities import (
     BaseSensorEntity,
     BaseNumberEntity,
     BaseSwitchEntity,
     BaseSelectEntity,
 )
-from custom_components.ecoflow_cloud.sensor import (
+from custom_components.ecoflow_cloud_ai.sensor import (
     WattsSensorEntity,
     InAmpSensorEntity,
     MilliVoltSensorEntity,

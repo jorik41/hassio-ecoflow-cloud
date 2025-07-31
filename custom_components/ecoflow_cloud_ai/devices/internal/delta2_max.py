@@ -1,12 +1,12 @@
-from custom_components.ecoflow_cloud.api import EcoflowApiClient
-from custom_components.ecoflow_cloud.devices import const, BaseDevice
-from custom_components.ecoflow_cloud.entities import (
+from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
+from custom_components.ecoflow_cloud_ai.devices import const, BaseDevice
+from custom_components.ecoflow_cloud_ai.entities import (
     BaseSensorEntity,
     BaseNumberEntity,
     BaseSwitchEntity,
     BaseSelectEntity,
 )
-from custom_components.ecoflow_cloud.number import (
+from custom_components.ecoflow_cloud_ai.number import (
     ChargingPowerEntity,
     MinBatteryLevelEntity,
     MaxBatteryLevelEntity,
@@ -14,8 +14,8 @@ from custom_components.ecoflow_cloud.number import (
     MinGenStartLevelEntity,
     BatteryBackupLevel,
 )
-from custom_components.ecoflow_cloud.select import TimeoutDictSelectEntity
-from custom_components.ecoflow_cloud.sensor import (
+from custom_components.ecoflow_cloud_ai.select import TimeoutDictSelectEntity
+from custom_components.ecoflow_cloud_ai.sensor import (
     LevelSensorEntity,
     RemainSensorEntity,
     TempSensorEntity,
@@ -32,7 +32,7 @@ from custom_components.ecoflow_cloud.sensor import (
     EnergySensorEntity,
     QuotaScheduledStatusSensorEntity,
 )
-from custom_components.ecoflow_cloud.switch import BeeperEntity, EnabledEntity
+from custom_components.ecoflow_cloud_ai.switch import BeeperEntity, EnabledEntity
 
 
 class Delta2Max(BaseDevice):

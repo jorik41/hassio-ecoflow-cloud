@@ -1,15 +1,15 @@
-from custom_components.ecoflow_cloud.api import EcoflowApiClient
-from custom_components.ecoflow_cloud.button import EnabledButtonEntity
-from custom_components.ecoflow_cloud.devices import const, BaseDevice
-from custom_components.ecoflow_cloud.entities import (
+from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
+from custom_components.ecoflow_cloud_ai.button import EnabledButtonEntity
+from custom_components.ecoflow_cloud_ai.devices import const, BaseDevice
+from custom_components.ecoflow_cloud_ai.entities import (
     BaseSensorEntity,
     BaseNumberEntity,
     BaseSwitchEntity,
     BaseSelectEntity,
     BaseButtonEntity,
 )
-from custom_components.ecoflow_cloud.number import SetTempEntity
-from custom_components.ecoflow_cloud.sensor import (
+from custom_components.ecoflow_cloud_ai.number import SetTempEntity
+from custom_components.ecoflow_cloud_ai.sensor import (
     LevelSensorEntity,
     RemainSensorEntity,
     SecondsRemainSensorEntity,
@@ -27,7 +27,7 @@ from custom_components.ecoflow_cloud.sensor import (
     CapacitySensorEntity,
     QuotaStatusSensorEntity,
 )
-from custom_components.ecoflow_cloud.switch import EnabledEntity, InvertedBeeperEntity
+from custom_components.ecoflow_cloud_ai.switch import EnabledEntity, InvertedBeeperEntity
 
 
 class Glacier(BaseDevice):

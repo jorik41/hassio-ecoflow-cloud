@@ -1,14 +1,14 @@
 from ...api import EcoflowApiClient
 from ...sensor import StatusSensorEntity
 from .data_bridge import to_plain
-from custom_components.ecoflow_cloud.devices import const, BaseDevice
-from custom_components.ecoflow_cloud.entities import (
+from custom_components.ecoflow_cloud_ai.devices import const, BaseDevice
+from custom_components.ecoflow_cloud_ai.entities import (
     BaseSensorEntity,
     BaseNumberEntity,
     BaseSwitchEntity,
     BaseSelectEntity,
 )
-from custom_components.ecoflow_cloud.sensor import (
+from custom_components.ecoflow_cloud_ai.sensor import (
     WattsSensorEntity,
     LevelSensorEntity,
     CapacitySensorEntity,

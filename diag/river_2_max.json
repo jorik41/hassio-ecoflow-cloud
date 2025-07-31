@@ -1,7 +1,7 @@
 {
   
   "integration_manifest": {
-    "domain": "ecoflow_cloud",
+    "domain": "ecoflow_cloud_ai",
     "name": "EcoFlow Cloud AI Playground",
     "codeowners": [
       "@jorik41"

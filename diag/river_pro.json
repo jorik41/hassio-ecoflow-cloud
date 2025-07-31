@@ -1,6 +1,6 @@
 {
   "integration_manifest": {
-    "domain": "ecoflow_cloud",
+    "domain": "ecoflow_cloud_ai",
     "name": "EcoFlow Cloud AI Playground",
     "version": "0.5.0",
     "documentation": "https://github.com/jorik41/hassio-ecoflow-cloud",
