@@ -22,6 +22,7 @@ class CommandFunc(enum.IntEnum):
     DEFAULT = 0
     SMART_PLUG = 2
     POWERSTREAM = 20
+    REPORTS = 32
     PLATFORM = platform.PlCmdSets.PL_EXT_CMD_SETS
 
 
@@ -57,6 +58,15 @@ class Command(enum.Enum):
     WN511_SET_BAT_UPPER_PACK = CommandFuncAndId(func=CommandFunc.POWERSTREAM, id=133)
     WN511_SET_BRIGHTNESS_PACK = CommandFuncAndId(func=CommandFunc.POWERSTREAM, id=135)
     WN511_SET_VALUE_PACK = CommandFuncAndId(func=CommandFunc.POWERSTREAM, id=136)
+
+    WN511_TIME_TASK_CONFIG_POST = CommandFuncAndId(
+        func=CommandFunc.POWERSTREAM,
+        id=134,
+    )
+
+    WN511_ACK_138 = CommandFuncAndId(func=CommandFunc.POWERSTREAM, id=138)
+
+    REPORT_ENERGY_TOTAL = CommandFuncAndId(func=CommandFunc.REPORTS, id=11)
 
     PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT = CommandFuncAndId(
         func=CommandFunc.POWERSTREAM, id=143
@@ -98,6 +108,8 @@ def get_expected_payload_type(cmd: Command) -> type[ProtoMessageRaw]:
                     Command.WN511_SET_VALUE_PACK: powerstream.SetValue,
                     Command.PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT: powerstream.SetValue,
                     Command.PRIVATE_API_PLATFORM_WATTH: platform.BatchEnergyTotalReport,
+                    Command.WN511_TIME_TASK_CONFIG_POST: socket_sys.time_task_config_post,
+                    Command.WN511_ACK_138: socket_sys.ret_pack,
                 },
             )
         )
