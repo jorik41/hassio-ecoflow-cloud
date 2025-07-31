@@ -38,15 +38,15 @@ class ProtoMessage(PrivateAPIMessageProtocol, Message):
         self.device_sn = device_sn
 
     def _verify_command_and_payload(self) -> None:
-        if (
-            self.command is not None
-            and self.payload is not None
-            and not isinstance(self.payload, get_expected_payload_type(self.command))
-        ):
+        if self.command is None or self.payload is None:
+            return
+
+        expected_type = _expected_payload_types.get(self.command)
+        if expected_type is not None and not isinstance(self.payload, expected_type):
             _LOGGER.warning(
                 'Command "%s": allowed payload types %s, got %s',
                 self.command.name,
-                get_expected_payload_type(self.command),
+                expected_type,
                 type(self.payload),
             )
 
