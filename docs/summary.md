@@ -865,7 +865,7 @@
 
 </p></details>
 
-<details><summary> POWERSTREAM <i>(sensors: 63, switches: 1, sliders: 4, selects: 1)</i> </summary>
+<details><summary> POWERSTREAM <i>(sensors: 68, switches: 1, sliders: 4, selects: 1)</i> </summary>
 <p>
 
 *Sensors*
@@ -920,6 +920,11 @@
 - Other Loads
 - Smart Plug Loads
 - Rated Power
+- Base Load
+- Smart Plug Watts +
+- Grid Watts
+- Smart Plug Watts -
+- WiFi RSSI
 - Lower Battery Limit  _(disabled)_
 - Upper Battery Limit  _(disabled)_
 - Wireless Error Code  _(disabled)_
@@ -1811,7 +1816,7 @@
 
 </p></details>
 
-<details><summary> PowerStream (API) <i>(sensors: 58, switches: 0, sliders: 4, selects: 1)</i> </summary>
+<details><summary> PowerStream (API) <i>(sensors: 63, switches: 0, sliders: 4, selects: 1)</i> </summary>
 <p>
 
 *Sensors*
@@ -1866,6 +1871,11 @@
 - Other Loads
 - Smart Plug Loads
 - Rated Power
+- Base Load
+- Smart Plug Watts +
+- Grid Watts
+- Smart Plug Watts -
+- WiFi RSSI
 - Lower Battery Limit  _(disabled)_
 - Upper Battery Limit  _(disabled)_
 - Wireless Error Code  _(disabled)_

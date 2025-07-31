@@ -43,6 +43,10 @@ class Command(enum.Enum):
         func=CommandFunc.POWERSTREAM, id=1
     )
 
+    PRIVATE_API_POWERSTREAM_HEARTBEAT2 = CommandFuncAndId(
+        func=CommandFunc.POWERSTREAM, id=4
+    )
+
     WN511_SET_PERMANENT_WATTS_PACK = CommandFuncAndId(
         func=CommandFunc.POWERSTREAM, id=129
     )
@@ -85,6 +89,7 @@ def get_expected_payload_type(cmd: Command) -> type[ProtoMessageRaw]:
                 dict[Command, type[ProtoMessageRaw]],
                 {
                     Command.PRIVATE_API_POWERSTREAM_HEARTBEAT: powerstream.InverterHeartbeat,
+                    Command.PRIVATE_API_POWERSTREAM_HEARTBEAT2: powerstream.InverterHeartbeat2,
                     Command.WN511_SET_PERMANENT_WATTS_PACK: socket_sys.permanent_watts_pack,
                     Command.WN511_SET_SUPPLY_PRIORITY_PACK: socket_sys.include_plug,
                     Command.WN511_SET_BAT_LOWER_PACK: socket_sys.bat_lower_pack,

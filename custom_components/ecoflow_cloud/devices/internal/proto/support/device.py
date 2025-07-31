@@ -13,7 +13,11 @@ class PrivateAPIProtoDeviceMixin(object):
             "cmdFunc" in message
             and "cmdId" in message
             and message["cmdFunc"] == Command.PRIVATE_API_POWERSTREAM_HEARTBEAT.func
-            and message["cmdId"] == Command.PRIVATE_API_POWERSTREAM_HEARTBEAT.id
+            and message["cmdId"]
+            in {
+                Command.PRIVATE_API_POWERSTREAM_HEARTBEAT.id,
+                Command.PRIVATE_API_POWERSTREAM_HEARTBEAT2.id,
+            }
         ):
             return {"params": message["params"], "time": dt.utcnow()}
         raise ValueError("not a quota message")

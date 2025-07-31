@@ -52,6 +52,11 @@
 - Other Loads (`20_1.permanentWatts`)
 - Smart Plug Loads (`20_1.dynamicWatts`)
 - Rated Power (`20_1.ratedPower`)
+- Base Load (`20_4.h2BaseLoad`)
+- Smart Plug Watts + (`20_4.h2PowerPlugsPos`)
+- Grid Watts (`20_4.h2GridWatt45`)
+- Smart Plug Watts - (`20_4.h2PowerPlugsNeg`)
+- WiFi RSSI (`20_4.h2WifiRssi`)
 - Lower Battery Limit (`20_1.lowerLimit`)   _(disabled)_
 - Upper Battery Limit (`20_1.upperLimit`)   _(disabled)_
 - Wireless Error Code (`20_1.wirelessErrCode`)   _(disabled)_
