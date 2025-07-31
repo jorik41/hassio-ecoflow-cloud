@@ -11,6 +11,7 @@ from homeassistant.components.number import NumberEntity
 from homeassistant.components.select import SelectEntity
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.components.switch import SwitchEntity
+from homeassistant.components.climate import ClimateEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.util import dt
@@ -159,6 +160,9 @@ class BaseDevice(ABC):
     def selects(self, client: EcoflowApiClient) -> Sequence[SelectEntity]:
         pass
 
+    def climates(self, client: EcoflowApiClient) -> Sequence[ClimateEntity]:
+        return []
+
     def buttons(self, client: EcoflowApiClient) -> Sequence[ButtonEntity]:
         return []
 
@@ -241,4 +245,7 @@ class DiagnosticDevice(BaseDevice):
         return []
 
     def selects(self, client: EcoflowApiClient) -> Sequence[SelectEntity]:
+        return []
+
+    def climates(self, client: EcoflowApiClient) -> Sequence[ClimateEntity]:
         return []
