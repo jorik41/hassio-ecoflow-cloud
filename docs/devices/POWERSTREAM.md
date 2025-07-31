@@ -2,7 +2,6 @@
 
 *Sensors*
 - Extended heartbeat metrics (`20_4.*`) such as base load and grid wattage
-- ESP Temperature (`20_1.espTempsensor`)
 - Solar 1 Watts (`20_1.pv1InputWatts`)
 - Solar 1 Input Potential (`20_1.pv1InputVolt`)
 - Solar 1 Op Potential (`20_1.pv1OpVolt`)
@@ -11,7 +10,7 @@
 - Solar 1 Relay Status (`20_1.pv1RelayStatus`)
 - Solar 1 Error Code (`20_1.pv1ErrCode`)   _(disabled)_
 - Solar 1 Warning Code (`20_1.pv1WarnCode`)   _(disabled)_
-- Solar 1 Status (`20_1.pv1Statue`)   _(disabled)_
+- Solar 1 Status (`20_1.pv1Status`)   _(disabled)_
 - Solar 2 Watts (`20_1.pv2InputWatts`)
 - Solar 2 Input Potential (`20_1.pv2InputVolt`)
 - Solar 2 Op Potential (`20_1.pv2OpVolt`)
@@ -20,7 +19,7 @@
 - Solar 2 Relay Status (`20_1.pv2RelayStatus`)
 - Solar 2 Error Code (`20_1.pv2ErrCode`)   _(disabled)_
 - Solar 2 Warning Code (`20_1.pv2WarningCode`)   _(disabled)_
-- Solar 2 Status (`20_1.pv2Statue`)   _(disabled)_
+- Solar 2 Status (`20_1.pv2Status`)   _(disabled)_
 - Battery Type (`20_1.bpType`)   _(disabled)_
 - Battery Charge (`20_1.batSoc`)
 - Battery Input Watts (`20_1.batInputWatts`)
@@ -32,13 +31,13 @@
 - Discharge Time (`20_1.dsgRemainTime`)
 - Battery Error Code (`20_1.batErrCode`)   _(disabled)_
 - Battery Warning Code (`20_1.batWarningCode`)   _(disabled)_
-- Battery Status (`20_1.batStatue`)   _(disabled)_
+- Battery Status (`20_1.batStatus`)   _(disabled)_
 - LLC Input Potential (`20_1.llcInputVolt`)   _(disabled)_
 - LLC Op Potential (`20_1.llcOpVolt`)   _(disabled)_
 - LLC Temperature (`20_1.llcTemp`)
 - LLC Error Code (`20_1.llcErrCode`)   _(disabled)_
 - LLC Warning Code (`20_1.llcWarningCode`)   _(disabled)_
-- LLC Status (`20_1.llcStatue`)   _(disabled)_
+- LLC Status (`20_1.llcStatus`)   _(disabled)_
 - Inverter On/Off Status (`20_1.invOnOff`)
 - Inverter Output Watts (`20_1.invOutputWatts`)
 - Inverter Output Potential (`20_1.invInputVolt`)   _(disabled)_
@@ -49,7 +48,7 @@
 - Inverter Relay Status (`20_1.invRelayStatus`)
 - Inverter Error Code (`20_1.invErrCode`)   _(disabled)_
 - Inverter Warning Code (`20_1.invWarnCode`)   _(disabled)_
-- Inverter Status (`20_1.invStatue`)   _(disabled)_
+- Inverter Status (`20_1.invStatus`)   _(disabled)_
 - Other Loads (`20_1.permanentWatts`)
 - Smart Plug Loads (`20_1.dynamicWatts`)
 - Rated Power (`20_1.ratedPower`)
@@ -75,11 +74,11 @@
 - Status
 
 *Switches*
-- Feed-in Control (`20_1.feedProtect` -> `{"from": "HomeAssistant", "id": "999978134", "version": "1.0", "sn": "SN", "cmdCode": "PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT", "params": {"value": "VALUE"}}`)
+- Feed-in Priority (`20_1.feedPriority` -> `{"from": "HomeAssistant", "id": "999978134", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_VALUE_PACK", "params": {"value": "VALUE"}}`)
 
 *Sliders (numbers)*
-- Min Discharge Level (`20_1.lowerLimit` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BAT_LOWER_PACK", "params": {"lowerLimit": "VALUE"}}` [0 - 30])
-- Max Charge Level (`20_1.upperLimit` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BAT_UPPER_PACK", "params": {"upperLimit": "VALUE"}}` [70 - 100])
+- Min Discharge Level (`20_1.lowerLimit` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BAT_LOWER_PACK", "params": {"lowerLimit": "VALUE"}}` [0 - 100])
+- Max Charge Level (`20_1.upperLimit` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BAT_UPPER_PACK", "params": {"upperLimit": "VALUE"}}` [0 - 100])
 - Brightness (`20_1.invBrightness` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BRIGHTNESS_PACK", "params": {"brightness": "VALUE"}}` [0 - 1023])
 - Custom load power settings (`20_1.permanentWatts` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_PERMANENT_WATTS_PACK", "params": {"permanentWatts": "VALUE"}}` [0 - 600])
 

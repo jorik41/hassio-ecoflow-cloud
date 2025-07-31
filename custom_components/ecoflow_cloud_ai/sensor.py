@@ -271,7 +271,13 @@ class TempSensorEntity(BaseSensorEntity):
     _attr_entity_category = EntityCategory.DIAGNOSTIC
     _attr_native_unit_of_measurement = UnitOfTemperature.CELSIUS
     _attr_state_class = SensorStateClass.MEASUREMENT
-    _attr_native_value = -1
+    _attr_native_value = None
+
+    def _update_value(self, val: Any) -> bool:
+        fval = float(val)
+        if fval < 0 or fval > 5000:
+            return False
+        return super()._update_value(fval)
 
 
 class CelsiusSensorEntity(TempSensorEntity):

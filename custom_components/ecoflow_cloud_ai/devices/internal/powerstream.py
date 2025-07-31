@@ -11,7 +11,8 @@ from homeassistant.util import dt
 from custom_components.ecoflow_cloud_ai.devices import const
 from custom_components.ecoflow_cloud_ai.select import PowerDictSelectEntity
 
-from ...devices import BaseDevice
+from ...devices import BaseDevice, EcoflowDeviceInfo
+from ...device_data import DeviceData
 from ...devices.internal.proto.support import (
     to_lower_camel_case,
 )
@@ -71,10 +72,15 @@ def build_command(
 
 
 class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
+    def __init__(self, device_info: EcoflowDeviceInfo, device_data: DeviceData):
+        super().__init__(device_info, device_data)
+        self._client: EcoflowApiClient | None = None
+        self._last_energy_req = dt.utcnow().replace(year=2000)
+
     @override
     def sensors(self, client: EcoflowApiClient) -> Sequence[SensorEntity]:
+        self._client = client
         return [
-            CelsiusSensorEntity(client, self, "20_1.espTempsensor", "ESP Temperature"),
             InWattsSolarSensorEntity(
                 client, self, "20_1.pv1InputWatts", "Solar 1 Watts"
             ),
@@ -97,7 +103,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
             MiscSensorEntity(
                 client, self, "20_1.pv1WarnCode", "Solar 1 Warning Code", False
             ),
-            MiscSensorEntity(client, self, "20_1.pv1Statue", "Solar 1 Status", False),
+            MiscSensorEntity(client, self, "20_1.pv1Status", "Solar 1 Status", False),
             InWattsSolarSensorEntity(
                 client, self, "20_1.pv2InputWatts", "Solar 2 Watts"
             ),
@@ -120,7 +126,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
             MiscSensorEntity(
                 client, self, "20_1.pv2WarningCode", "Solar 2 Warning Code", False
             ),
-            MiscSensorEntity(client, self, "20_1.pv2Statue", "Solar 2 Status", False),
+            MiscSensorEntity(client, self, "20_1.pv2Status", "Solar 2 Status", False),
             MiscSensorEntity(client, self, "20_1.bpType", "Battery Type", False),
             LevelSensorEntity(client, self, "20_1.batSoc", "Battery Charge"),
             DeciwattsSensorEntity(
@@ -146,7 +152,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
             MiscSensorEntity(
                 client, self, "20_1.batWarningCode", "Battery Warning Code", False
             ),
-            MiscSensorEntity(client, self, "20_1.batStatue", "Battery Status", False),
+            MiscSensorEntity(client, self, "20_1.batStatus", "Battery Status", False),
             DecivoltSensorEntity(
                 client, self, "20_1.llcInputVolt", "LLC Input Potential", False
             ),
@@ -158,7 +164,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
             MiscSensorEntity(
                 client, self, "20_1.llcWarningCode", "LLC Warning Code", False
             ),
-            MiscSensorEntity(client, self, "20_1.llcStatue", "LLC Status", False),
+            MiscSensorEntity(client, self, "20_1.llcStatus", "LLC Status", False),
             MiscSensorEntity(client, self, "20_1.invOnOff", "Inverter On/Off Status"),
             DeciwattsSensorEntity(
                 client, self, "20_1.invOutputWatts", "Inverter Output Watts"
@@ -186,7 +192,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
             MiscSensorEntity(
                 client, self, "20_1.invWarnCode", "Inverter Warning Code", False
             ),
-            MiscSensorEntity(client, self, "20_1.invStatue", "Inverter Status", False),
+            MiscSensorEntity(client, self, "20_1.invStatus", "Inverter Status", False),
             DeciwattsSensorEntity(client, self, "20_1.permanentWatts", "Other Loads"),
             DeciwattsSensorEntity(
                 client, self, "20_1.dynamicWatts", "Smart Plug Loads"
@@ -219,6 +225,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
             MiscSensorEntity(
                 client, self, "20_1.heartbeatFrequency", "Heartbeat Frequency", False
             ),
+            MiscSensorEntity(client, self, "20_1.feedPriority", "Feed-in Priority"),
             ResettingInEnergySolarSensorEntity(
                 client,
                 self,
@@ -270,11 +277,11 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
             EnabledEntity(
                 client,
                 self,
-                "20_1.feedProtect",
-                "Feed-in Control",
+                "20_1.feedPriority",
+                "Feed-in Priority",
                 lambda value: build_command(
                     device_sn=self.device_info.sn,
-                    command=Command.PRIVATE_API_POWERSTREAM_SET_FEED_PROTECT,
+                    command=Command.WN511_SET_VALUE_PACK,
                     payload=powerstream.SetValue(value=value),
                 ),
                 enabled=True,
@@ -308,7 +315,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 "20_1.lowerLimit",
                 "Min Discharge Level",
                 0,
-                30,
+                100,
                 lambda value: build_command(
                     device_sn=self.device_info.sn,
                     command=Command.WN511_SET_BAT_LOWER_PACK,
@@ -320,7 +327,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                 self,
                 "20_1.upperLimit",
                 "Max Charge Level",
-                70,
+                0,
                 100,
                 lambda value: build_command(
                     device_sn=self.device_info.sn,
@@ -370,11 +377,18 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
             _ = packet.ParseFromString(raw_data)
             for message in packet.msg:
                 _LOGGER.debug(
-                    'cmd_func %u, cmd_id %u, payload "%s"',
+                    'cmd_func %u, cmd_id %u, enc_type %u, seq %u, payload "%s"',
                     message.cmd_func,
                     message.cmd_id,
+                    message.enc_type,
+                    message.seq,
                     message.pdata.hex(),
                 )
+
+                payload_bytes = message.pdata
+                if message.enc_type in {1, 6} and message.src != AddressId.APP.value:
+                    xor_key = message.seq & 0xFF
+                    payload_bytes = bytes(b ^ xor_key for b in payload_bytes)
 
                 if (
                     message.HasField("device_sn")
@@ -408,7 +422,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                     Command.PRIVATE_API_POWERSTREAM_HEARTBEAT2,
                 }:
                     payload = get_expected_payload_type(command)()
-                    _ = payload.ParseFromString(message.pdata)
+                    _ = payload.ParseFromString(payload_bytes)
                     heartbeat_dict = cast(
                         JSONDict,
                         MessageToDict(payload, preserving_proto_field_name=False),
@@ -422,9 +436,23 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
                         (f"{command.func}_{command.id}.{key}", value)
                         for key, value in heartbeat_dict.items()
                     )
+                    if (
+                        self._client is not None
+                        and (dt.utcnow() - self._last_energy_req).total_seconds()
+                        > 300
+                    ):
+                        self._client.send_get_message(
+                            self.device_info.sn,
+                            build_command(
+                                device_sn=self.device_info.sn,
+                                command=Command.REPORT_ENERGY_TOTAL,
+                                payload=b"",
+                            ),
+                        )
+                        self._last_energy_req = dt.utcnow()
                 elif command in {Command.PRIVATE_API_PLATFORM_WATTH}:
                     payload = platform.BatchEnergyTotalReport()
-                    _ = payload.ParseFromString(message.pdata)
+                    _ = payload.ParseFromString(payload_bytes)
                     for watth_item in payload.watth_item:
                         try:
                             watth_type_name = to_lower_camel_case(
@@ -447,7 +475,7 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
 
                 elif command is Command.WN511_TIME_TASK_CONFIG_POST:
                     payload = socket_sys.time_task_config_post()
-                    _ = payload.ParseFromString(message.pdata)
+                    _ = payload.ParseFromString(payload_bytes)
                     params[f"{command.func}_{command.id}.tasks"] = [
                         {
                             "index": task.task_name,
@@ -460,12 +488,12 @@ class PowerStream(PrivateAPIProtoDeviceMixin, BaseDevice):
 
                 elif command is Command.WN511_ACK_138:
                     payload = socket_sys.ret_pack()
-                    _ = payload.ParseFromString(message.pdata)
+                    _ = payload.ParseFromString(payload_bytes)
                     params[f"{command.func}_{command.id}.retSta"] = payload.ret_sta
 
                 elif command is Command.REPORT_ENERGY_TOTAL:
-                    if len(message.pdata) >= 4:
-                        watth = int.from_bytes(message.pdata[:4], "little")
+                    if len(payload_bytes) >= 4:
+                        watth = int.from_bytes(payload_bytes[:4], "little")
                         params[f"{command.func}_{command.id}.watth"] = watth
 
                 # Add cmd information to allow extraction in private_api_extract_quota_message
