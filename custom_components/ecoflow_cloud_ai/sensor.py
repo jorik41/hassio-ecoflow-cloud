@@ -405,6 +405,25 @@ class EnergySensorEntity(BaseSensorEntity):
     _attr_native_unit_of_measurement = UnitOfEnergy.WATT_HOUR
     _attr_state_class = SensorStateClass.TOTAL_INCREASING
 
+    def __init__(
+        self,
+        client: EcoflowApiClient,
+        device: BaseDevice,
+        mqtt_key: str,
+        title: str,
+        enabled: bool = True,
+        auto_enable: bool = False,
+    ) -> None:
+        # Append a suffix to ensure unique IDs for sensors sharing the same key
+        super().__init__(
+            client,
+            device,
+            f"{mqtt_key}.energy",
+            title,
+            enabled,
+            auto_enable,
+        )
+
     def _update_value(self, val: Any) -> bool:
         ival = int(val)
         if ival > 0:
