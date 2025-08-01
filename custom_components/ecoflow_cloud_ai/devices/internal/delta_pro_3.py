@@ -206,10 +206,6 @@ class DeltaPro3(BaseDevice):
             OutEnergySensorEntity(
                 client, self, "powOutSumEnergy", const.TOTAL_OUT_ENERGY
             ),
-            InEnergySensorEntity(client, self, "powInSumEnergy", "Total Input Energy"),
-            OutEnergySensorEntity(
-                client, self, "powOutSumEnergy", "Total Output Energy"
-            ),
             InEnergySensorEntity(
                 client, self, "acInEnergyTotal", const.CHARGE_AC_ENERGY
             ),
