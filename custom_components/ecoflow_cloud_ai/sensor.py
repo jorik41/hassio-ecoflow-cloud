@@ -592,13 +592,17 @@ class _AbsurdProtectMixin(EnergySensorEntity):
         if self._last_update is not None:
             diff = ival - int(self._attr_native_value or 0)
             if diff < 0:
-                _LOGGER.debug(
-                    "ignoring unexpected counter decrease for %s: %s -> %s",
-                    self.name,
-                    self._attr_native_value,
-                    ival,
-                )
-                return False
+                if self._last_update and now.date() != self._last_update.date():
+                    _LOGGER.info("day counter reset detected for %s", self.name)
+                    diff = ival
+                else:
+                    _LOGGER.debug(
+                        "ignoring unexpected counter decrease for %s: %s -> %s",
+                        self.name,
+                        self._attr_native_value,
+                        ival,
+                    )
+                    return False
 
             dt_hours = (now - self._last_update).total_seconds() / 3600
             if dt_hours > 0 and diff / 1000 > dt_hours * self.max_avg_power_kw:
