@@ -20,6 +20,9 @@ class EcoflowMQTTClient:
         self.connected = False
         self.__mqtt_info = mqtt_info
         self.__devices: dict[str, BaseDevice] = devices
+        self.__topic_device_map: dict[str, BaseDevice] = {}
+        for device in self.__devices.values():
+            self._register_device_topics(device)
 
         from homeassistant.components.mqtt.async_client import AsyncMQTTClient
 
@@ -47,6 +50,30 @@ class EcoflowMQTTClient:
         )
         self.__client.connect(self.__mqtt_info.url, self.__mqtt_info.port, keepalive=15)
         self.__client.loop_start()
+
+    def _register_device_topics(self, device: BaseDevice) -> None:
+        for topic in device.device_info.topics():
+            self.__topic_device_map[topic] = device
+
+    def _unregister_device_topics(self, device: BaseDevice) -> list[str]:
+        removed = []
+        for topic, dev in list(self.__topic_device_map.items()):
+            if dev == device:
+                removed.append(topic)
+                self.__topic_device_map.pop(topic, None)
+        return removed
+
+    def add_device(self, device: BaseDevice) -> None:
+        self.__devices[device.device_data.sn] = device
+        self._register_device_topics(device)
+        if self.connected:
+            self.__client.subscribe([(t, 1) for t in device.device_info.topics()])
+
+    def remove_device(self, device: BaseDevice) -> None:
+        self.__devices.pop(device.device_data.sn, None)
+        topics = self._unregister_device_topics(device)
+        if self.connected and topics:
+            self.__client.unsubscribe(topics)
 
     def is_connected(self):
         return self.__client.is_connected()
@@ -104,11 +131,14 @@ class EcoflowMQTTClient:
     @callback
     def _on_message(self, client, userdata, message: MQTTMessage):
         try:
-            for sn, device in self.__devices.items():
-                if device.update_data(message.payload, message.topic):
-                    _LOGGER.debug(
-                        f"Message for {sn} and Topic {message.topic} : {message.payload}"
-                    )
+            device = self.__topic_device_map.get(message.topic)
+            if device is None:
+                return
+            if device.update_data(message.payload, message.topic):
+                sn = getattr(getattr(device, "device_data", device), "sn", "")
+                _LOGGER.debug(
+                    f"Message for {sn} and Topic {message.topic} : {message.payload}"
+                )
         except UnicodeDecodeError as error:
             _LOGGER.error(
                 f"UnicodeDecodeError: {error}. Ignoring message and waiting for the next one."
@@ -148,9 +178,4 @@ class EcoflowMQTTClient:
             )
 
     def __target_topics(self) -> list[str]:
-        topics = []
-        for device in self.__devices.values():
-            for topic in device.device_info.topics():
-                topics.append(topic)
-        # Remove duplicates that can occur when multiple devices have the same topic (for example sub devices)
-        return list(set(topics))
+        return list(self.__topic_device_map.keys())

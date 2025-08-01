@@ -50,9 +50,13 @@ class EcoflowApiClient(ABC):
 
     def add_device(self, device):
         self.devices[device.device_data.sn] = device
+        if self.mqtt_client is not None:
+            self.mqtt_client.add_device(device)
 
     def remove_device(self, device):
         self.devices.pop(device.device_data.sn, None)
+        if self.mqtt_client is not None:
+            self.mqtt_client.remove_device(device)
 
     def _accept_mqqt_certification(self, resp_json: dict):
         _LOGGER.info(f"Received MQTT credentials: {resp_json}")
