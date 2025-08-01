@@ -9,6 +9,7 @@ from . import _preload_proto  # noqa: F401 # pyright: ignore[reportUnusedImport]
 from .device_data import DeviceData, DeviceOptions
 
 _LOGGER = logging.getLogger(__name__)
+_LOGGER.setLevel(logging.DEBUG)
 
 ECOFLOW_DOMAIN = "ecoflow_cloud_ai"
 CONFIG_VERSION = 11

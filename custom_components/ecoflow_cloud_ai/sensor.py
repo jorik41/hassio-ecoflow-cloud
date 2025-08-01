@@ -414,14 +414,11 @@ class EnergySensorEntity(BaseSensorEntity):
         enabled: bool = True,
         auto_enable: bool = False,
     ) -> None:
-        # Append a suffix to ensure unique IDs for sensors sharing the same key
-        super().__init__(
-            client,
-            device,
-            f"{mqtt_key}.energy",
-            title,
-            enabled,
-            auto_enable,
+        # Use mqtt_key for data lookups but append a suffix for the unique_id to
+        # avoid collisions with power sensors using the same key.
+        super().__init__(client, device, mqtt_key, title, enabled, auto_enable)
+        self._attr_unique_id = self._gen_unique_id(
+            self._device.device_data.sn, f"{mqtt_key}.energy"
         )
 
     def _update_value(self, val: Any) -> bool:
