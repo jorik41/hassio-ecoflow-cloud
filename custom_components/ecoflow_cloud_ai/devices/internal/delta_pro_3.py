@@ -1,3 +1,6 @@
+import logging
+from typing import Any
+
 from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
 from custom_components.ecoflow_cloud_ai.api.message import JSONMessage, Message
 from custom_components.ecoflow_cloud_ai.api.private_api import PrivateAPIMessageProtocol
@@ -46,6 +49,9 @@ from custom_components.ecoflow_cloud_ai.sensor import (
 from custom_components.ecoflow_cloud_ai.switch import BeeperEntity, EnabledEntity
 from custom_components.ecoflow_cloud_ai.devices import BaseDevice, const
 from ..internal.proto import deltapro3_pb2
+
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class DeltaPro3SetMessage(Message, PrivateAPIMessageProtocol):
@@ -116,9 +122,7 @@ class DeltaPro3(BaseDevice):
             ),
             TempSensorEntity(client, self, "bmsMinMosTemp", const.MIN_MOS_TEMP, False),
             TempSensorEntity(client, self, "bmsMaxMosTemp", const.MAX_MOS_TEMP, False),
-            MilliVoltSensorEntity(
-                client, self, "bmsBattVol", const.BATTERY_VOLT, False
-            )
+            MilliVoltSensorEntity(client, self, "bmsBattVol", const.BATTERY_VOLT, False)
             .attr("bmsMinCellVol", const.ATTR_MIN_CELL_VOLT, 0)
             .attr("bmsMaxCellVol", const.ATTR_MAX_CELL_VOLT, 0),
             MilliVoltSensorEntity(
@@ -143,19 +147,19 @@ class DeltaPro3(BaseDevice):
             OutWattsSensorEntity(client, self, "powOutSumW", const.TOTAL_OUT_POWER),
             InWattsSensorEntity(client, self, "powGetAcIn", const.AC_IN_POWER),
             OutWattsSensorEntity(client, self, "powGetAc", const.AC_OUT_POWER),
-            InWattsSolarSensorEntity(
-                client, self, "powGetPvL", const.SOLAR_IN_POWER
-            ),
-            InWattsSolarSensorEntity(
-                client, self, "powGetPvH", const.PV_HV_POWER
-            ),
+            InWattsSolarSensorEntity(client, self, "powGetPvL", const.SOLAR_IN_POWER),
+            InWattsSolarSensorEntity(client, self, "powGetPvH", const.PV_HV_POWER),
             OutWattsSensorEntity(client, self, "powGetAcHvOut", const.AC_HV_OUT_POWER),
             OutWattsSensorEntity(client, self, "powGetTypec1", const.TYPEC_1_OUT_POWER),
             OutWattsSensorEntity(client, self, "powGetTypec2", const.TYPEC_2_OUT_POWER),
             OutWattsDcSensorEntity(client, self, "powGet12v", const.DC_12V_OUT_POWER),
             OutWattsDcSensorEntity(client, self, "powGet24v", const.DC_24V_OUT_POWER),
-            OutVoltDcSensorEntity(client, self, "powGet12vVol", "12V DC Output Voltage"),
-            OutVoltDcSensorEntity(client, self, "powGet24vVol", "24V DC Output Voltage"),
+            OutVoltDcSensorEntity(
+                client, self, "powGet12vVol", "12V DC Output Voltage"
+            ),
+            OutVoltDcSensorEntity(
+                client, self, "powGet24vVol", "24V DC Output Voltage"
+            ),
             OutWattsSensorEntity(client, self, "powGetAcLvOut", const.AC_LV_OUT_POWER),
             OutWattsSensorEntity(
                 client, self, "powGetAcLvTt30Out", const.AC_LV_TT30_OUT_POWER
@@ -175,18 +179,34 @@ class DeltaPro3(BaseDevice):
             ),
             LevelSensorEntity(client, self, "cmsMaxChgSoc", const.MAX_CHARGE_LEVEL),
             LevelSensorEntity(client, self, "cmsMinDsgSoc", const.MIN_DISCHARGE_LEVEL),
-            InProtectedEnergySensorEntity(client, self, "powGetAcIn", const.AC_IN_ENERGY),
-            InProtectedEnergySolarSensorEntity(client, self, "powGetPvL", const.SOLAR_IN_ENERGY),
-            InProtectedEnergySensorEntity(client, self, "powGetPvH", const.PV_HV_ENERGY),
-            OutProtectedEnergySensorEntity(client, self, "powGet5p8", const.POWER_INOUT_PORT_ENERGY),
-            OutProtectedEnergySensorEntity(client, self, "powGet4p81", const.EXTRA_BATTERY_1_ENERGY),
-            OutProtectedEnergySensorEntity(client, self, "powGet4p82", const.EXTRA_BATTERY_2_ENERGY),
-            OutProtectedEnergySensorEntity(client, self, "powGetAc", const.DISCHARGE_AC_ENERGY),
-            InProtectedEnergySensorEntity(client, self, "powInSumW", const.TOTAL_IN_ENERGY),
-            OutProtectedEnergySensorEntity(client, self, "powOutSumW", const.TOTAL_OUT_ENERGY),
-            InEnergySensorEntity(
-                client, self, "powInSumEnergy", "Total Input Energy"
+            InProtectedEnergySensorEntity(
+                client, self, "powGetAcIn", const.AC_IN_ENERGY
             ),
+            InProtectedEnergySolarSensorEntity(
+                client, self, "powGetPvL", const.SOLAR_IN_ENERGY
+            ),
+            InProtectedEnergySensorEntity(
+                client, self, "powGetPvH", const.PV_HV_ENERGY
+            ),
+            OutProtectedEnergySensorEntity(
+                client, self, "powGet5p8", const.POWER_INOUT_PORT_ENERGY
+            ),
+            OutProtectedEnergySensorEntity(
+                client, self, "powGet4p81", const.EXTRA_BATTERY_1_ENERGY
+            ),
+            OutProtectedEnergySensorEntity(
+                client, self, "powGet4p82", const.EXTRA_BATTERY_2_ENERGY
+            ),
+            OutProtectedEnergySensorEntity(
+                client, self, "powGetAc", const.DISCHARGE_AC_ENERGY
+            ),
+            InProtectedEnergySensorEntity(
+                client, self, "powInSumW", const.TOTAL_IN_ENERGY
+            ),
+            OutProtectedEnergySensorEntity(
+                client, self, "powOutSumW", const.TOTAL_OUT_ENERGY
+            ),
+            InEnergySensorEntity(client, self, "powInSumEnergy", "Total Input Energy"),
             OutEnergySensorEntity(
                 client, self, "powOutSumEnergy", "Total Output Energy"
             ),
@@ -203,8 +223,12 @@ class DeltaPro3(BaseDevice):
                 client, self, "dcOutEnergyTotal", const.DISCHARGE_DC_ENERGY
             ),
             FrequencySensorEntity(client, self, "acOutFreq", const.AC_FREQUENCY),
-            InMilliVoltSensorEntity(client, self, "plugInInfoAcInVol", const.AC_IN_VOLT),
-            InMilliampSolarSensorEntity(client, self, "plugInInfoAcInAmp", "AC Input Current"),
+            InMilliVoltSensorEntity(
+                client, self, "plugInInfoAcInVol", const.AC_IN_VOLT
+            ),
+            InMilliampSolarSensorEntity(
+                client, self, "plugInInfoAcInAmp", "AC Input Current"
+            ),
             OutVoltSensorEntity(client, self, "plugInInfoAcOutVol", const.AC_OUT_VOLT),
             VoltSensorEntity(
                 client, self, "plugInInfoPvHChgVolMax", const.PV_VOLTAGE, False
@@ -329,11 +353,9 @@ class DeltaPro3(BaseDevice):
                 const.AC_CHARGING_POWER,
                 400,
                 2900,
-
                 lambda value: DeltaPro3SetMessage(
                     self.device_info.sn, "plugInInfoAcInChgPowMax", value
                 ),
-
             ),
         ]
 
@@ -387,3 +409,10 @@ class DeltaPro3(BaseDevice):
 
     def selects(self, client: EcoflowApiClient) -> list[BaseSelectEntity]:
         return []
+
+    def _prepare_data(self, raw_data: bytes) -> dict[str, Any]:
+        """Decode incoming protobuf data with additional logging."""
+        _LOGGER.debug("Raw data: %s", raw_data.hex())
+        parsed = super()._prepare_data(raw_data)
+        _LOGGER.debug("Decoded packet result: %s", parsed)
+        return parsed
