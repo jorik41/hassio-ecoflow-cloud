@@ -49,7 +49,12 @@ from custom_components.ecoflow_cloud_ai.sensor import (
     VoltSensorEntity,
 )
 from custom_components.ecoflow_cloud_ai.switch import BeeperEntity, EnabledEntity
-from custom_components.ecoflow_cloud_ai.devices import BaseDevice, const
+from custom_components.ecoflow_cloud_ai.devices import (
+    BaseDevice,
+    EcoflowDeviceInfo,
+    const,
+)
+from custom_components.ecoflow_cloud_ai.device_data import DeviceData
 from ..internal.proto import AddressId, Command, ProtoMessage, deltapro3_pb2
 
 
