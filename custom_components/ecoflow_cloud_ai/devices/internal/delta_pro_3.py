@@ -1,6 +1,8 @@
 import logging
 from typing import Any
 
+from homeassistant.util import dt
+
 from custom_components.ecoflow_cloud_ai.api import EcoflowApiClient
 from custom_components.ecoflow_cloud_ai.api.message import JSONMessage, Message
 from custom_components.ecoflow_cloud_ai.api.private_api import PrivateAPIMessageProtocol
@@ -48,7 +50,19 @@ from custom_components.ecoflow_cloud_ai.sensor import (
 )
 from custom_components.ecoflow_cloud_ai.switch import BeeperEntity, EnabledEntity
 from custom_components.ecoflow_cloud_ai.devices import BaseDevice, const
-from ..internal.proto import deltapro3_pb2
+from ..internal.proto import AddressId, Command, ProtoMessage, deltapro3_pb2
+
+
+def build_command(
+    device_sn: str, command: Command, payload: ProtoMessage | bytes
+) -> ProtoMessage:
+    return ProtoMessage(
+        device_sn=device_sn,
+        command=command,
+        payload=payload,
+        src=AddressId.APP,
+        dest=AddressId.MQTT,
+    )
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -99,7 +113,13 @@ class DeltaPro3SetMessage(Message, PrivateAPIMessageProtocol):
 
 
 class DeltaPro3(BaseDevice):
+    def __init__(self, device_info: EcoflowDeviceInfo, device_data: DeviceData):
+        super().__init__(device_info, device_data)
+        self._client: EcoflowApiClient | None = None
+        self._last_energy_req = dt.utcnow().replace(year=2000)
+
     def sensors(self, client: EcoflowApiClient) -> list[BaseSensorEntity]:
+        self._client = client
         return [
             LevelSensorEntity(
                 client, self, "bmsBattSoc", const.MAIN_BATTERY_LEVEL
@@ -200,9 +220,7 @@ class DeltaPro3(BaseDevice):
             OutProtectedEnergySensorEntity(
                 client, self, "powGetAc", const.DISCHARGE_AC_ENERGY
             ),
-            InEnergySensorEntity(
-                client, self, "powInSumEnergy", const.TOTAL_IN_ENERGY
-            ),
+            InEnergySensorEntity(client, self, "powInSumEnergy", const.TOTAL_IN_ENERGY),
             OutEnergySensorEntity(
                 client, self, "powOutSumEnergy", const.TOTAL_OUT_ENERGY
             ),
@@ -407,8 +425,47 @@ class DeltaPro3(BaseDevice):
         return []
 
     def _prepare_data(self, raw_data: bytes) -> dict[str, Any]:
-        """Decode incoming protobuf data with additional logging."""
+        """Decode incoming protobuf data and request energy totals periodically."""
         _LOGGER.debug("Raw data: %s", raw_data.hex())
-        parsed = super()._prepare_data(raw_data)
-        _LOGGER.debug("Decoded packet result: %s", parsed)
-        return parsed
+        result = super()._prepare_data(raw_data)
+        try:
+            from ..internal.proto import ecopacket_pb2
+            from ..internal.proto.support.const import CommandFuncAndId
+
+            packet = ecopacket_pb2.SendHeaderMsg()
+            packet.ParseFromString(raw_data)
+
+            for message in packet.msg:
+                payload_bytes = message.pdata
+                if message.enc_type in {1, 6} and message.src != AddressId.APP.value:
+                    xor_key = message.seq & 0xFF
+                    payload_bytes = bytes(b ^ xor_key for b in payload_bytes)
+
+                command_desc = CommandFuncAndId(
+                    func=message.cmd_func, id=message.cmd_id
+                )
+
+                if (
+                    self._client is not None
+                    and (dt.utcnow() - self._last_energy_req).total_seconds() > 300
+                ):
+                    self._client.send_get_message(
+                        self.device_info.sn,
+                        build_command(
+                            self.device_info.sn, Command.REPORT_ENERGY_TOTAL, b""
+                        ),
+                    )
+                    self._last_energy_req = dt.utcnow()
+
+                if (
+                    command_desc == Command.REPORT_ENERGY_TOTAL
+                    and len(payload_bytes) >= 4
+                ):
+                    result.setdefault("params", {})[
+                        f"{command_desc.func}_{command_desc.id}.watth"
+                    ] = int.from_bytes(payload_bytes[:4], "little")
+        except Exception as err:  # pragma: no cover - best effort
+            _LOGGER.debug("DeltaPro3 energy decode failed: %%s", err)
+
+        _LOGGER.debug("Decoded packet result: %s", result)
+        return result
