@@ -57,9 +57,12 @@ class EcoflowDataHolder:
         self.raw_data = BoundFifoList[dict[str, Any]]()
 
     def last_received_time(self):
-        return max(
-            self.status_time, self.params_time, self.get_reply_time, self.set_reply_time
-        )
+        """Return the timestamp of the last payload received from device.
+
+        Replies to get/set commands are intentionally ignored as those
+        responses may come from the cloud even when the device is offline.
+        """
+        return max(self.status_time, self.params_time)
 
     def add_set_message(self, msg: dict[str, Any]):
         self.set.append(msg)
