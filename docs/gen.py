@@ -116,10 +116,10 @@ def prepare_command(e: EcoFlowBaseCommandEntity) -> str | None:
             json_dict = command_dict
         elif isinstance(command_dict, ProtoMessage):
             json_dict = command_dict.to_json_message()
+        elif hasattr(command_dict, "to_json_message"):
+            json_dict = command_dict.to_json_message()
         else:
-            raise TypeError(
-                "Unsupported command_dict type: %s" % type(command_dict).__name__
-            )
+            return "_ command not available _"
 
         # Check if params exist and update marker values
         if "params" in json_dict:

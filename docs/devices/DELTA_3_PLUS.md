@@ -1,4 +1,4 @@
-## Delta_3_Plus
+## DELTA_3_PLUS
 
 *Sensors*
 - Main Battery Level (`soc`)

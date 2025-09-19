@@ -1,4 +1,4 @@
-## Delta_Pro_3
+## DELTA_PRO_3
 
 *Sensors*
 - Main Battery Level (`bmsBattSoc`)
