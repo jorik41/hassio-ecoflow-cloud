@@ -82,6 +82,114 @@
 
 </p></details>
 
+<details><summary> DELTA_3 <i>(sensors: 28, switches: 2, sliders: 6, selects: 4)</i> </summary>
+<p>
+
+*Sensors*
+- Main Battery Level
+- Main Design Capacity  _(disabled)_
+- Main Full Capacity  _(disabled)_
+- Main Remain Capacity  _(disabled)_
+- State of Health
+- Battery Level
+- Total In Power
+- Total Out Power
+- AC In Power
+- AC Out Power
+- AC In Volts
+- AC Out Volts
+- Solar In Power
+- DC Out Power
+- Type-C (1) Out Power
+- Type-C (2) Out Power
+- USB QC (1) Out Power
+- USB QC (2) Out Power
+- Charge Remaining Time
+- Discharge Remaining Time
+- Cycles
+- Battery Temperature
+- Min Cell Temperature  _(disabled)_
+- Max Cell Temperature  _(disabled)_
+- Battery Volts  _(disabled)_
+- Min Cell Volts  _(disabled)_
+- Max Cell Volts  _(disabled)_
+- Status
+
+*Switches*
+- Beeper 
+- X-Boost Enabled 
+
+*Sliders (numbers)*
+- Max Charge Level 
+- Min Discharge Level 
+- Backup Reserve Level 
+- Generator Auto Start Level 
+- Generator Auto Stop Level 
+- AC Charging Power 
+
+*Selects*
+- Screen Timeout 
+- Unit Timeout 
+- AC Timeout 
+- DC (12V) Timeout 
+
+</p></details>
+
+<details><summary> DELTA_3_PLUS <i>(sensors: 28, switches: 4, sliders: 6, selects: 4)</i> </summary>
+<p>
+
+*Sensors*
+- Main Battery Level
+- Main Design Capacity  _(disabled)_
+- Main Full Capacity  _(disabled)_
+- Main Remain Capacity  _(disabled)_
+- State of Health
+- Battery Level
+- Total In Power
+- Total Out Power
+- AC In Power
+- AC Out Power
+- AC In Volts
+- AC Out Volts
+- Solar In Power
+- DC Out Power
+- Type-C (1) Out Power
+- Type-C (2) Out Power
+- USB QC (1) Out Power
+- USB QC (2) Out Power
+- Charge Remaining Time
+- Discharge Remaining Time
+- Cycles
+- Battery Temperature
+- Min Cell Temperature  _(disabled)_
+- Max Cell Temperature  _(disabled)_
+- Battery Volts  _(disabled)_
+- Min Cell Volts  _(disabled)_
+- Max Cell Volts  _(disabled)_
+- Status
+
+*Switches*
+- Beeper 
+- X-Boost Enabled 
+- AC Enabled 
+- DC (12V) Enabled 
+
+*Sliders (numbers)*
+- Max Charge Level 
+- Min Discharge Level 
+- Backup Reserve Level 
+- Generator Auto Start Level 
+- Generator Auto Stop Level 
+- AC Charging Power 
+
+*Selects*
+- Screen Timeout 
+- Unit Timeout 
+- AC Timeout 
+- DC (12V) Timeout 
+
+</p></details>
+
 <details><summary> RIVER_2 <i>(sensors: 32, switches: 5, sliders: 4, selects: 5)</i> </summary>
 <p>
 
@@ -354,7 +462,7 @@
 
 </p></details>
 
-<details><summary> DELTA_PRO_3 <i>(sensors: 36, switches: 4, sliders: 6, selects: 0)</i> </summary>
+<details><summary> DELTA_PRO_3 <i>(sensors: 69, switches: 4, sliders: 6, selects: 0)</i> </summary>
 <p>
 
 *Sensors*
@@ -367,6 +475,13 @@
 - Max Cell Temperature  _(disabled)_
 - Min MOS Temperature  _(disabled)_
 - Max MOS Temperature  _(disabled)_
+- Battery Volts  _(disabled)_
+- Min Cell Volts  _(disabled)_
+- Max Cell Volts  _(disabled)_
+- Main Battery Current  _(disabled)_
+- Cycles
+- Main Full Capacity  _(disabled)_
+- Main Remain Capacity  _(disabled)_
 - Battery Level
 - State of Health
 - Total In Power
@@ -380,30 +495,46 @@
 - Type-C (2) Out Power
 - 12V Out Power
 - 24V Out Power
+- 12V DC Output Voltage
+- 24V DC Output Voltage
 - AC Low Voltage Out Power
 - AC Low Voltage TT30 Out Power
 - Power In/Out Port Power
 - USB QC (1) Out Power
 - USB QC (2) Out Power
 - Extra Battery Port 1 Power
-  - Extra Battery Port 2 Power
-  - AC In Energy
-  - Solar In Energy
-  - Solar (HV) In Energy
-  - Power In/Out Port Energy
-  - Extra Battery Port 1 Energy
-  - Extra Battery Port 2 Energy
-  - Battery Discharge Energy to AC
-  - Total In Energy
-  - Total Out Energy
-  - AC Input Frequency
+- Extra Battery Port 2 Power
+- Max Charge Level
+- Min Discharge Level
+- AC In Energy
+- Solar In Energy
+- Solar (HV) In Energy
+- Power In/Out Port Energy
+- Extra Battery Port 1 Energy
+- Extra Battery Port 2 Energy
+- Battery Discharge Energy to AC
+- Total In Energy
+- Total Out Energy
+- Battery Charge Energy from AC
+- Battery Discharge Energy to AC
+- Solar In Energy
+- Battery Discharge Energy to DC
+- AC Input Frequency
+- AC In Volts
+- AC Input Current
+- AC Out Volts
 - PV Voltage  _(disabled)_
 - PV Current  _(disabled)_
 - PV Voltage  _(disabled)_
 - PV Current  _(disabled)_
+- Solar HV Input Voltage
+- Solar LV Input Voltage
+- Solar In Current
+- Solar In Current
 - Charge Remaining Time
 - Discharge Remaining Time
 - Status
+- Status (Scheduled)
 
 *Switches*
 - Beeper 
@@ -865,11 +996,10 @@
 
 </p></details>
 
-<details><summary> POWERSTREAM <i>(sensors: 68, switches: 1, sliders: 4, selects: 1)</i> </summary>
+<details><summary> POWERSTREAM <i>(sensors: 69, switches: 1, sliders: 4, selects: 1)</i> </summary>
 <p>
 
 *Sensors*
-- ESP Temperature
 - Solar 1 Watts
 - Solar 1 Input Potential
 - Solar 1 Op Potential
@@ -931,15 +1061,17 @@
 - Wireless Warning Code  _(disabled)_
 - LED Brightness  _(disabled)_
 - Heartbeat Frequency  _(disabled)_
+- Feed-in Priority
 - PV1 Today Energy Total
 - PV2 Today Energy Total
 - From Battery Today Energy Total
 - To Battery Today Energy Total
 - To Smart Plugs Today Energy Total
+- Total Energy Report
 - Status
 
 *Switches*
-- Feed-in Control 
+- Feed-in Priority 
 
 *Sliders (numbers)*
 - Min Discharge Level 
@@ -1004,7 +1136,7 @@
 
 </p></details>
 
-<details><summary> WAVE_2 <i>(sensors: 27, switches: 0, sliders: 1, selects: 4)</i> </summary>
+<details><summary> WAVE_2 <i>(sensors: 27, switches: 0, sliders: 0, selects: 0)</i> </summary>
 <p>
 
 *Sensors*
@@ -1039,13 +1171,8 @@
 *Switches*
 
 *Sliders (numbers)*
-- Set Temperature 
 
 *Selects*
-- Wind speed 
-- Main mode 
-- Remote startup/shutdown 
-- Sub-mode 
 
 </p></details>
 
@@ -1434,6 +1561,84 @@
 
 </p></details>
 
+<details><summary> DELTA Pro Ultra (API) <i>(sensors: 58, switches: 3, sliders: 4, selects: 0)</i> </summary>
+<p>
+
+*Sensors*
+- Status
+- Remaining Time
+- Battery level SOC
+- Battery Count
+- Wireless 4G Data Max
+- Wireless 4G Data Remaining
+- Wireless 4G Registered
+- Wireless 4G Error Code
+- Wireless 4G SIM ID
+- Internet Connection Type
+- Error Code
+- Total In Power
+- Total Out Power
+- Power I/O Port Input Power
+- Power I/O Port Input Current  _(disabled)_
+- Power I/O Port Input Voltage  _(disabled)_
+- Power I/O Port Output Power
+- Power I/O Port Output Current  _(disabled)_
+- Power I/O Port Output Voltage  _(disabled)_
+- Power I/O Port Input Type
+- AC In Power
+- AC In Current  _(disabled)_
+- AC In Volts  _(disabled)_
+- USB (1) Out Power
+- USB (2) Out Power
+- Type-C (1) Out Power
+- Type-C (2) Out Power
+- Solar (1) In Power
+- Solar (1) In Amps  _(disabled)_
+- Solar (1) In Volts  _(disabled)_
+- Solar (2) In Power
+- Solar (2) In Amps  _(disabled)_
+- Solar (2) In Volts  _(disabled)_
+- AC (1) Out Power
+- AC (1) Out Current  _(disabled)_
+- AC (1) Out Voltage  _(disabled)_
+- AC (1) Out Frequency  _(disabled)_
+- AC (2) Out Power
+- AC (2) Out Current  _(disabled)_
+- AC (2) Out Voltage  _(disabled)_
+- AC (2) Out Frequency  _(disabled)_
+- AC (3) Out Power
+- AC (3) Out Current  _(disabled)_
+- AC (3) Out Voltage  _(disabled)_
+- AC (3) Out Frequency  _(disabled)_
+- AC (4) Out Power
+- AC (4) Out Current  _(disabled)_
+- AC (4) Out Voltage  _(disabled)_
+- AC (4) Out Frequency  _(disabled)_
+- AC (5) Out Power
+- AC (5) Out Current  _(disabled)_
+- AC (5) Out Voltage  _(disabled)_
+- AC (5) Out Frequency  _(disabled)_
+- AC (6) Out Power
+- AC (6) Out Current  _(disabled)_
+- AC (6) Out Voltage  _(disabled)_
+- AC (6) Out Frequency  _(disabled)_
+- DC Anderson Out Power
+
+*Switches*
+- Wireless 4G Enabled 
+- Battery Auto-Heating Enabled 
+- DC (12V) Enabled 
+
+*Sliders (numbers)*
+- Min Discharge Level 
+- Max Charge Level 
+- AC Charging Power 
+- Power I/O Port Charging Power 
+
+*Selects*
+
+</p></details>
+
 <details><summary> DELTA 2 (API) <i>(sensors: 50, switches: 8, sliders: 6, selects: 5)</i> </summary>
 <p>
 
@@ -1622,6 +1827,114 @@
 - Screen Timeout 
 - Unit Timeout 
 - AC Timeout 
+
+</p></details>
+
+<details><summary> DELTA 3 (API) <i>(sensors: 28, switches: 2, sliders: 6, selects: 4)</i> </summary>
+<p>
+
+*Sensors*
+- Main Battery Level
+- Main Design Capacity  _(disabled)_
+- Main Full Capacity  _(disabled)_
+- Main Remain Capacity  _(disabled)_
+- State of Health
+- Battery Level
+- Total In Power
+- Total Out Power
+- AC In Power
+- AC Out Power
+- AC In Volts
+- AC Out Volts
+- Solar In Power
+- DC Out Power
+- Type-C (1) Out Power
+- Type-C (2) Out Power
+- USB QC (1) Out Power
+- USB QC (2) Out Power
+- Charge Remaining Time
+- Discharge Remaining Time
+- Cycles
+- Battery Temperature
+- Min Cell Temperature  _(disabled)_
+- Max Cell Temperature  _(disabled)_
+- Battery Volts  _(disabled)_
+- Min Cell Volts  _(disabled)_
+- Max Cell Volts  _(disabled)_
+- Status
+
+*Switches*
+- Beeper 
+- X-Boost Enabled 
+
+*Sliders (numbers)*
+- Max Charge Level 
+- Min Discharge Level 
+- Backup Reserve Level 
+- Generator Auto Start Level 
+- Generator Auto Stop Level 
+- AC Charging Power 
+
+*Selects*
+- Screen Timeout 
+- Unit Timeout 
+- AC Timeout 
+- DC (12V) Timeout 
+
+</p></details>
+
+<details><summary> Delta 3 Plus (API) <i>(sensors: 28, switches: 4, sliders: 6, selects: 4)</i> </summary>
+<p>
+
+*Sensors*
+- Main Battery Level
+- Main Design Capacity  _(disabled)_
+- Main Full Capacity  _(disabled)_
+- Main Remain Capacity  _(disabled)_
+- State of Health
+- Battery Level
+- Total In Power
+- Total Out Power
+- AC In Power
+- AC Out Power
+- AC In Volts
+- AC Out Volts
+- Solar In Power
+- DC Out Power
+- Type-C (1) Out Power
+- Type-C (2) Out Power
+- USB QC (1) Out Power
+- USB QC (2) Out Power
+- Charge Remaining Time
+- Discharge Remaining Time
+- Cycles
+- Battery Temperature
+- Min Cell Temperature  _(disabled)_
+- Max Cell Temperature  _(disabled)_
+- Battery Volts  _(disabled)_
+- Min Cell Volts  _(disabled)_
+- Max Cell Volts  _(disabled)_
+- Status
+
+*Switches*
+- Beeper 
+- X-Boost Enabled 
+- AC Enabled 
+- DC (12V) Enabled 
+
+*Sliders (numbers)*
+- Max Charge Level 
+- Min Discharge Level 
+- Backup Reserve Level 
+- Generator Auto Start Level 
+- Generator Auto Stop Level 
+- AC Charging Power 
+
+*Selects*
+- Screen Timeout 
+- Unit Timeout 
+- AC Timeout 
+- DC (12V) Timeout 
 
 </p></details>
 
@@ -1816,7 +2129,7 @@
 
 </p></details>
 
-<details><summary> PowerStream (API) <i>(sensors: 63, switches: 0, sliders: 4, selects: 1)</i> </summary>
+<details><summary> PowerStream (API) <i>(sensors: 58, switches: 0, sliders: 4, selects: 1)</i> </summary>
 <p>
 
 *Sensors*
@@ -1871,11 +2184,6 @@
 - Other Loads
 - Smart Plug Loads
 - Rated Power
-- Base Load
-- Smart Plug Watts +
-- Grid Watts
-- Smart Plug Watts -
-- WiFi RSSI
 - Lower Battery Limit  _(disabled)_
 - Upper Battery Limit  _(disabled)_
 - Wireless Error Code  _(disabled)_
@@ -1897,7 +2205,7 @@
 
 </p></details>
 
-<details><summary> WAVE 2 (API) <i>(sensors: 27, switches: 0, sliders: 1, selects: 4)</i> </summary>
+<details><summary> WAVE 2 (API) <i>(sensors: 27, switches: 0, sliders: 0, selects: 0)</i> </summary>
 <p>
 
 *Sensors*
@@ -1932,17 +2240,12 @@
 *Switches*
 
 *Sliders (numbers)*
-- Set Temperature 
 
 *Selects*
-- Wind speed 
-- Main mode 
-- Remote startup/shutdown 
-- Sub-mode 
 
 </p></details>
 
-<details><summary> Delta Pro 3 (API) <i>(sensors: 37, switches: 4, sliders: 6, selects: 0)</i> </summary>
+<details><summary> Delta Pro 3 (API) <i>(sensors: 69, switches: 4, sliders: 6, selects: 0)</i> </summary>
 <p>
 
 *Sensors*
@@ -1955,6 +2258,13 @@
 - Max Cell Temperature  _(disabled)_
 - Min MOS Temperature  _(disabled)_
 - Max MOS Temperature  _(disabled)_
+- Battery Volts  _(disabled)_
+- Min Cell Volts  _(disabled)_
+- Max Cell Volts  _(disabled)_
+- Main Battery Current  _(disabled)_
+- Cycles
+- Main Full Capacity  _(disabled)_
+- Main Remain Capacity  _(disabled)_
 - Battery Level
 - State of Health
 - Total In Power
@@ -1968,29 +2278,46 @@
 - Type-C (2) Out Power
 - 12V Out Power
 - 24V Out Power
+- 12V DC Output Voltage
+- 24V DC Output Voltage
 - AC Low Voltage Out Power
 - AC Low Voltage TT30 Out Power
 - Power In/Out Port Power
 - USB QC (1) Out Power
 - USB QC (2) Out Power
 - Extra Battery Port 1 Power
-  - Extra Battery Port 2 Power
-  - AC In Energy
-  - Solar In Energy
-  - Solar (HV) In Energy
-  - Power In/Out Port Energy
-  - Extra Battery Port 1 Energy
-  - Extra Battery Port 2 Energy
-  - Battery Discharge Energy to AC
-  - Total In Energy
-  - Total Out Energy
-  - AC Input Frequency
+- Extra Battery Port 2 Power
+- Max Charge Level
+- Min Discharge Level
+- AC In Energy
+- Solar In Energy
+- Solar (HV) In Energy
+- Power In/Out Port Energy
+- Extra Battery Port 1 Energy
+- Extra Battery Port 2 Energy
+- Battery Discharge Energy to AC
+- Total In Energy
+- Total Out Energy
+- Battery Charge Energy from AC
+- Battery Discharge Energy to AC
+- Solar In Energy
+- Battery Discharge Energy to DC
+- AC Input Frequency
+- AC In Volts
+- AC Input Current
+- AC Out Volts
 - PV Voltage  _(disabled)_
 - PV Current  _(disabled)_
 - PV Voltage  _(disabled)_
 - PV Current  _(disabled)_
+- Solar HV Input Voltage
+- Solar LV Input Voltage
+- Solar In Current
+- Solar In Current
 - Charge Remaining Time
 - Discharge Remaining Time
+- Status
+- Status (Scheduled)
 
 *Switches*
 - Beeper 
@@ -2005,47 +2332,6 @@
 - Generator Auto Start Level 
 - Generator Auto Stop Level 
 - AC Charging Power 
-
-*Selects*
-
-</p></details>
-
-<details><summary> Delta 3 Plus (API) <i>(sensors: 17, switches: 8, sliders: 3, selects: 0)</i> </summary>
-<p>
-
-*Sensors*
-- Total In Power
-- Total Out Power
-- AC In Power
-- AC Out Power
-- Solar In Power
-- DC Out Power
-- USB-A (1) Out Power
-- USB-A (2) Out Power
-- USB QC (1) Out Power
-- USB QC (2) Out Power
-- USB-C (1) Out Power
-- USB-C (2) Out Power
-- Charge Remaining Time
-- Discharge Remaining Time
-- Total In Energy
-- Total Out Energy
-- Total Energy
-
-*Switches*
-- X-Boost Enabled
-- AC Enabled
-- AC Always On
-- DC Enabled
-- USB Enabled
-- Beeper Enabled
-- Charging Pause
-- Generator Auto Start
-
-*Sliders (numbers)*
-- Backup Reserve Level
-- Max Charge Level
-- Min Discharge Level
 
 *Selects*
 
@@ -2522,44 +2808,50 @@
 
 </p></details>
 
-<details><summary> Smart Home Panel 2 (API) <i>(sensors: 16, switches: 2, sliders: 3, selects: 7)</i> </summary>
+<details><summary> Smart Home Panel 2 (API) <i>(sensors: 22, switches: 2, sliders: 3, selects: 7)</i> </summary>
 <p>
 
 *Sensors*
 - AC In Power
-- Breaker 0 Energy
-- Breaker 1 Energy
-- Breaker 2 Energy
-- Breaker 3 Energy
-- Breaker 4 Energy
-- Breaker 5 Energy
-- Breaker 6 Energy
-- Breaker 7 Energy
-- Breaker 8 Energy
-- Breaker 9 Energy
-- Breaker 10 Energy
-- Breaker 11 Energy
-- Battery Level 1
-- Battery Level 2
-- Battery Level 3
+- AC Out Power
+- Battery Level
+- Discharge Remaining Time
+- Breaker 1 Power
+- Breaker 2 Power
+- Breaker 3 Power
+- Breaker 4 Power
+- Breaker 5 Power
+- Breaker 6 Power
+- Breaker 7 Power
+- Breaker 8 Power
+- Breaker 9 Power
+- Breaker 10 Power
+- Breaker 11 Power
+- Breaker 12 Power
+- Battery 1 Level
+- Battery 2 Level
+- Battery 3 Level
+- Battery 1 Power
+- Battery 2 Power
+- Battery 3 Power
 
 *Switches*
 - EPS Mode 
 - Storm Guard 
 
 *Sliders (numbers)*
-- Backup reserve level 
-- Charging power 
-- Charging limit 
+- Backup Reserve Level 
+- AC Charging Power 
+- Max Charge Level 
 
 *Selects*
-- Batterie Status 1 
-- Batterie Status 2 
-- Batterie Status 3 
-- Batterie Force Charge 1 
-- Batterie Force Charge 2 
-- Batterie Force Charge 3 
-- Economic Mode 
+- Battery Status 1 
+- Battery Status 2 
+- Battery Status 3 
+- Battery 1 Force Charge 
+- Battery 2 Force Charge 
+- Battery 3 Force Charge 
+- Operating Mode 
 
 </p></details>
 

@@ -1,4 +1,4 @@
-## Delta_3_Plus
+## DELTA_3
 
 *Sensors*
 - Main Battery Level (`soc`)
@@ -33,8 +33,6 @@
 *Switches*
 - Beeper (`enBeep` -> `{"moduleType": 5, "operateType": "quietMode", "params": {"enabled": "VALUE"}}`)
 - X-Boost Enabled (`xboostEn` -> `{"moduleType": 5, "operateType": "acOutCfg", "params": {"enabled": 255, "out_voltage": -1, "out_freq": 255, "xboost": "VALUE"}}`)
-- AC Enabled (`flowInfoAcOut` -> `{"moduleType": 5, "operateType": "acOutCfg", "params": {"enabled": "VALUE", "out_voltage": -1, "out_freq": 255, "xboost": 255}}`)
-- DC (12V) Enabled (`flowInfo12v` -> `_ command not available _`)
 
 *Sliders (numbers)*
 - Max Charge Level (`v1p0.maxChargeSoc` -> `{"moduleType": 2, "operateType": "upsConfig", "params": {"maxChgSoc": "VALUE"}}` [50 - 100])

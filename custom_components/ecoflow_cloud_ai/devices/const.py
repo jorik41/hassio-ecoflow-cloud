@@ -149,6 +149,7 @@ SOLAR_2_IN_VOLTS = "Solar (2) In Volts"
 SOLAR_1_IN_AMPS = "Solar (1) In Amps"
 SOLAR_2_IN_AMPS = "Solar (2) In Amps"
 AC_IN_POWER = "AC In Power"
+AC_IN_CURRENT = "AC In Current"
 AC_IN_VOLT = "AC In Volts"
 DC_BATTERY_POWER = "DC Battery Power"
 AC_OUT_VOLT = "AC Out Volts"
@@ -178,6 +179,33 @@ DC_OUT_POWER = "DC Out Power"
 DC_OUT_VOLTAGE = "DC Out Voltage"
 DC_CAR_OUT_POWER = "DC Car Out Power"
 DC_ANDERSON_OUT_POWER = "DC Anderson Out Power"
+PIO_PORT_CHARGING_POWER = "Power I/O Port Charging Power"
+PIO_PORT_N_POWER = "Power I/O Port %i Power"
+PIO_PORT_N_CHARGE_REMAINING_TIME = "Power I/O Port %i Charge Remaining Time"
+PIO_PORT_N_DISCHARGE_REMAINING_TIME = "Power I/O Port %i Discharge Remaining Time"
+PIO_PORT_IN_POWER = "Power I/O Port Input Power"
+PIO_PORT_IN_CURRENT = "Power I/O Port Input Current"
+PIO_PORT_IN_VOLTAGE = "Power I/O Port Input Voltage"
+PIO_PORT_OUT_POWER = "Power I/O Port Output Power"
+PIO_PORT_OUT_CURRENT = "Power I/O Port Output Current"
+PIO_PORT_OUT_VOLTAGE = "Power I/O Port Output Voltage"
+PIO_PORT_OUT_FREQ = "Power I/O Port Output Frequency"
+PIO_PORT_INPUT_TYPE = "Power I/O Port Input Type"
+
+AC_N_OUT_POWER = "AC (%i) Out Power"
+AC_N_OUT_CURRENT = "AC (%i) Out Current"
+AC_N_OUT_VOLTAGE = "AC (%i) Out Voltage"
+AC_N_OUT_FREQ = "AC (%i) Out Frequency"
+WIRELESS_4G_ENABLED = "Wireless 4G Enabled"
+WIRELESS_4G_REGISTERED = "Wireless 4G Registered"
+WIRELESS_4G_ERROR_CODE = "Wireless 4G Error Code"
+WIRELESS_4G_DATA_MAX = "Wireless 4G Data Max"
+WIRELESS_4G_DATA_REMAINING = "Wireless 4G Data Remaining"
+WIRELESS_4G_SIM_ID = "Wireless 4G SIM ID"
+INTERNET_CONNECTION_TYPE = "Internet Connection Type"
+BATTERY_COUNT = "Battery Count"
+BATTERY_AUTO_HEATING_ENABLED = "Battery Auto-Heating Enabled"
+ERROR_CODE = "Error Code"
 
 TYPEC_OUT_POWER = "Type-C Out Power"
 TYPEC_1_OUT_POWER = "Type-C (1) Out Power"
@@ -415,16 +443,29 @@ SLAVE_N_ACCU_CHARGE_ENERGY = "Slave %i Cumulative Energy Charge (Wh)"
 SLAVE_N_ACCU_DISCHARGE_CAP = "Slave %i Cumulative Capacity Discharge (mAh)"
 SLAVE_N_ACCU_DISCHARGE_ENERGY = "Slave %i Cumulative Energy Discharge (Wh)"
 
-# Smart Home Pannel 2
+# Smart Home Panel 2
 
-BATTERIE_STATUS = "Batterie Status"
+EPS_MODE = "EPS Mode"
+STORM_GUARD = "Storm Guard"
 
-BATTERIE_STATUS_OPTIONS = {"No operation": 0, "Enabled": 1, "Disabled": 2}
+BREAKER_N_POWER = "Breaker %i Power"
+BREAKER_N_CURRENT = "Breaker %i Current"
 
-BATTERIE_FORCE_CHARGE = "Batterie Force Charge"
+BATTERY_STATUS = "Battery Status"
 
-BATTERIE_FORCE_CHARGE_OPTIONS = {"Off": "FORCE_CHARGE_OFF", "On": "FORCE_CHARGE_ON"}
+BATTERY_STATUS_OPTIONS = {"No operation": 0, "Enabled": 1, "Disabled": 2}
 
-SMART_BACKUP_MODE = "Economic Mode"
+BATTERY_N_POWER = "Battery %i Power"
+BATTERY_N_LEVEL = "Battery %i Level"
+BATTERY_N_FORCE_CHARGE = "Battery %i Force Charge"
 
-SMART_BACKUP_MODE_OPTIONS = {"None": 0, "TOU": 1, "Self-service": 2, "Timed task": 3}
+BATTERY_FORCE_CHARGE_OPTIONS = {"Off": "FORCE_CHARGE_OFF", "On": "FORCE_CHARGE_ON"}
+
+SMART_BACKUP_MODE = "Operating Mode"
+
+SMART_BACKUP_MODE_OPTIONS = {
+    "None": 0,
+    "TOU": 1,
+    "Self-powered": 2,
+    "Scheduled tasks": 3,
+}

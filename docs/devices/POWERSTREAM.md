@@ -1,7 +1,6 @@
 ## POWERSTREAM
 
 *Sensors*
-- Extended heartbeat metrics (`20_4.*`) such as base load and grid wattage
 - Solar 1 Watts (`20_1.pv1InputWatts`)
 - Solar 1 Input Potential (`20_1.pv1InputVolt`)
 - Solar 1 Op Potential (`20_1.pv1OpVolt`)
@@ -63,26 +62,25 @@
 - Wireless Warning Code (`20_1.wirelessWarnCode`)   _(disabled)_
 - LED Brightness (`20_1.invBrightness`)   _(disabled)_
 - Heartbeat Frequency (`20_1.heartbeatFrequency`)   _(disabled)_
+- Feed-in Priority (`20_1.feedPriority`)
 - PV1 Today Energy Total (`254_32.watthPv1`)
 - PV2 Today Energy Total (`254_32.watthPv2`)
-- Total In Energy (`254_32.watthPv1` + `254_32.watthPv2`)
 - From Battery Today Energy Total (`254_32.watthFromBattery`)
 - To Battery Today Energy Total (`254_32.watthToBattery`)
 - To Smart Plugs Today Energy Total (`254_32.watthToSmartPlugs`)
-- Total Out Energy (`254_32.watthToBattery` + `254_32.watthToSmartPlugs`)
-- Total Energy (`254_32.watthPv1` + `254_32.watthPv2` + `254_32.watthFromBattery` + `254_32.watthToBattery` + `254_32.watthToSmartPlugs`)
+- Total Energy Report (`32_11.watth`)
 - Status
 
 *Switches*
-- Feed-in Priority (`20_1.feedPriority` -> `{"from": "HomeAssistant", "id": "999978134", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_VALUE_PACK", "params": {"value": "VALUE"}}`)
+- Feed-in Priority (`20_1.feedPriority` -> `{"from": "HomeAssistant", "id": "999972400", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_VALUE_PACK", "params": {"value": "VALUE"}}`)
 
 *Sliders (numbers)*
-- Min Discharge Level (`20_1.lowerLimit` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BAT_LOWER_PACK", "params": {"lowerLimit": "VALUE"}}` [0 - 100])
-- Max Charge Level (`20_1.upperLimit` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BAT_UPPER_PACK", "params": {"upperLimit": "VALUE"}}` [0 - 100])
-- Brightness (`20_1.invBrightness` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BRIGHTNESS_PACK", "params": {"brightness": "VALUE"}}` [0 - 1023])
-- Custom load power settings (`20_1.permanentWatts` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_PERMANENT_WATTS_PACK", "params": {"permanentWatts": "VALUE"}}` [0 - 600])
+- Min Discharge Level (`20_1.lowerLimit` -> `{"from": "HomeAssistant", "id": "999966463", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BAT_LOWER_PACK", "params": {"lowerLimit": "VALUE"}}` [0 - 100])
+- Max Charge Level (`20_1.upperLimit` -> `{"from": "HomeAssistant", "id": "999939639", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BAT_UPPER_PACK", "params": {"upperLimit": "VALUE"}}` [0 - 100])
+- Brightness (`20_1.invBrightness` -> `{"from": "HomeAssistant", "id": "999972604", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_BRIGHTNESS_PACK", "params": {"brightness": "VALUE"}}` [0 - 1023])
+ - Custom load power settings (`20_1.permanentWatts` -> `{"from": "HomeAssistant", "id": "999931738", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_PERMANENT_WATTS_PACK", "params": {"permanentWatts": "VALUE"}}` [0 - 800])
 
 *Selects*
-- Power supply mode (`20_1.supplyPriority` -> `{"from": "HomeAssistant", "id": "999965037", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_SUPPLY_PRIORITY_PACK", "params": {"supplyPriority": "VALUE"}}` [Prioritize power supply (0), Prioritize power storage (1)])
+- Power supply mode (`20_1.supplyPriority` -> `{"from": "HomeAssistant", "id": "999968721", "version": "1.0", "sn": "SN", "cmdCode": "WN511_SET_SUPPLY_PRIORITY_PACK", "params": {"includePlug": true}}` [Prioritize power supply (0), Prioritize power storage (1)])
 
 
